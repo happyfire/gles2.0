@@ -2,6 +2,10 @@
 //
 
 #include "LessonHelloTriangle.h"
+#include "eslib/Shader.h"
+#include "eslib/ShaderProgram.h"
+
+USING_NS_ESLIB
 
 //attribute loc
 static GLuint colorLoc, posLoc;
@@ -10,6 +14,8 @@ static GLuint ublendColorLoc, uPosOffsetLoc;
 
 static float colorScale; 
 static GLuint arrayBuffer;
+
+static ShaderProgramPtr g_program;
 
 void InitVBO(ESContext* esContext);
 
@@ -39,29 +45,41 @@ int LessonHelloTriangle::onInit(ESContext *esContext)
 		"	gl_FragColor = v_color;					\n"
 		"}											\n";
 
-	GLuint vertexShader;
-	GLuint fragmentShader;
-	GLuint programObject;
-	
-	//Load the vertex/fragment shaders
-	vertexShader = esLoadShader(GL_VERTEX_SHADER, (const char*)vShaderStr);
-	fragmentShader = esLoadShader(GL_FRAGMENT_SHADER, (const char*)fShaderStr);
+	ShaderPtr vs = new Shader();
+	vs->create(GL_VERTEX_SHADER, (const char*)vShaderStr);
 
-	//Create the program object
-	programObject = esCreateProgram(vertexShader, fragmentShader);
+	ShaderPtr fs = new Shader();
+	fs->create(GL_FRAGMENT_SHADER, (const char*)fShaderStr);
 
-	if(programObject==0)
+	g_program = new ShaderProgram();
+	g_program->create(vs,fs);
+
+	if(!g_program->isValid())
 		return 0;
 
+	//GLuint vertexShader;
+	//GLuint fragmentShader;
+	//GLuint programObject;
+	
+	//Load the vertex/fragment shaders
+	//vertexShader = esLoadShader(GL_VERTEX_SHADER, (const char*)vShaderStr);
+	//fragmentShader = esLoadShader(GL_FRAGMENT_SHADER, (const char*)fShaderStr);
+
+	//Create the program object
+	//programObject = esCreateProgram(vertexShader, fragmentShader);
+
+	//if(programObject==0)
+	//	return 0;
+
 	//get uniform loc after link
-	ublendColorLoc = glGetUniformLocation(programObject, "u_blendColor");
-	uPosOffsetLoc = glGetUniformLocation(programObject, "u_posOffset");
+	ublendColorLoc = glGetUniformLocation(g_program->getProgramObject(), "u_blendColor");
+	uPosOffsetLoc = glGetUniformLocation(g_program->getProgramObject(), "u_posOffset");
 	
 	//get attributes loc after link
-	colorLoc = glGetAttribLocation(programObject, "a_color");
-	posLoc = glGetAttribLocation(programObject, "a_position");	
+	colorLoc = glGetAttribLocation(g_program->getProgramObject(), "a_color");
+	posLoc = glGetAttribLocation(g_program->getProgramObject(), "a_position");	
 
-	userData->programObject = programObject;
+	//userData->programObject = g_program->getProgramObject();
 
 	glClearColor(0.3f, 0.3f, 0.3f, 0.0f);
 
@@ -126,7 +144,8 @@ void DrawArrayOfStructures(ESContext *esContext)
 	UserData *userData = (UserData*)esContext->userData;
 
 	//Use the program object
-	glUseProgram(userData->programObject);
+	//glUseProgram(userData->programObject);
+	glUseProgram(g_program->getProgramObject());
 
 	//set uniform
 	glUniform4f(ublendColorLoc, 1.0, colorScale, 1.0, 1.0);

@@ -7,6 +7,7 @@
 class LessonBase
 {
 public:
+	virtual ~LessonBase(){}
 	virtual int onInit(ESContext *esContext){ return 0; }
 	virtual void draw(ESContext *esContext){}
 	virtual void update(ESContext *esContext, float dt){}
