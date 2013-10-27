@@ -314,7 +314,31 @@
 					Name="gl"
 					>
 					<File
+						RelativePath="..\..\src\eslib\Geometry.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\eslib\Geometry.h"
+						>
+					</File>
+					<File
 						RelativePath="..\..\src\eslib\glcommon.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\eslib\Material.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\eslib\Material.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\eslib\Renderer.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\eslib\Renderer.h"
 						>
 					</File>
 					<File

@@ -75,6 +75,8 @@ bool ShaderProgram::create(const ShaderPtr& vs, const ShaderPtr& fs)
 	while(0);
 #endif
 
+	findOutUniforms();
+
 	return true;
 
 }
@@ -87,6 +89,88 @@ bool ShaderProgram::isValid()
 GLuint ShaderProgram::getProgramObject()
 {
 	return m_programObject;
+}
+
+GLint ShaderProgram::getUniformLocation(const char* name)
+{
+	if(m_uniforms.find(name)!=m_uniforms.end())
+		return m_uniforms[name];
+	else
+		return -1;
+}
+
+void ShaderProgram::setUniform(const char* name, float x, float y, float z)
+{
+	GLint location = getUniformLocation(name);
+	if(location>=0)
+	{
+		glUniform3f(location, x, y, z);
+	}
+}
+
+void ShaderProgram::setUniform(const char* name, float x, float y, float z, float w)
+{
+	GLint location = getUniformLocation(name);
+	if(location>=0)
+	{
+		glUniform4f(location, x, y, z, w);
+	}
+}
+
+void ShaderProgram::findOutUniforms()
+{
+	m_uniforms.clear();
+
+	GLint maxUniformLen;
+	GLint numUniforms;
+	char *uniformName;
+	GLint index;
+
+	glGetProgramiv(m_programObject, GL_ACTIVE_UNIFORMS, &numUniforms);
+	glGetProgramiv(m_programObject, GL_ACTIVE_UNIFORM_MAX_LENGTH, 
+		&maxUniformLen);
+	uniformName = new char[sizeof(char) * maxUniformLen];
+	for(index = 0; index < numUniforms; index++)
+	{
+		GLint size;
+		GLenum type;
+		GLint location;
+		// Get the Uniform Info
+		glGetActiveUniform(m_programObject, index, maxUniformLen, NULL, 
+			&size, &type, uniformName);
+		// Get the uniform location
+		location = glGetUniformLocation(m_programObject, uniformName);
+
+		m_uniforms[uniformName] = location;
+
+		switch(type)
+		{
+		case GL_FLOAT:
+			// ...
+			break;
+		case GL_FLOAT_VEC2:
+			// ...
+			break;
+		case GL_FLOAT_VEC3:
+			// ...
+			break;
+		case GL_FLOAT_VEC4:
+			// ...
+			break;
+
+		case GL_INT:
+			// ...
+			break;
+			// ... Check for all the types ...
+
+		default:
+			// Unknown type
+			break;
+		}      
+	}   
+
+	delete[] uniformName;
+
 }
 
 NS_ESLIB_END

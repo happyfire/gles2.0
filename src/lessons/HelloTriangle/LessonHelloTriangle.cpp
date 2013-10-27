@@ -4,6 +4,7 @@
 #include "LessonHelloTriangle.h"
 #include "eslib/Shader.h"
 #include "eslib/ShaderProgram.h"
+#include "eslib/Geometry.h"
 
 USING_NS_ESLIB
 
@@ -16,6 +17,8 @@ static float colorScale;
 static GLuint arrayBuffer;
 
 static ShaderProgramPtr g_program;
+
+static GeometryPtr g_mesh;
 
 void InitVBO(ESContext* esContext);
 
@@ -72,8 +75,8 @@ int LessonHelloTriangle::onInit(ESContext *esContext)
 	//	return 0;
 
 	//get uniform loc after link
-	ublendColorLoc = glGetUniformLocation(g_program->getProgramObject(), "u_blendColor");
-	uPosOffsetLoc = glGetUniformLocation(g_program->getProgramObject(), "u_posOffset");
+	//ublendColorLoc = glGetUniformLocation(g_program->getProgramObject(), "u_blendColor");
+	//uPosOffsetLoc = glGetUniformLocation(g_program->getProgramObject(), "u_posOffset");
 	
 	//get attributes loc after link
 	colorLoc = glGetAttribLocation(g_program->getProgramObject(), "a_color");
@@ -84,6 +87,26 @@ int LessonHelloTriangle::onInit(ESContext *esContext)
 	glClearColor(0.3f, 0.3f, 0.3f, 0.0f);
 
 	colorScale = 1.0f;
+
+	//init mesh
+	g_mesh = new Geometry();
+	std::vector<int> meshAttributes;
+	meshAttributes.push_back(3);
+	meshAttributes.push_back(4);
+	g_mesh->create(meshAttributes, 6, 0);
+	
+	GLfloat vertexDatas[]=
+	{//pos, color
+		0.0f, 1.0f, 0.0f,  1.0f, 0.0f, 0.0f, 1.0f,
+		-1.0f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
+		1.0f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f,
+
+		0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
+		-0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
+		0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f
+	};
+	g_mesh->appendVertexData(vertexDatas, sizeof(vertexDatas));
+	
 
 	//init VBO
 	InitVBO(esContext);	
@@ -122,10 +145,13 @@ void DrawArrayOfStructuresWithVBO(ESContext *esContext)
 	UserData *userData = (UserData*)esContext->userData;
 
 	
-	glUseProgram(userData->programObject);
+	//glUseProgram(userData->programObject);
+	glUseProgram(g_program->getProgramObject());
 
-	glUniform4f(ublendColorLoc, colorScale, 1.0, 1.0, 1.0);
-	glUniform3f(uPosOffsetLoc, 1.0, -0.1, 0);
+	g_program->setUniform("u_blendColor", colorScale, 1.0, 1.0, 1.0);
+	g_program->setUniform("u_posOffset", 1.0, -0.1, 0);
+	//glUniform4f(ublendColorLoc, colorScale, 1.0, 1.0, 1.0);
+	//glUniform3f(uPosOffsetLoc, 1.0, -0.1, 0);
 	
 
 	glBindBuffer(GL_ARRAY_BUFFER, arrayBuffer);
@@ -148,30 +174,34 @@ void DrawArrayOfStructures(ESContext *esContext)
 	glUseProgram(g_program->getProgramObject());
 
 	//set uniform
-	glUniform4f(ublendColorLoc, 1.0, colorScale, 1.0, 1.0);
-	glUniform3f(uPosOffsetLoc, 0, 0, 0);
+	g_program->setUniform("u_blendColor", 1.0, colorScale, 1.0, 1.0);
+	g_program->setUniform("u_posOffset", 0, 0, 0);
+	//glUniform4f(ublendColorLoc, 1.0, colorScale, 1.0, 1.0);
+	//glUniform3f(uPosOffsetLoc, 0, 0, 0);
 
-	GLfloat vertexDatas[]=
-	{//pos, color
-		0.0f, 1.0f, 0.0f,  1.0f, 0.0f, 0.0f, 1.0f,
-		-1.0f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
-		1.0f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f,
-		
-		0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
-		-0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
-		0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f
-	};
+	//GLfloat vertexDatas[]=
+	//{//pos, color
+	//	0.0f, 1.0f, 0.0f,  1.0f, 0.0f, 0.0f, 1.0f,
+	//	-1.0f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
+	//	1.0f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f,
+	//	
+	//	0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
+	//	-0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
+	//	0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f
+	//};
 
 	//If used vbo before without VBO, should bind vbo to 0 to clear it, or else will crash ( no buffer data found)
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	//color, 4f
 	glEnableVertexAttribArray(colorLoc);
-	glVertexAttribPointer(colorLoc, 4, GL_FLOAT, GL_FALSE, 7*sizeof(GLfloat), vertexDatas+3);	
+	//glVertexAttribPointer(colorLoc, 4, GL_FLOAT, GL_FALSE, 7*sizeof(GLfloat), vertexDatas+3);	
+	g_mesh->setAttribPointer(colorLoc, 1);
 
 	//pos, 3f
 	glEnableVertexAttribArray(posLoc);
-	glVertexAttribPointer(posLoc, 3, GL_FLOAT, GL_FALSE, 7*sizeof(GLfloat), vertexDatas);	
+	//glVertexAttribPointer(posLoc, 3, GL_FLOAT, GL_FALSE, 7*sizeof(GLfloat), vertexDatas);	
+	g_mesh->setAttribPointer(posLoc,0);
 		
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 }
@@ -192,11 +222,14 @@ void DrawStructureOfArrays(ESContext *esContext)
 	};
 
 	//Use the program object
-	glUseProgram(userData->programObject);
+	//glUseProgram(userData->programObject);
+	glUseProgram(g_program->getProgramObject());
 
 	//set uniform
-	glUniform4f(ublendColorLoc, 1.0, 1.0, colorScale, 1.0);
-	glUniform3f(uPosOffsetLoc, -1.0, 0, 0);
+	g_program->setUniform("u_blendColor", 1.0, 1.0, colorScale, 1.0);
+	g_program->setUniform("u_posOffset", -1.0, 0, 0);
+	//glUniform4f(ublendColorLoc, 1.0, 1.0, colorScale, 1.0);
+	//glUniform3f(uPosOffsetLoc, -1.0, 0, 0);
 
 	//Load the vertex data
 	GLfloat colors[] = {

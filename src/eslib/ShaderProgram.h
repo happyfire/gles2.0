@@ -4,7 +4,7 @@
 #include "BaseObject.h"
 #include "sharedPtr.h"
 #include "glcommon.h"
-
+#include <map>
 
 NS_ESLIB_BEGIN
 
@@ -23,10 +23,20 @@ public:
 	bool isValid();
 	GLuint getProgramObject();
 
+	GLint getUniformLocation(const char* name);
+
+	void setUniform(const char* name, float x, float y, float z);
+	void setUniform(const char* name, float x, float y, float z, float w);
+
+protected:
+	void findOutUniforms();
+
 private:
 	GLuint m_programObject;
 	ShaderPtr m_vs;
 	ShaderPtr m_fs;
+
+	std::map<std::string, GLint> m_uniforms;
 };
 
 
