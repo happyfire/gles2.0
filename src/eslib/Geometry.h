@@ -9,6 +9,7 @@
 
 NS_ESLIB_BEGIN
 
+ESL_FORWARD_PTR(ShaderProgram)
 ESL_FORWARD_PTR(Geometry)
 
 //Shader class, vertex or fragment shader
@@ -17,6 +18,16 @@ struct VertexAttribute
 {
 	int ElementCount;
 	int offset; //offset in float
+	int Location;
+	std::string Name; //Name in shader
+
+	VertexAttribute()
+		:ElementCount(0)
+		,offset(0)
+		,Location(-1)
+	{
+
+	}
 };
 
 class Geometry: public BaseObject
@@ -25,7 +36,7 @@ public:
 	Geometry();
 	virtual ~Geometry();
 
-	void create(const std::vector<int>& attributeElementCounts, int vertexCount, int indexCount);
+	void create(const std::vector<const VertexAttribute*>& attributes, int vertexCount, int indexCount, bool useVBO=true);
 
 	void clear();
 
@@ -35,7 +46,10 @@ public:
 
 	int getVertexFSize() { return m_vertexFSize; }
 
-	void setAttribPointer(int location, int attribute);
+	void render(const ShaderProgramPtr& shader);
+
+private:
+	void getAttributeLocations(const ShaderProgramPtr& shader);
 	
 
 private:
@@ -45,6 +59,7 @@ private:
 
 	int m_vertexCount;
 	GLfloat* m_vertexData;
+	GLuint m_vbo;
 
 	int m_indexCount;
 	GLushort* m_indices;

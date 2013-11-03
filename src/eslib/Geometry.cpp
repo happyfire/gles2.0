@@ -1,4 +1,5 @@
 #include "Geometry.h"
+#include "ShaderProgram.h"
 
 NS_ESLIB_BEGIN
 
@@ -9,6 +10,7 @@ Geometry::Geometry()
 	,m_vertexFSize(0)
 	,m_vertexCount(0)
 	,m_vertexData(null)
+	,m_vbo(0)
 	,m_indexCount(0)
 	,m_indices(null)
 	,m_vertexAppendPointer(null)
@@ -35,12 +37,12 @@ void Geometry::clear()
 	m_vertexAppendPointer = null;
 }
 
-void Geometry::create(const std::vector<int>& attributeElementCounts, int vertexCount, int indexCount)
+void Geometry::create(const std::vector<const VertexAttribute*>& attributes, int vertexCount, int indexCount, bool useVBO)
 {
 	clear();
 
 	//attributes
-	m_attributeCount = attributeElementCounts.size();
+	m_attributeCount = attributes.size();
 
 	ESL_ASSERT(m_attributeCount>0);
 
@@ -50,9 +52,10 @@ void Geometry::create(const std::vector<int>& attributeElementCounts, int vertex
 
 	for(int i=0; i<m_attributeCount; i++)
 	{
-		ESL_ASSERT(attributeElementCounts[i]>=1 && attributeElementCounts[i]<=4);
+		ESL_ASSERT(attributes[i]->ElementCount>=1 && attributes[i]->ElementCount<=4);
 
-		m_attributes[i].ElementCount = attributeElementCounts[i];
+		m_attributes[i].ElementCount = attributes[i]->ElementCount;
+		m_attributes[i].Name = attributes[i]->Name;
 		m_attributes[i].offset = m_vertexFSize;
 		m_vertexFSize += m_attributes[i].ElementCount;
 	}
@@ -61,6 +64,11 @@ void Geometry::create(const std::vector<int>& attributeElementCounts, int vertex
 	ESL_ASSERT(vertexCount>0);
 	m_vertexCount = vertexCount;
 	m_vertexData = new GLfloat[m_vertexFSize * m_vertexCount];
+
+	if(useVBO)
+	{
+		glGenBuffers(1, &m_vbo);
+	}
 
 	//index
 	ESL_ASSERT(indexCount>=0);
@@ -82,14 +90,72 @@ void Geometry::appendVertexData(float* data, int dataSize)
 
 	memcpy(m_vertexAppendPointer, data, dataSize);
 
-	m_vertexAppendPointer += dataSize;
+	m_vertexAppendPointer += dataSize/sizeof(GLfloat);
+
+	if(m_vbo>0 && m_vertexAppendPointer==m_vertexData+m_vertexFSize * m_vertexCount)
+	{
+		glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
+		glBufferData(GL_ARRAY_BUFFER, m_vertexFSize * m_vertexCount * sizeof(GLfloat), m_vertexData, GL_STATIC_DRAW);
+		delete[] m_vertexData;
+		m_vertexData = null;
+		m_vertexAppendPointer = null;
+	}
 }
 
-void Geometry::setAttribPointer(int location, int attribute)
+void Geometry::getAttributeLocations(const ShaderProgramPtr& shader)
 {
-	ESL_ASSERT(attribute>=0 && attribute<m_attributeCount);
+	for(int i=0; i<m_attributeCount; i++)
+	{
+		if(m_attributes[i].Location==-1)
+		{
+			m_attributes[i].Location = glGetAttribLocation(shader->getProgramObject(), m_attributes[i].Name.c_str());
+			ESL_ASSERT(m_attributes[i].Location>=0);
+		}
+	}
+}
 
-	glVertexAttribPointer(location, m_attributes[attribute].ElementCount, GL_FLOAT, GL_FALSE, m_vertexFSize*sizeof(GLfloat), m_vertexData+m_attributes[attribute].offset);
+void Geometry::render(const ShaderProgramPtr& shader)
+{
+	if(m_vbo>0)
+	{
+		glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
+	}
+	else
+	{
+		//If used vbo before without VBO, should bind vbo to 0 to clear it, or else will crash ( no buffer data found)
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+	}
+	
+
+	getAttributeLocations(shader);
+
+	for(int i=0; i<m_attributeCount; i++)
+	{
+		if(m_attributes[i].Location>=0)
+		{
+			glEnableVertexAttribArray(m_attributes[i].Location);
+
+			if(m_vbo>0)
+			{
+				glVertexAttribPointer(m_attributes[i].Location, m_attributes[i].ElementCount, 
+					GL_FLOAT, GL_FALSE, m_vertexFSize*sizeof(GLfloat), (const void*)(m_attributes[i].offset*sizeof(GLfloat)));
+			}
+			else
+			{
+				glVertexAttribPointer(m_attributes[i].Location, m_attributes[i].ElementCount, 
+					GL_FLOAT, GL_FALSE, m_vertexFSize*sizeof(GLfloat), m_vertexData+m_attributes[i].offset);
+			}
+		}
+	}
+
+	if(m_indexCount>0)
+	{
+
+	}
+	else
+	{
+		glDrawArrays(GL_TRIANGLES, 0, m_vertexCount);
+	}
 }
 
 NS_ESLIB_END

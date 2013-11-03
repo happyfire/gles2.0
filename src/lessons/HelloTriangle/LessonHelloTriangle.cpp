@@ -90,22 +90,46 @@ int LessonHelloTriangle::onInit(ESContext *esContext)
 
 	//init mesh
 	g_mesh = new Geometry();
-	std::vector<int> meshAttributes;
-	meshAttributes.push_back(3);
-	meshAttributes.push_back(4);
-	g_mesh->create(meshAttributes, 6, 0);
+	std::vector<const VertexAttribute*> meshAttributes;
+	VertexAttribute attributePos;
+	attributePos.ElementCount = 3;
+	attributePos.Name = "a_position";
+	meshAttributes.push_back(&attributePos);
 	
-	GLfloat vertexDatas[]=
+	VertexAttribute attributeColor;
+	attributeColor.ElementCount = 4;
+	attributeColor.Name = "a_color";
+	meshAttributes.push_back(&attributeColor);
+
+	g_mesh->create(meshAttributes, 6, 0, true);
+	
+	//GLfloat vertexDatas[]=
+	//{//pos, color
+	//	0.0f, 1.0f, 0.0f,  1.0f, 0.0f, 0.0f, 1.0f,
+	//	-1.0f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
+	//	1.0f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f,
+
+	//	0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
+	//	-0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
+	//	0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f
+	//};
+	//g_mesh->appendVertexData(vertexDatas, sizeof(vertexDatas));
+
+	GLfloat vertex1Datas[]=
 	{//pos, color
 		0.0f, 1.0f, 0.0f,  1.0f, 0.0f, 0.0f, 1.0f,
 		-1.0f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
 		1.0f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f,
+	};
 
+	GLfloat vertex2Datas[]=
+	{
 		0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
 		-0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
 		0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f
 	};
-	g_mesh->appendVertexData(vertexDatas, sizeof(vertexDatas));
+	g_mesh->appendVertexData(vertex1Datas, sizeof(vertex1Datas));
+	g_mesh->appendVertexData(vertex2Datas, sizeof(vertex2Datas));
 	
 
 	//init VBO
@@ -179,6 +203,8 @@ void DrawArrayOfStructures(ESContext *esContext)
 	//glUniform4f(ublendColorLoc, 1.0, colorScale, 1.0, 1.0);
 	//glUniform3f(uPosOffsetLoc, 0, 0, 0);
 
+	g_mesh->render(g_program);
+
 	//GLfloat vertexDatas[]=
 	//{//pos, color
 	//	0.0f, 1.0f, 0.0f,  1.0f, 0.0f, 0.0f, 1.0f,
@@ -191,19 +217,19 @@ void DrawArrayOfStructures(ESContext *esContext)
 	//};
 
 	//If used vbo before without VBO, should bind vbo to 0 to clear it, or else will crash ( no buffer data found)
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	//glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	//color, 4f
-	glEnableVertexAttribArray(colorLoc);
+	//glEnableVertexAttribArray(colorLoc);
 	//glVertexAttribPointer(colorLoc, 4, GL_FLOAT, GL_FALSE, 7*sizeof(GLfloat), vertexDatas+3);	
-	g_mesh->setAttribPointer(colorLoc, 1);
 
 	//pos, 3f
-	glEnableVertexAttribArray(posLoc);
+	//glEnableVertexAttribArray(posLoc);
 	//glVertexAttribPointer(posLoc, 3, GL_FLOAT, GL_FALSE, 7*sizeof(GLfloat), vertexDatas);	
-	g_mesh->setAttribPointer(posLoc,0);
 		
-	glDrawArrays(GL_TRIANGLES, 0, 6);
+	///glDrawArrays(GL_TRIANGLES, 0, 6);
+
+
 }
 
 void DrawStructureOfArrays(ESContext *esContext)

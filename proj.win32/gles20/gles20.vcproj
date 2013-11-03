@@ -334,6 +334,14 @@
 						>
 					</File>
 					<File
+						RelativePath="..\..\src\eslib\Mesh.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\eslib\Mesh.h"
+						>
+					</File>
+					<File
 						RelativePath="..\..\src\eslib\Renderer.cpp"
 						>
 					</File>
