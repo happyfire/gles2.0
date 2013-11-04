@@ -25,8 +25,10 @@ public:
 
 	GLint getUniformLocation(const char* name);
 
+	void setUniform(const char* name, int x);
 	void setUniform(const char* name, float x, float y, float z);
 	void setUniform(const char* name, float x, float y, float z, float w);
+	void setUniformMatrix4fv(const char* name, const float* data);
 
 protected:
 	void findOutUniforms();

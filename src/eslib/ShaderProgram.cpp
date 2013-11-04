@@ -99,6 +99,15 @@ GLint ShaderProgram::getUniformLocation(const char* name)
 		return -1;
 }
 
+void ShaderProgram::setUniform(const char* name, int x)
+{
+	GLint location = getUniformLocation(name);
+	if(location>=0)
+	{
+		glUniform1i(location, x);
+	}
+}
+
 void ShaderProgram::setUniform(const char* name, float x, float y, float z)
 {
 	GLint location = getUniformLocation(name);
@@ -114,6 +123,15 @@ void ShaderProgram::setUniform(const char* name, float x, float y, float z, floa
 	if(location>=0)
 	{
 		glUniform4f(location, x, y, z, w);
+	}
+}
+
+void ShaderProgram::setUniformMatrix4fv(const char* name, const float* data)
+{
+	GLint location = getUniformLocation(name);
+	if(location>=0)
+	{
+		glUniformMatrix4fv(location, 1, GL_FALSE, data);
 	}
 }
 

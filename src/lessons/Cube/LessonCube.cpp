@@ -1,7 +1,10 @@
 #include "LessonCube.h"
+#include "eslib/Shader.h"
+#include "eslib/ShaderProgram.h"
+#include "eslib/Geometry.h"
 
-static GLuint uMVPMatrixLoc;
-static GLuint uTextureLoc;
+USING_NS_ESLIB
+
 static GLuint aPositionLoc;
 static GLuint aTexCoordLoc;
 
@@ -10,6 +13,8 @@ static GLuint vboStructure;
 static GLuint vboIndices;
 
 static GLuint cub_texture;
+
+static ShaderProgramPtr g_program;
 
 int LessonCube::onInit(ESContext* esContext)
 {
@@ -68,22 +73,24 @@ int LessonCube::onInit(ESContext* esContext)
 	char* fsSrc = 0;
 	esLoadFile("media/texture.fs", &fsSrc);
 
-	GLuint vs, fs;
-	vs = esLoadShader(GL_VERTEX_SHADER, vsSrc);
-	fs = esLoadShader(GL_FRAGMENT_SHADER, fsSrc);
 
-	GLuint program;
-	program = esCreateProgram(vs, fs);
+	ShaderPtr vs = new Shader();
+	vs->create(GL_VERTEX_SHADER, (const char*)vsSrc);
+
+	ShaderPtr fs = new Shader();
+	fs->create(GL_FRAGMENT_SHADER, (const char*)fsSrc);
+
+	g_program = new ShaderProgram();
+	g_program->create(vs,fs);
+
+	if(!g_program->isValid())
+		return 0;
 
 	UserData *userData = (UserData*)esContext->userData;
-	userData->programObject = program;
-		
+	
 
-	uMVPMatrixLoc = glGetUniformLocation(program, "u_mvpMatrix");
-	uTextureLoc = glGetUniformLocation(program, "u_map");
-
-	aPositionLoc = glGetAttribLocation(program, "a_position");
-	aTexCoordLoc = glGetAttribLocation(program, "a_texCoord");
+	aPositionLoc = glGetAttribLocation(g_program->getProgramObject(), "a_position");
+	aTexCoordLoc = glGetAttribLocation(g_program->getProgramObject(), "a_texCoord");
 
 	glEnableVertexAttribArray(aPositionLoc);
 	glEnableVertexAttribArray(aTexCoordLoc);
@@ -121,19 +128,15 @@ void LessonCube::draw(ESContext* esContext)
 
 	//-------------------------------------------------
 
-	UserData *userData = (UserData*)esContext->userData;
+	glUseProgram(g_program->getProgramObject());
 
-	glUseProgram(userData->programObject);
+	g_program->setUniformMatrix4fv("u_mvpMatrix", matModelViewProjection);
+	g_program->setUniform("u_map", 1);//set the uniform to the desired texture unit
 
-	//set the uniform to MVP matrix
-	glUniformMatrix4fv(uMVPMatrixLoc, 1, GL_FALSE, matModelViewProjection);
-
+	
 	//bind the texture to an texture unit
 	glActiveTexture(GL_TEXTURE1);//just for illustration
 	glBindTexture(GL_TEXTURE_2D, cub_texture);
-
-	//set the uniform to the desired texture unit
-	glUniform1i(uTextureLoc, 1);
 
 	//bind buffer objects
 	glBindBuffer(GL_ARRAY_BUFFER, vboStructure);
