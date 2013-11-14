@@ -5,16 +5,11 @@
 
 USING_NS_ESLIB
 
-static GLuint aPositionLoc;
-static GLuint aTexCoordLoc;
-
-//buffer objects name/ids
-static GLuint vboStructure;
-static GLuint vboIndices;
 
 static GLuint cub_texture;
 
 static ShaderProgramPtr g_program;
+static GeometryPtr g_mesh;
 
 int LessonCube::onInit(ESContext* esContext)
 {
@@ -61,8 +56,22 @@ int LessonCube::onInit(ESContext* esContext)
 		18, 19, 16,
 	};
 
-	vboStructure = esCreateBufferObject(GL_ARRAY_BUFFER, 100*sizeof(GLfloat), cubeStructure);
-	vboIndices = esCreateBufferObject(GL_ELEMENT_ARRAY_BUFFER, 36*sizeof(GLushort), cubeIndices);
+	g_mesh = new Geometry();
+
+	std::vector<const VertexAttribute*> meshAttributes;
+	VertexAttribute attributePos;
+	attributePos.ElementCount = 3;
+	attributePos.Name = "a_position";
+	meshAttributes.push_back(&attributePos);
+
+	VertexAttribute attributeTexcoord;
+	attributeTexcoord.ElementCount = 2;
+	attributeTexcoord.Name = "a_texCoord";
+	meshAttributes.push_back(&attributeTexcoord);
+
+	g_mesh->create(meshAttributes, 20, 36, true);
+	g_mesh->appendVertexData(cubeStructure, sizeof(cubeStructure));
+	g_mesh->appendIndexData(cubeIndices, sizeof(cubeIndices));
 
 
 	//create shaders
@@ -85,15 +94,6 @@ int LessonCube::onInit(ESContext* esContext)
 
 	if(!g_program->isValid())
 		return 0;
-
-	UserData *userData = (UserData*)esContext->userData;
-	
-
-	aPositionLoc = glGetAttribLocation(g_program->getProgramObject(), "a_position");
-	aTexCoordLoc = glGetAttribLocation(g_program->getProgramObject(), "a_texCoord");
-
-	glEnableVertexAttribArray(aPositionLoc);
-	glEnableVertexAttribArray(aTexCoordLoc);
 
 	cub_texture = esCreateTextureFromTGA("media/cube.tga");
 
@@ -134,24 +134,14 @@ void LessonCube::draw(ESContext* esContext)
 	g_program->setUniform("u_map", 1);//set the uniform to the desired texture unit
 
 	
+	
 	//bind the texture to an texture unit
 	glActiveTexture(GL_TEXTURE1);//just for illustration
 	glBindTexture(GL_TEXTURE_2D, cub_texture);
 
-	//bind buffer objects
-	glBindBuffer(GL_ARRAY_BUFFER, vboStructure);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vboIndices);
+	g_mesh->render(g_program);
 
-	int stride = 5*sizeof(GLfloat);
-	glVertexAttribPointer(aPositionLoc, 3, GL_FLOAT, GL_FALSE, stride, (void*)0);
-	glVertexAttribPointer(aTexCoordLoc, 2, GL_FLOAT, GL_FALSE, stride, (void*)(3*sizeof(GLfloat)));
-
-	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_SHORT, (void*)0);
-
-	glBindBuffer(GL_ARRAY_BUFFER,0);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,0);
 	
-
 	eglSwapBuffers(esContext->eglDisplay, esContext->eglSurface);
 }
 

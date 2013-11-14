@@ -13,7 +13,9 @@ Geometry::Geometry()
 	,m_vbo(0)
 	,m_indexCount(0)
 	,m_indices(null)
+	,m_vboIndex(0)
 	,m_vertexAppendPointer(null)
+	,m_indexAppendPointer(null)
 {
 }
 
@@ -35,6 +37,7 @@ void Geometry::clear()
 	ESL_SAFE_DEL_ARRAY(m_indices);
 
 	m_vertexAppendPointer = null;
+	m_indexAppendPointer = null;
 }
 
 void Geometry::create(const std::vector<const VertexAttribute*>& attributes, int vertexCount, int indexCount, bool useVBO)
@@ -76,6 +79,11 @@ void Geometry::create(const std::vector<const VertexAttribute*>& attributes, int
 	if(m_indexCount>0)
 	{
 		m_indices = new GLushort[m_indexCount];
+
+		if(useVBO)
+		{
+			glGenBuffers(1, &m_vboIndex);
+		}
 	}
 }
 
@@ -102,6 +110,29 @@ void Geometry::appendVertexData(float* data, int dataSize)
 	}
 }
 
+void Geometry::appendIndexData(GLushort* data, int dataSize)
+{
+	ESL_ASSERT(m_indices!=null);
+
+	if(m_indexAppendPointer==null)
+	{
+		m_indexAppendPointer = m_indices;
+	}
+
+	memcpy(m_indexAppendPointer, data, dataSize);
+
+	m_indexAppendPointer += dataSize/sizeof(GLushort);
+
+	if(m_vboIndex>0 && m_indexAppendPointer==m_indices+m_indexCount)
+	{
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_vboIndex);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_indexCount*sizeof(GLushort), m_indices, GL_STATIC_DRAW);
+		delete[] m_indices;
+		m_indices = null;
+		m_indexAppendPointer = null;
+	}
+}
+
 void Geometry::getAttributeLocations(const ShaderProgramPtr& shader)
 {
 	for(int i=0; i<m_attributeCount; i++)
@@ -124,6 +155,15 @@ void Geometry::render(const ShaderProgramPtr& shader)
 	{
 		//If used vbo before without VBO, should bind vbo to 0 to clear it, or else will crash ( no buffer data found)
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
+	}
+
+	if(m_vboIndex>0)
+	{
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_vboIndex);
+	}
+	else
+	{
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	}
 	
 
@@ -150,7 +190,14 @@ void Geometry::render(const ShaderProgramPtr& shader)
 
 	if(m_indexCount>0)
 	{
-
+		if(m_vboIndex>0)
+		{
+			glDrawElements(GL_TRIANGLES, m_indexCount, GL_UNSIGNED_SHORT, (void*)0);
+		}
+		else
+		{
+			glDrawElements(GL_TRIANGLES, m_indexCount, GL_UNSIGNED_SHORT, m_indices);
+		}
 	}
 	else
 	{

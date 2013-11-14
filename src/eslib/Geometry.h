@@ -44,6 +44,8 @@ public:
 	//@dataSize: data size in byte
 	void appendVertexData(float* data, int dataSize);
 
+	void appendIndexData(GLushort* data, int dataSize);
+
 	int getVertexFSize() { return m_vertexFSize; }
 
 	void render(const ShaderProgramPtr& shader);
@@ -63,8 +65,10 @@ private:
 
 	int m_indexCount;
 	GLushort* m_indices;
+	GLuint m_vboIndex;
 
 	GLfloat* m_vertexAppendPointer;
+	GLushort* m_indexAppendPointer;
 };
 
 
