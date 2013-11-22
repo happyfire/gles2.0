@@ -32,9 +32,17 @@ void Geometry::clear()
 	m_vertexFSize = 0;
 	m_vertexCount = 0;
 	ESL_SAFE_DEL_ARRAY(m_vertexData);
+    if(m_vbo>0)
+    {
+        glDeleteBuffers(1, &m_vbo);
+    }
 	
 	m_indexCount = 0;
 	ESL_SAFE_DEL_ARRAY(m_indices);
+    if(m_vboIndex>0)
+    {
+        glDeleteBuffers(1, &m_vboIndex);
+    }
 
 	m_vertexAppendPointer = null;
 	m_indexAppendPointer = null;

@@ -65,7 +65,7 @@ NS_ESLIB_END
 #define ForEachC(_type, _container, _it) for (_type::const_iterator _it = _container.begin(), _end = _container.end(); _it != _end; ++_it)
 
 //debug mode define
-#if defined (ESL_DEVICE_WIN32) && defined(_DEBUG)
+#if defined(_DEBUG) || defined(DEBUG)
 #define ESL_DEBUG
 #endif
 
