@@ -1,0 +1,395 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6807859D183F028B00092A29 /* BaseObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 68078588183F028B00092A29 /* BaseObject.cpp */; };
+		6807859E183F028B00092A29 /* Geometry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6807858C183F028B00092A29 /* Geometry.cpp */; };
+		6807859F183F028B00092A29 /* Logger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 68078590183F028B00092A29 /* Logger.cpp */; };
+		680785A0183F028B00092A29 /* Material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 68078592183F028B00092A29 /* Material.cpp */; };
+		680785A1183F028B00092A29 /* Mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 68078594183F028B00092A29 /* Mesh.cpp */; };
+		680785A2183F028B00092A29 /* Renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 68078596183F028B00092A29 /* Renderer.cpp */; };
+		680785A3183F028B00092A29 /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 68078598183F028B00092A29 /* Shader.cpp */; };
+		680785A4183F028B00092A29 /* ShaderProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6807859A183F028B00092A29 /* ShaderProgram.cpp */; };
+		680785A9183F07D600092A29 /* ESLViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 680785A8183F07D600092A29 /* ESLViewController.mm */; };
+		68575EE0178BFF6E00DAC11F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68575EDF178BFF6E00DAC11F /* UIKit.framework */; };
+		68575EE2178BFF6E00DAC11F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68575EE1178BFF6E00DAC11F /* Foundation.framework */; };
+		68575EE4178BFF6E00DAC11F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68575EE3178BFF6E00DAC11F /* CoreGraphics.framework */; };
+		68575EE6178BFF6E00DAC11F /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68575EE5178BFF6E00DAC11F /* GLKit.framework */; };
+		68575EE8178BFF6E00DAC11F /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68575EE7178BFF6E00DAC11F /* OpenGLES.framework */; };
+		68575EEE178BFF6E00DAC11F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 68575EEC178BFF6E00DAC11F /* InfoPlist.strings */; };
+		68575EF0178BFF6E00DAC11F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 68575EEF178BFF6E00DAC11F /* main.m */; };
+		68575EF4178BFF6E00DAC11F /* GWAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 68575EF3178BFF6E00DAC11F /* GWAppDelegate.m */; };
+		68575EF6178BFF6E00DAC11F /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 68575EF5178BFF6E00DAC11F /* Default.png */; };
+		68575EF8178BFF6E00DAC11F /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 68575EF7178BFF6E00DAC11F /* Default@2x.png */; };
+		68575EFA178BFF6E00DAC11F /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 68575EF9178BFF6E00DAC11F /* Default-568h@2x.png */; };
+		68575EFC178BFF6E00DAC11F /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 68575EFB178BFF6E00DAC11F /* Shader.fsh */; };
+		68575EFE178BFF6E00DAC11F /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 68575EFD178BFF6E00DAC11F /* Shader.vsh */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		68078588183F028B00092A29 /* BaseObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BaseObject.cpp; sourceTree = "<group>"; };
+		68078589183F028B00092A29 /* BaseObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseObject.h; sourceTree = "<group>"; };
+		6807858A183F028B00092A29 /* common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
+		6807858B183F028B00092A29 /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
+		6807858C183F028B00092A29 /* Geometry.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Geometry.cpp; sourceTree = "<group>"; };
+		6807858D183F028B00092A29 /* Geometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Geometry.h; sourceTree = "<group>"; };
+		6807858E183F028B00092A29 /* glcommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glcommon.h; sourceTree = "<group>"; };
+		6807858F183F028B00092A29 /* ISingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISingleton.h; sourceTree = "<group>"; };
+		68078590183F028B00092A29 /* Logger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Logger.cpp; sourceTree = "<group>"; };
+		68078591183F028B00092A29 /* Logger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Logger.h; sourceTree = "<group>"; };
+		68078592183F028B00092A29 /* Material.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Material.cpp; sourceTree = "<group>"; };
+		68078593183F028B00092A29 /* Material.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Material.h; sourceTree = "<group>"; };
+		68078594183F028B00092A29 /* Mesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Mesh.cpp; sourceTree = "<group>"; };
+		68078595183F028B00092A29 /* Mesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mesh.h; sourceTree = "<group>"; };
+		68078596183F028B00092A29 /* Renderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Renderer.cpp; sourceTree = "<group>"; };
+		68078597183F028B00092A29 /* Renderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Renderer.h; sourceTree = "<group>"; };
+		68078598183F028B00092A29 /* Shader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Shader.cpp; sourceTree = "<group>"; };
+		68078599183F028B00092A29 /* Shader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shader.h; sourceTree = "<group>"; };
+		6807859A183F028B00092A29 /* ShaderProgram.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ShaderProgram.cpp; sourceTree = "<group>"; };
+		6807859B183F028B00092A29 /* ShaderProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShaderProgram.h; sourceTree = "<group>"; };
+		6807859C183F028B00092A29 /* sharedPtr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sharedPtr.h; sourceTree = "<group>"; };
+		680785A7183F07D600092A29 /* ESLViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESLViewController.h; sourceTree = "<group>"; };
+		680785A8183F07D600092A29 /* ESLViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ESLViewController.mm; sourceTree = "<group>"; };
+		68575EDC178BFF6E00DAC11F /* glesworld.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = glesworld.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		68575EDF178BFF6E00DAC11F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		68575EE1178BFF6E00DAC11F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		68575EE3178BFF6E00DAC11F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		68575EE5178BFF6E00DAC11F /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		68575EE7178BFF6E00DAC11F /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		68575EEB178BFF6E00DAC11F /* glesworld-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "glesworld-Info.plist"; sourceTree = "<group>"; };
+		68575EED178BFF6E00DAC11F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		68575EEF178BFF6E00DAC11F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		68575EF1178BFF6E00DAC11F /* glesworld-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "glesworld-Prefix.pch"; sourceTree = "<group>"; };
+		68575EF2178BFF6E00DAC11F /* GWAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GWAppDelegate.h; sourceTree = "<group>"; };
+		68575EF3178BFF6E00DAC11F /* GWAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GWAppDelegate.m; sourceTree = "<group>"; };
+		68575EF5178BFF6E00DAC11F /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		68575EF7178BFF6E00DAC11F /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		68575EF9178BFF6E00DAC11F /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		68575EFB178BFF6E00DAC11F /* Shader.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.fsh; path = Shaders/Shader.fsh; sourceTree = "<group>"; };
+		68575EFD178BFF6E00DAC11F /* Shader.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.vsh; path = Shaders/Shader.vsh; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		68575ED9178BFF6E00DAC11F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				68575EE0178BFF6E00DAC11F /* UIKit.framework in Frameworks */,
+				68575EE2178BFF6E00DAC11F /* Foundation.framework in Frameworks */,
+				68575EE4178BFF6E00DAC11F /* CoreGraphics.framework in Frameworks */,
+				68575EE6178BFF6E00DAC11F /* GLKit.framework in Frameworks */,
+				68575EE8178BFF6E00DAC11F /* OpenGLES.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		68078587183F028B00092A29 /* eslib */ = {
+			isa = PBXGroup;
+			children = (
+				680785A6183F07D600092A29 /* ios */,
+				68078588183F028B00092A29 /* BaseObject.cpp */,
+				68078589183F028B00092A29 /* BaseObject.h */,
+				6807858A183F028B00092A29 /* common.h */,
+				6807858B183F028B00092A29 /* config.h */,
+				6807858C183F028B00092A29 /* Geometry.cpp */,
+				6807858D183F028B00092A29 /* Geometry.h */,
+				6807858E183F028B00092A29 /* glcommon.h */,
+				6807858F183F028B00092A29 /* ISingleton.h */,
+				68078590183F028B00092A29 /* Logger.cpp */,
+				68078591183F028B00092A29 /* Logger.h */,
+				68078592183F028B00092A29 /* Material.cpp */,
+				68078593183F028B00092A29 /* Material.h */,
+				68078594183F028B00092A29 /* Mesh.cpp */,
+				68078595183F028B00092A29 /* Mesh.h */,
+				68078596183F028B00092A29 /* Renderer.cpp */,
+				68078597183F028B00092A29 /* Renderer.h */,
+				68078598183F028B00092A29 /* Shader.cpp */,
+				68078599183F028B00092A29 /* Shader.h */,
+				6807859A183F028B00092A29 /* ShaderProgram.cpp */,
+				6807859B183F028B00092A29 /* ShaderProgram.h */,
+				6807859C183F028B00092A29 /* sharedPtr.h */,
+			);
+			path = eslib;
+			sourceTree = "<group>";
+		};
+		680785A6183F07D600092A29 /* ios */ = {
+			isa = PBXGroup;
+			children = (
+				680785A7183F07D600092A29 /* ESLViewController.h */,
+				680785A8183F07D600092A29 /* ESLViewController.mm */,
+			);
+			path = ios;
+			sourceTree = "<group>";
+		};
+		6837338417C3840E00FA9287 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				68078587183F028B00092A29 /* eslib */,
+			);
+			name = src;
+			path = ../src;
+			sourceTree = "<group>";
+		};
+		68575ED3178BFF6D00DAC11F = {
+			isa = PBXGroup;
+			children = (
+				6837338417C3840E00FA9287 /* src */,
+				68575EE9178BFF6E00DAC11F /* glesworld */,
+				68575EDE178BFF6E00DAC11F /* Frameworks */,
+				68575EDD178BFF6E00DAC11F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		68575EDD178BFF6E00DAC11F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				68575EDC178BFF6E00DAC11F /* glesworld.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		68575EDE178BFF6E00DAC11F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				68575EDF178BFF6E00DAC11F /* UIKit.framework */,
+				68575EE1178BFF6E00DAC11F /* Foundation.framework */,
+				68575EE3178BFF6E00DAC11F /* CoreGraphics.framework */,
+				68575EE5178BFF6E00DAC11F /* GLKit.framework */,
+				68575EE7178BFF6E00DAC11F /* OpenGLES.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		68575EE9178BFF6E00DAC11F /* glesworld */ = {
+			isa = PBXGroup;
+			children = (
+				68575EF2178BFF6E00DAC11F /* GWAppDelegate.h */,
+				68575EF3178BFF6E00DAC11F /* GWAppDelegate.m */,
+				68575EFB178BFF6E00DAC11F /* Shader.fsh */,
+				68575EFD178BFF6E00DAC11F /* Shader.vsh */,
+				68575EEA178BFF6E00DAC11F /* Supporting Files */,
+			);
+			path = glesworld;
+			sourceTree = "<group>";
+		};
+		68575EEA178BFF6E00DAC11F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				68575EEB178BFF6E00DAC11F /* glesworld-Info.plist */,
+				68575EEC178BFF6E00DAC11F /* InfoPlist.strings */,
+				68575EEF178BFF6E00DAC11F /* main.m */,
+				68575EF1178BFF6E00DAC11F /* glesworld-Prefix.pch */,
+				68575EF5178BFF6E00DAC11F /* Default.png */,
+				68575EF7178BFF6E00DAC11F /* Default@2x.png */,
+				68575EF9178BFF6E00DAC11F /* Default-568h@2x.png */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		68575EDB178BFF6E00DAC11F /* glesworld */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 68575F0A178BFF6E00DAC11F /* Build configuration list for PBXNativeTarget "glesworld" */;
+			buildPhases = (
+				68575ED8178BFF6E00DAC11F /* Sources */,
+				68575ED9178BFF6E00DAC11F /* Frameworks */,
+				68575EDA178BFF6E00DAC11F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = glesworld;
+			productName = glesworld;
+			productReference = 68575EDC178BFF6E00DAC11F /* glesworld.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		68575ED4178BFF6D00DAC11F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = GW;
+				LastUpgradeCheck = 0460;
+				ORGANIZATIONNAME = wuhao;
+			};
+			buildConfigurationList = 68575ED7178BFF6D00DAC11F /* Build configuration list for PBXProject "glesworld" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 68575ED3178BFF6D00DAC11F;
+			productRefGroup = 68575EDD178BFF6E00DAC11F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				68575EDB178BFF6E00DAC11F /* glesworld */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		68575EDA178BFF6E00DAC11F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				68575EEE178BFF6E00DAC11F /* InfoPlist.strings in Resources */,
+				68575EF6178BFF6E00DAC11F /* Default.png in Resources */,
+				68575EF8178BFF6E00DAC11F /* Default@2x.png in Resources */,
+				68575EFA178BFF6E00DAC11F /* Default-568h@2x.png in Resources */,
+				68575EFC178BFF6E00DAC11F /* Shader.fsh in Resources */,
+				68575EFE178BFF6E00DAC11F /* Shader.vsh in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		68575ED8178BFF6E00DAC11F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				68575EF0178BFF6E00DAC11F /* main.m in Sources */,
+				68575EF4178BFF6E00DAC11F /* GWAppDelegate.m in Sources */,
+				6807859D183F028B00092A29 /* BaseObject.cpp in Sources */,
+				6807859E183F028B00092A29 /* Geometry.cpp in Sources */,
+				6807859F183F028B00092A29 /* Logger.cpp in Sources */,
+				680785A0183F028B00092A29 /* Material.cpp in Sources */,
+				680785A1183F028B00092A29 /* Mesh.cpp in Sources */,
+				680785A2183F028B00092A29 /* Renderer.cpp in Sources */,
+				680785A3183F028B00092A29 /* Shader.cpp in Sources */,
+				680785A4183F028B00092A29 /* ShaderProgram.cpp in Sources */,
+				680785A9183F07D600092A29 /* ESLViewController.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		68575EEC178BFF6E00DAC11F /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				68575EED178BFF6E00DAC11F /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		68575F08178BFF6E00DAC11F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					DEBUG,
+					ESL_DEVICE_IOS,
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		68575F09178BFF6E00DAC11F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = ESL_DEVICE_IOS;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		68575F0B178BFF6E00DAC11F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "glesworld/glesworld-Prefix.pch";
+				INFOPLIST_FILE = "glesworld/glesworld-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		68575F0C178BFF6E00DAC11F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "glesworld/glesworld-Prefix.pch";
+				INFOPLIST_FILE = "glesworld/glesworld-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		68575ED7178BFF6D00DAC11F /* Build configuration list for PBXProject "glesworld" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				68575F08178BFF6E00DAC11F /* Debug */,
+				68575F09178BFF6E00DAC11F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		68575F0A178BFF6E00DAC11F /* Build configuration list for PBXNativeTarget "glesworld" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				68575F0B178BFF6E00DAC11F /* Debug */,
+				68575F0C178BFF6E00DAC11F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 68575ED4178BFF6D00DAC11F /* Project object */;
+}
