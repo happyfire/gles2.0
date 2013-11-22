@@ -22,14 +22,20 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
-    // Override point for customization after application launch.
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        self.viewController = [[[ESLViewController alloc] initWithNibName:nil bundle:nil] autorelease];
-    } else {
-        self.viewController = [[[ESLViewController alloc] initWithNibName:nil bundle:nil] autorelease];
+    self.viewController = [[[ESLViewController alloc] initWithNibName:nil bundle:nil] autorelease];
+    
+    if ( [[UIDevice currentDevice].systemVersion floatValue] < 6.0)
+    {
+        // warning: addSubView doesn't work on iOS6
+        [self.window addSubview: self.viewController.view];
     }
-    self.window.rootViewController = self.viewController;
+    else
+    {
+        self.window.rootViewController = self.viewController;
+    }
+    
     [self.window makeKeyAndVisible];
+    
     return YES;
 }
 

@@ -27,8 +27,6 @@
 		68575EF6178BFF6E00DAC11F /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 68575EF5178BFF6E00DAC11F /* Default.png */; };
 		68575EF8178BFF6E00DAC11F /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 68575EF7178BFF6E00DAC11F /* Default@2x.png */; };
 		68575EFA178BFF6E00DAC11F /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 68575EF9178BFF6E00DAC11F /* Default-568h@2x.png */; };
-		68575EFC178BFF6E00DAC11F /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 68575EFB178BFF6E00DAC11F /* Shader.fsh */; };
-		68575EFE178BFF6E00DAC11F /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 68575EFD178BFF6E00DAC11F /* Shader.vsh */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,8 +68,6 @@
 		68575EF5178BFF6E00DAC11F /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		68575EF7178BFF6E00DAC11F /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		68575EF9178BFF6E00DAC11F /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		68575EFB178BFF6E00DAC11F /* Shader.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.fsh; path = Shaders/Shader.fsh; sourceTree = "<group>"; };
-		68575EFD178BFF6E00DAC11F /* Shader.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.vsh; path = Shaders/Shader.vsh; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,8 +168,6 @@
 			children = (
 				68575EF2178BFF6E00DAC11F /* GWAppDelegate.h */,
 				68575EF3178BFF6E00DAC11F /* GWAppDelegate.m */,
-				68575EFB178BFF6E00DAC11F /* Shader.fsh */,
-				68575EFD178BFF6E00DAC11F /* Shader.vsh */,
 				68575EEA178BFF6E00DAC11F /* Supporting Files */,
 			);
 			path = glesworld;
@@ -249,8 +243,6 @@
 				68575EF6178BFF6E00DAC11F /* Default.png in Resources */,
 				68575EF8178BFF6E00DAC11F /* Default@2x.png in Resources */,
 				68575EFA178BFF6E00DAC11F /* Default-568h@2x.png in Resources */,
-				68575EFC178BFF6E00DAC11F /* Shader.fsh in Resources */,
-				68575EFE178BFF6E00DAC11F /* Shader.vsh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
