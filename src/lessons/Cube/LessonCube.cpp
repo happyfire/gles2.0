@@ -73,7 +73,7 @@ int LessonCube::onInit()
 	meshAttributes.push_back(&attributeTexcoord);
 
 	g_mesh->create(meshAttributes, 20, 36, true);
-	g_mesh->appendVertexData(cubeStructure, sizeof(cubeStructure));
+	g_mesh->appendVertexData(0, cubeStructure, sizeof(cubeStructure));
 	g_mesh->appendIndexData(cubeIndices, sizeof(cubeIndices));
 
 

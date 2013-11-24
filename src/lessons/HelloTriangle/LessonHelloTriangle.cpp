@@ -94,7 +94,7 @@ int LessonHelloTriangle::onInit()
 	//	-0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
 	//	0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f
 	//};
-	//g_mesh->appendVertexData(vertexDatas, sizeof(vertexDatas));
+	//g_mesh->appendVertexData(0, vertexDatas, sizeof(vertexDatas));
 
 	GLfloat vertex1Datas[]=
 	{//pos, color
@@ -109,8 +109,8 @@ int LessonHelloTriangle::onInit()
 		-0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
 		0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f
 	};
-	g_mesh->appendVertexData(vertex1Datas, sizeof(vertex1Datas));
-	g_mesh->appendVertexData(vertex2Datas, sizeof(vertex2Datas));
+	g_mesh->appendVertexData(0, vertex1Datas, sizeof(vertex1Datas));
+	g_mesh->appendVertexData(0, vertex2Datas, sizeof(vertex2Datas));
 	
 
 	return 1;
