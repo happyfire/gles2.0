@@ -13,59 +13,10 @@ extern "C" {
 #define ESUTIL_API __cdecl
 #define ESCALLBACK __cdecl
 
-/// esCreateWindow flag 
-#define ES_WINDOW_RGB	0	// RGB color buffer
-#define ES_WINDOW_ALPHA 1	// Alpha color buffer
-#define ES_WINDOW_DEPTH 2	// depth buffer
-#define ES_WINDOW_STENCIL 4 // stencil buffer
-#define ES_WINDOW_MULTISAMPLE 8 // multi-sample buffer
-
-/// Types
-
-typedef struct
-{
-	/// Put your user data here...
-	void* userData;
-
-	/// Window width
-	GLint width;
-
-	/// Window height
-	GLint height;
-
-	/// Window handle
-	EGLNativeWindowType hWnd;
-
-	/// EGL display
-	EGLDisplay eglDisplay;
-
-	/// EGL context
-	EGLContext eglContext;
-
-	/// EGL surface
-	EGLSurface eglSurface;
-
-	/// Callbacks
-	void (ESCALLBACK *drawFunc) (void*);
-	void (ESCALLBACK *keyFunc) (void*, unsigned char, int, int);
-	void (ESCALLBACK *updateFunc) (void*, float deltaTime);
-} ESContext;
 
 ///
 // Public Functions
 //
-
-void ESUTIL_API esInitContext(ESContext *esContext);
-
-GLboolean ESUTIL_API esCreateWindow(ESContext *esContext, const char* title, GLint widht, GLint height, GLuint flags);
-
-void ESUTIL_API esMainLoop( ESContext *esContext);
-
-void ESUTIL_API esRegisterDrawFunc( ESContext *esContext, void (ESCALLBACK *drawFunc)(ESContext*));
-
-void ESUTIL_API esRegisterUpdateFunc( ESContext *esContext, void (ESCALLBACK *updateFunc)(ESContext*, float));
-
-void ESUTIL_API esRegisterKeyFunc( ESContext *esContext, void (ESCALLBACK *keyFunc)(ESContext*, unsigned char, int, int));
 
 void ESUTIL_API esLogMessage( const char *formatStr, ...);
 

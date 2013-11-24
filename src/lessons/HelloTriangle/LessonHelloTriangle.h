@@ -6,9 +6,9 @@
 class LessonHelloTriangle:public LessonBase
 {
 public:
-	virtual int onInit(ESContext* esContext);
-	virtual void draw(ESContext *esContext);	
-	virtual void update(ESContext *esContext, float dt);
+	virtual int onInit();
+	virtual void draw();	
+	virtual void update(float dt);
 	virtual const char* getLessonName() { return "Hello Triangle"; }
 };
 

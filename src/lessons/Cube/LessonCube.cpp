@@ -1,7 +1,10 @@
-#include "LessonCube.h"
+#include "eslib/Application.h"
 #include "eslib/Shader.h"
 #include "eslib/ShaderProgram.h"
 #include "eslib/Geometry.h"
+#include "esUtil/esUtil.h"
+
+#include "LessonCube.h"
 
 USING_NS_ESLIB
 
@@ -11,7 +14,7 @@ static GLuint cub_texture;
 static ShaderProgramPtr g_program;
 static GeometryPtr g_mesh;
 
-int LessonCube::onInit(ESContext* esContext)
+int LessonCube::onInit()
 {
 	glClearColor(0.3f, 0.3f, 0.3f, 0.0f);
 
@@ -102,9 +105,12 @@ int LessonCube::onInit(ESContext* esContext)
 	return TRUE;
 }
 
-void LessonCube::draw(ESContext* esContext)
+void LessonCube::draw()
 {
-	glViewport(0, 0, esContext->width, esContext->height);
+	int screenWidth = Application::GetScreenWidth();
+	int screenHeight = Application::GetScreenHeight();
+
+	glViewport(0, 0, screenWidth, screenHeight);
 
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 
@@ -122,7 +128,7 @@ void LessonCube::draw(ESContext* esContext)
 
 	esMatrixSetTranslate(matModelView, 0, 0, -3);
 
-	esMatrixPerspective(matProjection, 45.0f, 0.1f, 100.0f, (float)esContext->width/esContext->height);
+	esMatrixPerspective(matProjection, 45.0f, 0.1f, 100.0f, (float)screenWidth/screenHeight);
 
 	esMatrixMultiply(matProjection, matModelView, matModelViewProjection);
 
@@ -142,10 +148,9 @@ void LessonCube::draw(ESContext* esContext)
 	g_mesh->render(g_program);
 
 	
-	eglSwapBuffers(esContext->eglDisplay, esContext->eglSurface);
 }
 
-void LessonCube::update(ESContext* esContext, float dt)
+void LessonCube::update(float dt)
 {
 
 }

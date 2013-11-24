@@ -21,7 +21,10 @@ public:
 
 	static void deleteInstance()
 	{
-		delete ms_singleton;
+		if(ms_singleton!=0)
+		{
+			delete ms_singleton;
+		}
 	}
 
 	static T& getInstance()

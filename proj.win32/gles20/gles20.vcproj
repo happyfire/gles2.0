@@ -180,20 +180,20 @@
 			Name="src"
 			>
 			<File
-				RelativePath="..\..\src\app.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\app.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\src\LessonBase.h"
 				>
 			</File>
 			<Filter
 				Name="lessons"
 				>
+				<File
+					RelativePath="..\..\src\lessons\LessonDelegate.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\lessons\LessonDelegate.h"
+					>
+				</File>
 				<File
 					RelativePath="..\..\src\lessons\LessonFactory.cpp"
 					>
@@ -258,18 +258,6 @@
 					RelativePath="..\..\src\esUtil\Image.h"
 					>
 				</File>
-				<Filter
-					Name="win32"
-					>
-					<File
-						RelativePath="..\..\src\esUtil\platform\win32\esUtil_win.h"
-						>
-					</File>
-					<File
-						RelativePath="..\..\src\esUtil\platform\win32\esUtil_win32.c"
-						>
-					</File>
-				</Filter>
 			</Filter>
 			<Filter
 				Name="eslib"
@@ -277,6 +265,14 @@
 				<Filter
 					Name="common"
 					>
+					<File
+						RelativePath="..\..\src\eslib\Application.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\eslib\Application.h"
+						>
+					</File>
 					<File
 						RelativePath="..\..\src\eslib\BaseObject.cpp"
 						>
@@ -291,6 +287,10 @@
 					</File>
 					<File
 						RelativePath="..\..\src\eslib\config.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\eslib\IAppDelegate.h"
 						>
 					</File>
 					<File
@@ -363,6 +363,18 @@
 					</File>
 					<File
 						RelativePath="..\..\src\eslib\ShaderProgram.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="win32"
+					>
+					<File
+						RelativePath="..\..\src\eslib\win32\GLESAppFramework.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\eslib\win32\GLESAppFramework.h"
 						>
 					</File>
 				</Filter>

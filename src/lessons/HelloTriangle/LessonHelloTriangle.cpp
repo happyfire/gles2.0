@@ -1,10 +1,11 @@
 // hello_triangle.cpp : Defines the entry point for the console application.
 //
-
-#include "LessonHelloTriangle.h"
+#include "eslib/Application.h"
 #include "eslib/Shader.h"
 #include "eslib/ShaderProgram.h"
 #include "eslib/Geometry.h"
+
+#include "LessonHelloTriangle.h"
 
 USING_NS_ESLIB
 
@@ -20,11 +21,9 @@ static ShaderProgramPtr g_program;
 
 static GeometryPtr g_mesh;
 
-void InitVBO(ESContext* esContext);
 
-int LessonHelloTriangle::onInit(ESContext *esContext)
+int LessonHelloTriangle::onInit()
 {
-	UserData *userData = (UserData*)esContext->userData;
 
 	GLbyte vShaderStr[] =
 		"uniform vec4 u_blendColor;		\n"
@@ -60,29 +59,11 @@ int LessonHelloTriangle::onInit(ESContext *esContext)
 	if(!g_program->isValid())
 		return 0;
 
-	//GLuint vertexShader;
-	//GLuint fragmentShader;
-	//GLuint programObject;
-	
-	//Load the vertex/fragment shaders
-	//vertexShader = esLoadShader(GL_VERTEX_SHADER, (const char*)vShaderStr);
-	//fragmentShader = esLoadShader(GL_FRAGMENT_SHADER, (const char*)fShaderStr);
-
-	//Create the program object
-	//programObject = esCreateProgram(vertexShader, fragmentShader);
-
-	//if(programObject==0)
-	//	return 0;
-
-	//get uniform loc after link
-	//ublendColorLoc = glGetUniformLocation(g_program->getProgramObject(), "u_blendColor");
-	//uPosOffsetLoc = glGetUniformLocation(g_program->getProgramObject(), "u_posOffset");
 	
 	//get attributes loc after link
 	colorLoc = glGetAttribLocation(g_program->getProgramObject(), "a_color");
 	posLoc = glGetAttribLocation(g_program->getProgramObject(), "a_position");	
 
-	//userData->programObject = g_program->getProgramObject();
 
 	glClearColor(0.3f, 0.3f, 0.3f, 0.0f);
 
@@ -132,13 +113,10 @@ int LessonHelloTriangle::onInit(ESContext *esContext)
 	g_mesh->appendVertexData(vertex2Datas, sizeof(vertex2Datas));
 	
 
-	//init VBO
-	InitVBO(esContext);	
-
-	return TRUE;
+	return 1;
 }
 
-void LessonHelloTriangle::update(ESContext *esContext, float dt)
+void LessonHelloTriangle::update(float dt)
 {
 	
 	colorScale -= dt*0.5;
@@ -148,94 +126,20 @@ void LessonHelloTriangle::update(ESContext *esContext, float dt)
 	
 }
 
-void InitVBO(ESContext* esContext)
-{	
-	GLfloat vertexDatas[]=
-	{//pos, color
-		0.0f, 0.5f, 0.0f,  1.0f, 0.0f, 0.0f, 1.0f,
-		-0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
-		0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f,
 
-		0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
-		-0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
-		0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f
-	};
-
-	arrayBuffer = esCreateBufferObject(GL_ARRAY_BUFFER, 7*sizeof(GL_FLOAT)*6, vertexDatas);	
-}
-
-void DrawArrayOfStructuresWithVBO(ESContext *esContext)
+void DrawArrayOfStructures()
 {
-	UserData *userData = (UserData*)esContext->userData;
-
-	
-	//glUseProgram(userData->programObject);
-	glUseProgram(g_program->getProgramObject());
-
-	g_program->setUniform("u_blendColor", colorScale, 1.0, 1.0, 1.0);
-	g_program->setUniform("u_posOffset", 1.0, -0.1, 0);
-	//glUniform4f(ublendColorLoc, colorScale, 1.0, 1.0, 1.0);
-	//glUniform3f(uPosOffsetLoc, 1.0, -0.1, 0);
-	
-
-	glBindBuffer(GL_ARRAY_BUFFER, arrayBuffer);
-
-	glEnableVertexAttribArray(posLoc);
-	glEnableVertexAttribArray(colorLoc);
-
-	glVertexAttribPointer(posLoc, 3, GL_FLOAT, GL_FALSE, 7*sizeof(GLfloat), (const void*)0);
-	glVertexAttribPointer(colorLoc, 4, GL_FLOAT, GL_FALSE, 7*sizeof(GLfloat), (const void*)(3*sizeof(GLfloat)));
-
-	glDrawArrays(GL_TRIANGLES, 0, 6);
-}
-
-void DrawArrayOfStructures(ESContext *esContext)
-{
-	UserData *userData = (UserData*)esContext->userData;
-
-	//Use the program object
-	//glUseProgram(userData->programObject);
 	glUseProgram(g_program->getProgramObject());
 
 	//set uniform
 	g_program->setUniform("u_blendColor", 1.0, colorScale, 1.0, 1.0);
 	g_program->setUniform("u_posOffset", 0, 0, 0);
-	//glUniform4f(ublendColorLoc, 1.0, colorScale, 1.0, 1.0);
-	//glUniform3f(uPosOffsetLoc, 0, 0, 0);
 
 	g_mesh->render(g_program);
-
-	//GLfloat vertexDatas[]=
-	//{//pos, color
-	//	0.0f, 1.0f, 0.0f,  1.0f, 0.0f, 0.0f, 1.0f,
-	//	-1.0f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
-	//	1.0f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f,
-	//	
-	//	0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
-	//	-0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
-	//	0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f
-	//};
-
-	//If used vbo before without VBO, should bind vbo to 0 to clear it, or else will crash ( no buffer data found)
-	//glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-	//color, 4f
-	//glEnableVertexAttribArray(colorLoc);
-	//glVertexAttribPointer(colorLoc, 4, GL_FLOAT, GL_FALSE, 7*sizeof(GLfloat), vertexDatas+3);	
-
-	//pos, 3f
-	//glEnableVertexAttribArray(posLoc);
-	//glVertexAttribPointer(posLoc, 3, GL_FLOAT, GL_FALSE, 7*sizeof(GLfloat), vertexDatas);	
-		
-	///glDrawArrays(GL_TRIANGLES, 0, 6);
-
-
 }
 
-void DrawStructureOfArrays(ESContext *esContext)
+void DrawStructureOfArrays()
 {
-	UserData *userData = (UserData*)esContext->userData;
-
 	GLfloat vVertices[] = 
 	{
 		0.0f, 0.5f, 0.0f,
@@ -281,17 +185,18 @@ void DrawStructureOfArrays(ESContext *esContext)
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 
-void LessonHelloTriangle::draw(ESContext *esContext)
+void LessonHelloTriangle::draw()
 {
-	glViewport(0, 0, esContext->width, esContext->height);
+	int screenWidth = Application::GetScreenWidth();
+	int screenHeight = Application::GetScreenHeight();
+
+	glViewport(0, 0, screenWidth, screenHeight);
 
 	glClear(GL_COLOR_BUFFER_BIT);
 
 
-	DrawArrayOfStructures(esContext);
-	DrawArrayOfStructuresWithVBO(esContext);
-	DrawStructureOfArrays(esContext);
+	DrawArrayOfStructures();
 
-	eglSwapBuffers(esContext->eglDisplay, esContext->eglSurface);
+	DrawStructureOfArrays();
 }
 
