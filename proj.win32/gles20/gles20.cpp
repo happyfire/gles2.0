@@ -1,7 +1,6 @@
 // gles20.cpp : Defines the entry point for the console application.
 //
 
-#include "app.h"
 #include <tchar.h>
 #include "eslib/Application.h"
 #include "eslib/win32/GLESAppFramework.h"

@@ -235,7 +235,7 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\esUtil\esMath.c"
+					RelativePath="..\..\src\esUtil\esMath.cpp"
 					>
 				</File>
 				<File
@@ -243,7 +243,7 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\esUtil\esUtil.c"
+					RelativePath="..\..\src\esUtil\esUtil.cpp"
 					>
 				</File>
 				<File
@@ -375,6 +375,10 @@
 					</File>
 					<File
 						RelativePath="..\..\src\eslib\win32\GLESAppFramework.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\eslib\win32\Win32Device.cpp"
 						>
 					</File>
 				</Filter>

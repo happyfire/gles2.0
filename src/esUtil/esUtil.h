@@ -1,7 +1,7 @@
 #ifndef ESUTIL_H
 #define ESUTIL_H
 
-#include "glcommon.h"
+#include "eslib/glcommon.h"
 
 
 
