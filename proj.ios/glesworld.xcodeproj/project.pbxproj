@@ -27,6 +27,12 @@
 		68575EF6178BFF6E00DAC11F /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 68575EF5178BFF6E00DAC11F /* Default.png */; };
 		68575EF8178BFF6E00DAC11F /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 68575EF7178BFF6E00DAC11F /* Default@2x.png */; };
 		68575EFA178BFF6E00DAC11F /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 68575EF9178BFF6E00DAC11F /* Default-568h@2x.png */; };
+		68E8D78F1842E4CE00AD1EBA /* Application.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 68E8D78C1842E4CE00AD1EBA /* Application.cpp */; };
+		68E8D7971842E50900AD1EBA /* esFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 68E8D7901842E50900AD1EBA /* esFile.cpp */; };
+		68E8D7981842E50900AD1EBA /* esMath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 68E8D7911842E50900AD1EBA /* esMath.cpp */; };
+		68E8D7991842E50900AD1EBA /* esTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 68E8D7921842E50900AD1EBA /* esTexture.cpp */; };
+		68E8D79A1842E50900AD1EBA /* esUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 68E8D7931842E50900AD1EBA /* esUtil.cpp */; };
+		68E8D79B1842E50900AD1EBA /* Image.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 68E8D7951842E50900AD1EBA /* Image.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +74,16 @@
 		68575EF5178BFF6E00DAC11F /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		68575EF7178BFF6E00DAC11F /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		68575EF9178BFF6E00DAC11F /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		68E8D78C1842E4CE00AD1EBA /* Application.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Application.cpp; sourceTree = "<group>"; };
+		68E8D78D1842E4CE00AD1EBA /* Application.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Application.h; sourceTree = "<group>"; };
+		68E8D78E1842E4CE00AD1EBA /* IAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAppDelegate.h; sourceTree = "<group>"; };
+		68E8D7901842E50900AD1EBA /* esFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = esFile.cpp; path = esUtil/esFile.cpp; sourceTree = "<group>"; };
+		68E8D7911842E50900AD1EBA /* esMath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = esMath.cpp; path = esUtil/esMath.cpp; sourceTree = "<group>"; };
+		68E8D7921842E50900AD1EBA /* esTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = esTexture.cpp; path = esUtil/esTexture.cpp; sourceTree = "<group>"; };
+		68E8D7931842E50900AD1EBA /* esUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = esUtil.cpp; path = esUtil/esUtil.cpp; sourceTree = "<group>"; };
+		68E8D7941842E50900AD1EBA /* esUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = esUtil.h; path = esUtil/esUtil.h; sourceTree = "<group>"; };
+		68E8D7951842E50900AD1EBA /* Image.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Image.cpp; path = esUtil/Image.cpp; sourceTree = "<group>"; };
+		68E8D7961842E50900AD1EBA /* Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Image.h; path = esUtil/Image.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +105,9 @@
 		68078587183F028B00092A29 /* eslib */ = {
 			isa = PBXGroup;
 			children = (
+				68E8D78C1842E4CE00AD1EBA /* Application.cpp */,
+				68E8D78D1842E4CE00AD1EBA /* Application.h */,
+				68E8D78E1842E4CE00AD1EBA /* IAppDelegate.h */,
 				680785A6183F07D600092A29 /* ios */,
 				68078588183F028B00092A29 /* BaseObject.cpp */,
 				68078589183F028B00092A29 /* BaseObject.h */,
@@ -127,6 +146,7 @@
 		6837338417C3840E00FA9287 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				68E8D79C1842E51E00AD1EBA /* esUtil */,
 				68078587183F028B00092A29 /* eslib */,
 			);
 			name = src;
@@ -185,6 +205,20 @@
 				68575EF9178BFF6E00DAC11F /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		68E8D79C1842E51E00AD1EBA /* esUtil */ = {
+			isa = PBXGroup;
+			children = (
+				68E8D7901842E50900AD1EBA /* esFile.cpp */,
+				68E8D7911842E50900AD1EBA /* esMath.cpp */,
+				68E8D7921842E50900AD1EBA /* esTexture.cpp */,
+				68E8D7931842E50900AD1EBA /* esUtil.cpp */,
+				68E8D7941842E50900AD1EBA /* esUtil.h */,
+				68E8D7951842E50900AD1EBA /* Image.cpp */,
+				68E8D7961842E50900AD1EBA /* Image.h */,
+			);
+			name = esUtil;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -264,6 +298,12 @@
 				680785A3183F028B00092A29 /* Shader.cpp in Sources */,
 				680785A4183F028B00092A29 /* ShaderProgram.cpp in Sources */,
 				680785A9183F07D600092A29 /* ESLViewController.mm in Sources */,
+				68E8D78F1842E4CE00AD1EBA /* Application.cpp in Sources */,
+				68E8D7971842E50900AD1EBA /* esFile.cpp in Sources */,
+				68E8D7981842E50900AD1EBA /* esMath.cpp in Sources */,
+				68E8D7991842E50900AD1EBA /* esTexture.cpp in Sources */,
+				68E8D79A1842E50900AD1EBA /* esUtil.cpp in Sources */,
+				68E8D79B1842E50900AD1EBA /* Image.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,11 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include <GLES2/gl2.h>
-#include <EGL/egl.h>
 #include "esUtil.h"
 
-void ESUTIL_API esMatrixIdentity(ESMatrix mat)
+void esMatrixIdentity(ESMatrix mat)
 {
 	mat[0] = mat[5] = mat[10] = mat[15] = 1.0f;
 	mat[1] = mat[2] = mat[3] = mat[4] = 0.0f;
@@ -13,7 +11,7 @@ void ESUTIL_API esMatrixIdentity(ESMatrix mat)
 	mat[11] = mat[12] = mat[13] = mat[14] = 0.0f;
 }
 
-void ESUTIL_API esMatrixTranslate(ESMatrix mat, float x, float y, float z)
+void esMatrixTranslate(ESMatrix mat, float x, float y, float z)
 {
 	esMatrixIdentity(mat);
 
@@ -22,14 +20,14 @@ void ESUTIL_API esMatrixTranslate(ESMatrix mat, float x, float y, float z)
 	mat[14] = z;
 }
 
-void ESUTIL_API esMatrixSetTranslate(ESMatrix mat, float x, float y, float z)
+void esMatrixSetTranslate(ESMatrix mat, float x, float y, float z)
 {
 	mat[12] = x;
 	mat[13] = y;
 	mat[14] = z;
 }
 
-void ESUTIL_API esMatrixScale(ESMatrix mat, float sx, float sy, float sz)
+void esMatrixScale(ESMatrix mat, float sx, float sy, float sz)
 {
 	esMatrixIdentity(mat);
 
@@ -38,7 +36,7 @@ void ESUTIL_API esMatrixScale(ESMatrix mat, float sx, float sy, float sz)
 	mat[10] = sz;
 }
 
-void ESUTIL_API esMatrixRotateX(ESMatrix mat, float degrees)
+void esMatrixRotateX(ESMatrix mat, float degrees)
 {
 	float radian = DegreeToRadian(degrees);
 
@@ -50,7 +48,7 @@ void ESUTIL_API esMatrixRotateX(ESMatrix mat, float degrees)
 	mat[10] = mat[5];
 }
 
-void ESUTIL_API esMatrixRotateY(ESMatrix mat, float degrees)
+void esMatrixRotateY(ESMatrix mat, float degrees)
 {
 	float radian = DegreeToRadian(degrees);
 
@@ -62,7 +60,7 @@ void ESUTIL_API esMatrixRotateY(ESMatrix mat, float degrees)
 	mat[10] = mat[0];
 }
 
-void ESUTIL_API esMatrixRotateZ(ESMatrix mat, float degrees)
+void esMatrixRotateZ(ESMatrix mat, float degrees)
 {
 	float radian = DegreeToRadian(degrees);
 
@@ -74,7 +72,7 @@ void ESUTIL_API esMatrixRotateZ(ESMatrix mat, float degrees)
 	mat[5] = mat[0];
 }
 
-void ESUTIL_API esMatrixMultiply(ESMatrix m1, ESMatrix m2, ESMatrix result)
+void esMatrixMultiply(ESMatrix m1, ESMatrix m2, ESMatrix result)
 {
 	// Fisrt Column
 	result[0] = m1[0]*m2[0] + m1[4]*m2[1] + m1[8]*m2[2] + m1[12]*m2[3];
@@ -101,7 +99,7 @@ void ESUTIL_API esMatrixMultiply(ESMatrix m1, ESMatrix m2, ESMatrix result)
 	result[15] = m1[3]*m2[12] + m1[7]*m2[13] + m1[11]*m2[14] + m1[15]*m2[15];
 }
 
-void ESUTIL_API esMatrixPerspective(ESMatrix matrix, float fovAngle, float nearPlane, float farPlane, float aspect)
+void esMatrixPerspective(ESMatrix matrix, float fovAngle, float nearPlane, float farPlane, float aspect)
 {
 	float size = nearPlane * tanf(DegreeToRadian(fovAngle) / 2.0);
 	float left = -size, right = size, bottom = -size / aspect, top = size / aspect;

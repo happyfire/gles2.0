@@ -1,23 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <GLES2/gl2.h>
-#include <EGL/egl.h>
 #include "esUtil.h"
 
-void ESUTIL_API esLogMessage(const char* formatStr, ...)
-{
-	va_list params;
-	char buf[BUFSIZ];
-
-	va_start(params, formatStr);
-	vsprintf_s(buf, sizeof(buf), formatStr, params);
-
-	printf("%s", buf);
-
-	va_end(params);
-}
-
-GLuint ESUTIL_API esLoadShader(GLenum type, const char *shaderSrc)
+GLuint esLoadShader(GLenum type, const char *shaderSrc)
 {
 	GLuint shader;
 	GLint compiled;
@@ -48,7 +33,6 @@ GLuint ESUTIL_API esLoadShader(GLenum type, const char *shaderSrc)
 			char *infoLog = (char*)malloc(sizeof(char)*infoLen);
 
 			glGetShaderInfoLog(shader, infoLen, NULL, infoLog);
-			esLogMessage("Error compiling shader:\n%s\n", infoLog);
 
 			free(infoLog);
 		}
@@ -60,7 +44,7 @@ GLuint ESUTIL_API esLoadShader(GLenum type, const char *shaderSrc)
 	return shader;
 }
 
-GLuint ESUTIL_API esCreateProgram(GLuint vs, GLuint fs)
+GLuint esCreateProgram(GLuint vs, GLuint fs)
 {
 	GLuint name;
 
@@ -91,8 +75,6 @@ GLuint ESUTIL_API esCreateProgram(GLuint vs, GLuint fs)
 
 			glGetProgramInfoLog(name, logLength, &logLength, log);
 
-			esLogMessage(log);
-
 			free(log);
 		}
 
@@ -105,7 +87,7 @@ GLuint ESUTIL_API esCreateProgram(GLuint vs, GLuint fs)
 	return name;
 }
 
-GLuint ESUTIL_API esCreateBufferObject(GLenum type, GLsizeiptr size, const GLvoid *data)
+GLuint esCreateBufferObject(GLenum type, GLsizeiptr size, const GLvoid *data)
 {
 	GLuint buffer;
 

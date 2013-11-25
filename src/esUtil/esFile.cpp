@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "esUtil.h"
 
-size_t ESUTIL_API esLoadFile(const char* pFilename, char** pData)
+size_t esLoadFile(const char* pFilename, char** pData)
 {
 	size_t size = 0;
 

@@ -1,13 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include <GLES2/gl2.h>
-#include <EGL/egl.h>
 #include "esUtil.h"
 #include "Image.h"
 
 
-GLuint ESUTIL_API esCreateTextureFromTGA(const char* tgaFilePath)
+GLuint esCreateTextureFromTGA(const char* tgaFilePath)
 {
 	Image img;
 	TexImage tex;

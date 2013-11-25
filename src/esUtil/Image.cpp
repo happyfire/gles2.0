@@ -64,7 +64,7 @@ bool Image::loadTGA( TexImage* texture, const char* filename )
 			return false;
 		}
 	}else if ( memcmp( &cTGAcompare, &header.head ,sizeof(header.head) ) == 0 ){	//Ñ¹ËõTGA
-		texture->bCompressed = TRUE;
+		texture->bCompressed = 1;
 		if ( !loadCompressedTGA( texture, file ) ){
 			TRACE("Load compressed TGA failed!\n");
 			return false;
