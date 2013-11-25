@@ -1,7 +1,7 @@
 #ifndef __LESSON_CUBE__
 #define __LESSON_CUBE__
 
-#include "../LessonBase.h"
+#include "LessonBase.h"
 
 class LessonCube:public LessonBase
 {

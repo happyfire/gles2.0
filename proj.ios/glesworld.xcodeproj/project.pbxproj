@@ -22,7 +22,7 @@
 		68575EE6178BFF6E00DAC11F /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68575EE5178BFF6E00DAC11F /* GLKit.framework */; };
 		68575EE8178BFF6E00DAC11F /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68575EE7178BFF6E00DAC11F /* OpenGLES.framework */; };
 		68575EEE178BFF6E00DAC11F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 68575EEC178BFF6E00DAC11F /* InfoPlist.strings */; };
-		68575EF0178BFF6E00DAC11F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 68575EEF178BFF6E00DAC11F /* main.m */; };
+		68575EF0178BFF6E00DAC11F /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 68575EEF178BFF6E00DAC11F /* main.mm */; };
 		68575EF4178BFF6E00DAC11F /* GWAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 68575EF3178BFF6E00DAC11F /* GWAppDelegate.m */; };
 		68575EF6178BFF6E00DAC11F /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 68575EF5178BFF6E00DAC11F /* Default.png */; };
 		68575EF8178BFF6E00DAC11F /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 68575EF7178BFF6E00DAC11F /* Default@2x.png */; };
@@ -33,6 +33,12 @@
 		68E8D7991842E50900AD1EBA /* esTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 68E8D7921842E50900AD1EBA /* esTexture.cpp */; };
 		68E8D79A1842E50900AD1EBA /* esUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 68E8D7931842E50900AD1EBA /* esUtil.cpp */; };
 		68E8D79B1842E50900AD1EBA /* Image.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 68E8D7951842E50900AD1EBA /* Image.cpp */; };
+		68E8D7AD1842F1D600AD1EBA /* LessonCube.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 68E8D7A11842F1D600AD1EBA /* LessonCube.cpp */; };
+		68E8D7AE1842F1D600AD1EBA /* LessonHelloTriangle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 68E8D7A41842F1D600AD1EBA /* LessonHelloTriangle.cpp */; };
+		68E8D7AF1842F1D600AD1EBA /* LessonDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 68E8D7A61842F1D600AD1EBA /* LessonDelegate.cpp */; };
+		68E8D7B01842F1D600AD1EBA /* LessonFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 68E8D7A81842F1D600AD1EBA /* LessonFactory.cpp */; };
+		68E8D7C31842F95300AD1EBA /* IOSDevice.mm in Sources */ = {isa = PBXBuildFile; fileRef = 68E8D7C21842F95300AD1EBA /* IOSDevice.mm */; };
+		68E8D7C6184300D100AD1EBA /* media in Resources */ = {isa = PBXBuildFile; fileRef = 68E8D7C5184300D100AD1EBA /* media */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,7 +73,7 @@
 		68575EE7178BFF6E00DAC11F /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		68575EEB178BFF6E00DAC11F /* glesworld-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "glesworld-Info.plist"; sourceTree = "<group>"; };
 		68575EED178BFF6E00DAC11F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		68575EEF178BFF6E00DAC11F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		68575EEF178BFF6E00DAC11F /* main.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
 		68575EF1178BFF6E00DAC11F /* glesworld-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "glesworld-Prefix.pch"; sourceTree = "<group>"; };
 		68575EF2178BFF6E00DAC11F /* GWAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GWAppDelegate.h; sourceTree = "<group>"; };
 		68575EF3178BFF6E00DAC11F /* GWAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GWAppDelegate.m; sourceTree = "<group>"; };
@@ -84,6 +90,18 @@
 		68E8D7941842E50900AD1EBA /* esUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = esUtil.h; path = esUtil/esUtil.h; sourceTree = "<group>"; };
 		68E8D7951842E50900AD1EBA /* Image.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Image.cpp; path = esUtil/Image.cpp; sourceTree = "<group>"; };
 		68E8D7961842E50900AD1EBA /* Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Image.h; path = esUtil/Image.h; sourceTree = "<group>"; };
+		68E8D79E1842F1D600AD1EBA /* LessonBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LessonBase.h; sourceTree = "<group>"; };
+		68E8D7A11842F1D600AD1EBA /* LessonCube.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LessonCube.cpp; sourceTree = "<group>"; };
+		68E8D7A21842F1D600AD1EBA /* LessonCube.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LessonCube.h; sourceTree = "<group>"; };
+		68E8D7A41842F1D600AD1EBA /* LessonHelloTriangle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LessonHelloTriangle.cpp; sourceTree = "<group>"; };
+		68E8D7A51842F1D600AD1EBA /* LessonHelloTriangle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LessonHelloTriangle.h; sourceTree = "<group>"; };
+		68E8D7A61842F1D600AD1EBA /* LessonDelegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LessonDelegate.cpp; sourceTree = "<group>"; };
+		68E8D7A71842F1D600AD1EBA /* LessonDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LessonDelegate.h; sourceTree = "<group>"; };
+		68E8D7A81842F1D600AD1EBA /* LessonFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LessonFactory.cpp; sourceTree = "<group>"; };
+		68E8D7A91842F1D600AD1EBA /* LessonFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LessonFactory.h; sourceTree = "<group>"; };
+		68E8D7C01842F88100AD1EBA /* Device.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Device.h; sourceTree = "<group>"; };
+		68E8D7C21842F95300AD1EBA /* IOSDevice.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IOSDevice.mm; sourceTree = "<group>"; };
+		68E8D7C5184300D100AD1EBA /* media */ = {isa = PBXFileReference; lastKnownFileType = folder; name = media; path = ../bin/media; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +123,7 @@
 		68078587183F028B00092A29 /* eslib */ = {
 			isa = PBXGroup;
 			children = (
+				68E8D7C01842F88100AD1EBA /* Device.h */,
 				68E8D78C1842E4CE00AD1EBA /* Application.cpp */,
 				68E8D78D1842E4CE00AD1EBA /* Application.h */,
 				68E8D78E1842E4CE00AD1EBA /* IAppDelegate.h */,
@@ -137,6 +156,7 @@
 		680785A6183F07D600092A29 /* ios */ = {
 			isa = PBXGroup;
 			children = (
+				68E8D7C21842F95300AD1EBA /* IOSDevice.mm */,
 				680785A7183F07D600092A29 /* ESLViewController.h */,
 				680785A8183F07D600092A29 /* ESLViewController.mm */,
 			);
@@ -146,6 +166,8 @@
 		6837338417C3840E00FA9287 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				68E8D79E1842F1D600AD1EBA /* LessonBase.h */,
+				68E8D79F1842F1D600AD1EBA /* lessons */,
 				68E8D79C1842E51E00AD1EBA /* esUtil */,
 				68078587183F028B00092A29 /* eslib */,
 			);
@@ -156,6 +178,7 @@
 		68575ED3178BFF6D00DAC11F = {
 			isa = PBXGroup;
 			children = (
+				68E8D7C5184300D100AD1EBA /* media */,
 				6837338417C3840E00FA9287 /* src */,
 				68575EE9178BFF6E00DAC11F /* glesworld */,
 				68575EDE178BFF6E00DAC11F /* Frameworks */,
@@ -198,7 +221,7 @@
 			children = (
 				68575EEB178BFF6E00DAC11F /* glesworld-Info.plist */,
 				68575EEC178BFF6E00DAC11F /* InfoPlist.strings */,
-				68575EEF178BFF6E00DAC11F /* main.m */,
+				68575EEF178BFF6E00DAC11F /* main.mm */,
 				68575EF1178BFF6E00DAC11F /* glesworld-Prefix.pch */,
 				68575EF5178BFF6E00DAC11F /* Default.png */,
 				68575EF7178BFF6E00DAC11F /* Default@2x.png */,
@@ -219,6 +242,37 @@
 				68E8D7961842E50900AD1EBA /* Image.h */,
 			);
 			name = esUtil;
+			sourceTree = "<group>";
+		};
+		68E8D79F1842F1D600AD1EBA /* lessons */ = {
+			isa = PBXGroup;
+			children = (
+				68E8D7A01842F1D600AD1EBA /* Cube */,
+				68E8D7A31842F1D600AD1EBA /* HelloTriangle */,
+				68E8D7A61842F1D600AD1EBA /* LessonDelegate.cpp */,
+				68E8D7A71842F1D600AD1EBA /* LessonDelegate.h */,
+				68E8D7A81842F1D600AD1EBA /* LessonFactory.cpp */,
+				68E8D7A91842F1D600AD1EBA /* LessonFactory.h */,
+			);
+			path = lessons;
+			sourceTree = "<group>";
+		};
+		68E8D7A01842F1D600AD1EBA /* Cube */ = {
+			isa = PBXGroup;
+			children = (
+				68E8D7A11842F1D600AD1EBA /* LessonCube.cpp */,
+				68E8D7A21842F1D600AD1EBA /* LessonCube.h */,
+			);
+			path = Cube;
+			sourceTree = "<group>";
+		};
+		68E8D7A31842F1D600AD1EBA /* HelloTriangle */ = {
+			isa = PBXGroup;
+			children = (
+				68E8D7A41842F1D600AD1EBA /* LessonHelloTriangle.cpp */,
+				68E8D7A51842F1D600AD1EBA /* LessonHelloTriangle.h */,
+			);
+			path = HelloTriangle;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -277,6 +331,7 @@
 				68575EF6178BFF6E00DAC11F /* Default.png in Resources */,
 				68575EF8178BFF6E00DAC11F /* Default@2x.png in Resources */,
 				68575EFA178BFF6E00DAC11F /* Default-568h@2x.png in Resources */,
+				68E8D7C6184300D100AD1EBA /* media in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -287,7 +342,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				68575EF0178BFF6E00DAC11F /* main.m in Sources */,
+				68575EF0178BFF6E00DAC11F /* main.mm in Sources */,
 				68575EF4178BFF6E00DAC11F /* GWAppDelegate.m in Sources */,
 				6807859D183F028B00092A29 /* BaseObject.cpp in Sources */,
 				6807859E183F028B00092A29 /* Geometry.cpp in Sources */,
@@ -304,6 +359,11 @@
 				68E8D7991842E50900AD1EBA /* esTexture.cpp in Sources */,
 				68E8D79A1842E50900AD1EBA /* esUtil.cpp in Sources */,
 				68E8D79B1842E50900AD1EBA /* Image.cpp in Sources */,
+				68E8D7AD1842F1D600AD1EBA /* LessonCube.cpp in Sources */,
+				68E8D7AE1842F1D600AD1EBA /* LessonHelloTriangle.cpp in Sources */,
+				68E8D7AF1842F1D600AD1EBA /* LessonDelegate.cpp in Sources */,
+				68E8D7B01842F1D600AD1EBA /* LessonFactory.cpp in Sources */,
+				68E8D7C31842F95300AD1EBA /* IOSDevice.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -345,6 +405,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = ../src/;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -370,6 +431,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = ../src/;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;

@@ -35,6 +35,7 @@ public:
 	static void render();
 
 	static const AppConfig& GetConfig();
+    static void SetScreenSize(int screenWidth, int screenHeight);
 	static int GetScreenWidth() { return s_config.mScreenWidth; }
 	static int GetScreenHeight() { return s_config.mScreenHeight; }
 

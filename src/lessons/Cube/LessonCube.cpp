@@ -102,7 +102,7 @@ int LessonCube::onInit()
 
 	glEnable(GL_DEPTH_TEST);	
 
-	return TRUE;
+	return 1;
 }
 
 void LessonCube::draw()

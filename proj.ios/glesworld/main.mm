@@ -7,11 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "eslib/Application.h"
+#import "lessons/LessonDelegate.h"
 #import "GWAppDelegate.h"
 
 int main(int argc, char *argv[])
 {
+    LessonDelegate delegate;
+    
+	AppConfig config;
+	config.mDelegate = &delegate;
+	
+	Application::setConfig(config);
+    
     @autoreleasepool {
         return UIApplicationMain(argc, argv, nil, NSStringFromClass([GWAppDelegate class]));
     }

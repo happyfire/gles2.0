@@ -1,7 +1,7 @@
 #ifndef __LESSON_HELLO_TRIANGLE__
 #define __LESSON_HELLO_TRIANGLE__
 
-#include "../LessonBase.h"
+#include "LessonBase.h"
 
 class LessonHelloTriangle:public LessonBase
 {

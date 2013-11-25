@@ -1,12 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "eslib/Device.h"
 #include "esUtil.h"
+
+USING_NS_ESLIB;
 
 size_t esLoadFile(const char* pFilename, char** pData)
 {
 	size_t size = 0;
+    
+    stringc path = Device::getInstance().getReadFilePath();
+    path+=pFilename;
 
-	FILE* pFile = fopen(pFilename, "rb");
+	FILE* pFile = fopen(path.c_str(), "rb");
 
 	if (pFile)
 	{

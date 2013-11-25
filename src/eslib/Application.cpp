@@ -1,6 +1,7 @@
 #include "Application.h"
 #include "IAppDelegate.h"
 #include "Logger.h"
+#include "Device.h"
 
 NS_ESLIB_BEGIN
 
@@ -20,6 +21,12 @@ const AppConfig& Application::GetConfig()
 	return s_config;
 }
 
+void Application::SetScreenSize(int screenWidth, int screenHeight)
+{
+    s_config.mScreenWidth = screenWidth;
+    s_config.mScreenHeight = screenHeight;
+}
+
 bool Application::init()
 {
 	ESL_ASSERT(s_appDelegate!=null);
@@ -33,6 +40,7 @@ void Application::exit()
 
 	ESL_DBG("app", "app exit");
 
+    Device::deleteInstance();
 	Logger::deleteInstance();
 }
 

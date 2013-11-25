@@ -7,6 +7,9 @@
 //
 
 #import "ESLViewController.h"
+#import "eslib/Application.h"
+
+USING_NS_ESLIB
 
 
 @interface ESLViewController () {
@@ -23,6 +26,8 @@
 
 - (void)dealloc
 {
+    Application::exit();
+    
     [self tearDownGL];
     
     if ([EAGLContext currentContext] == self.context) {
@@ -73,6 +78,11 @@
 {
     [EAGLContext setCurrentContext:self.context];
     glEnable(GL_DEPTH_TEST);
+    
+    CGRect bounds = self.view.bounds;
+    
+    Application::SetScreenSize(bounds.size.width, bounds.size.height);
+    Application::init();
 }
 
 - (void)tearDownGL
@@ -85,18 +95,13 @@
 - (void)update
 {
     NSTimeInterval time = self.timeSinceLastUpdate;
-    NSLog(@"time=%f",time);
-   
+    //NSLog(@"time=%f",time);
+    Application::update(time);
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
-{
-    glClearColor(0.65f, 0.65f, 0.65f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    
-    
-    
-    
+{    
+    Application::render();
 }
 
 

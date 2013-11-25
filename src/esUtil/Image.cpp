@@ -1,5 +1,8 @@
 #include "Image.h"
 #include <stdlib.h>
+#include "eslib/Device.h"
+
+USING_NS_ESLIB;
 
 Image::Image(void)
 {
@@ -30,7 +33,11 @@ bool Image::loadTGA( TexImage* texture, const char* filename )
 	Header cTGAcompare = { 0,0,10,0,0,0,0,0};		//10ÎªÑ¹ËõRGB¸ñÊ½
 
 	TGAHeader header;
-	FILE* file = fopen( filename, "rb" );
+    
+    stringc path = Device::getInstance().getReadFilePath();
+    path+=filename;
+    
+	FILE* file = fopen( path.c_str(), "rb" );
 	if ( !file ){
 		TRACE("Openf file %s failed!\n", filename );
 		return false;

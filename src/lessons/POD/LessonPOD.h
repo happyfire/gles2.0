@@ -1,7 +1,7 @@
 #ifndef __LESSON_POD__
 #define __LESSON_POD__
 
-#include "../LessonBase.h"
+#include "LessonBase.h"
 
 class LessonPOD:public LessonBase
 {
