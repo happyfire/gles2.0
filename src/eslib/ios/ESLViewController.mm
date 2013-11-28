@@ -53,6 +53,8 @@ USING_NS_ESLIB
     view.context = self.context;
     view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
     
+    self.preferredFramesPerSecond = 60;
+    
     [self setupGL];
 }
 
@@ -78,10 +80,7 @@ USING_NS_ESLIB
 {
     [EAGLContext setCurrentContext:self.context];
     glEnable(GL_DEPTH_TEST);
-    
-    CGRect bounds = self.view.bounds;
-    
-    Application::SetScreenSize(bounds.size.width, bounds.size.height);
+
     Application::init();
 }
 
@@ -95,12 +94,19 @@ USING_NS_ESLIB
 - (void)update
 {
     NSTimeInterval time = self.timeSinceLastUpdate;
-    //NSLog(@"time=%f",time);
+    //NSLog(@"time=%f,fps=%d",time,self.framesPerSecond);
     Application::update(time);
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
-{    
+{
+    static bool hasSetSize = false;
+    if(!hasSetSize)
+    {
+        Application::SetScreenSize(view.drawableWidth, view.drawableHeight);
+        hasSetSize = true;
+    }
+    
     Application::render();
 }
 
