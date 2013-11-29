@@ -110,5 +110,10 @@ USING_NS_ESLIB
     Application::render();
 }
 
+- (BOOL)prefersStatusBarHidden
+{
+    return YES;
+}
+
 
 @end

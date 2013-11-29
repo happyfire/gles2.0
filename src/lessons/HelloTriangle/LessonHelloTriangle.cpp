@@ -11,11 +11,8 @@ USING_NS_ESLIB
 
 //attribute loc
 static GLuint colorLoc, posLoc;
-//uniform loc
-static GLuint ublendColorLoc, uPosOffsetLoc;
 
-static float colorScale; 
-static GLuint arrayBuffer;
+static float colorScale;
 
 static ShaderProgramPtr g_program;
 
@@ -111,6 +108,11 @@ int LessonHelloTriangle::onInit()
 	};
 	g_mesh->appendVertexData(0, vertex1Datas, sizeof(vertex1Datas));
 	g_mesh->appendVertexData(0, vertex2Datas, sizeof(vertex2Datas));
+    
+    int screenWidth = Application::GetScreenWidth();
+	int screenHeight = Application::GetScreenHeight();
+    
+	glViewport(0, 0, screenWidth, screenHeight);
 	
 
 	return 1;
@@ -187,12 +189,9 @@ void DrawStructureOfArrays()
 
 void LessonHelloTriangle::draw()
 {
-	int screenWidth = Application::GetScreenWidth();
-	int screenHeight = Application::GetScreenHeight();
 
-	glViewport(0, 0, screenWidth, screenHeight);
 
-	glClear(GL_COLOR_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 
 
 	DrawArrayOfStructures();
