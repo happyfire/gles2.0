@@ -9,19 +9,16 @@
 
 USING_NS_ESLIB
 
-//attribute loc
-static GLuint colorLoc, posLoc;
-
 static float colorScale;
 
 static ShaderProgramPtr g_program;
 
 static GeometryPtr g_mesh;
 
+static GeometryPtr g_mesh2;
 
-int LessonHelloTriangle::onInit()
+bool InitShader()
 {
-
 	GLbyte vShaderStr[] =
 		"uniform vec4 u_blendColor;		\n"
 		"uniform vec3 u_posOffset;		\n"
@@ -53,45 +50,24 @@ int LessonHelloTriangle::onInit()
 	g_program = new ShaderProgram();
 	g_program->create(vs,fs);
 
-	if(!g_program->isValid())
-		return 0;
+	return g_program->isValid();
+}
 
-	
-	//get attributes loc after link
-	colorLoc = glGetAttribLocation(g_program->getProgramObject(), "a_color");
-	posLoc = glGetAttribLocation(g_program->getProgramObject(), "a_position");	
-
-
-	glClearColor(0.3f, 0.3f, 0.3f, 0.0f);
-
-	colorScale = 1.0f;
-
-	//init mesh
+void InitMeshSingleStream()
+{
 	g_mesh = new Geometry();
 	std::vector<const VertexAttribute*> meshAttributes;
 	VertexAttribute attributePos;
 	attributePos.ElementCount = 3;
 	attributePos.Name = "a_position";
 	meshAttributes.push_back(&attributePos);
-	
+
 	VertexAttribute attributeColor;
 	attributeColor.ElementCount = 4;
 	attributeColor.Name = "a_color";
 	meshAttributes.push_back(&attributeColor);
 
-	g_mesh->create(meshAttributes, 6, 0, true);
-	
-	//GLfloat vertexDatas[]=
-	//{//pos, color
-	//	0.0f, 1.0f, 0.0f,  1.0f, 0.0f, 0.0f, 1.0f,
-	//	-1.0f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
-	//	1.0f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f,
-
-	//	0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
-	//	-0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
-	//	0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f
-	//};
-	//g_mesh->appendVertexData(0, vertexDatas, sizeof(vertexDatas));
+	g_mesh->create(meshAttributes, 6, 0, true);//single vertex stream, using vbo
 
 	GLfloat vertex1Datas[]=
 	{//pos, color
@@ -108,6 +84,67 @@ int LessonHelloTriangle::onInit()
 	};
 	g_mesh->appendVertexData(0, vertex1Datas, sizeof(vertex1Datas));
 	g_mesh->appendVertexData(0, vertex2Datas, sizeof(vertex2Datas));
+}
+
+void InitMeshMultiStream()
+{
+	g_mesh2 = new Geometry();
+	std::vector<const VertexAttribute*> meshAttributes;
+	VertexAttribute attributePos;
+	attributePos.VertexStreamID = 0;
+	attributePos.ElementCount = 3;
+	attributePos.Name = "a_position";
+	meshAttributes.push_back(&attributePos);
+
+	VertexAttribute attributeColor;
+	attributeColor.VertexStreamID = 1;
+	attributeColor.ElementCount = 4;
+	attributeColor.Name = "a_color";
+	meshAttributes.push_back(&attributeColor);
+
+	g_mesh2->create(meshAttributes, 6, 0, false);//multi-vetex-stream, without vbo
+
+
+	GLfloat vVertices[] = 
+	{
+		0.0f, 0.5f, 0.0f,
+		-0.5f, -0.5f, 0.0f,
+		0.5f, -0.5f, 0.0f,
+
+		0.0f, 1.0f, 0.0f,
+		-0.5f, 0.5f, 0.0f,
+		0.5f, 0.5f, 0.0f
+	};
+
+
+	GLfloat colors[] = {
+		1.0f, 0.0f, 0.0f, 1.0f,
+		0.0f, 1.0f, 0.0f, 1.0f,
+		0.0f, 0.0f, 1.0f, 1.0f,
+
+		1.0f, 0.0f, 0.0f, 1.0f,
+		0.0f, 1.0f, 0.0f, 1.0f,
+		0.0f, 0.0f, 1.0f, 1.0f	
+	};
+
+	g_mesh2->appendVertexData(0, vVertices, sizeof(vVertices));
+	g_mesh2->appendVertexData(1, colors, sizeof(colors));
+}
+
+
+int LessonHelloTriangle::onInit()
+{
+	//init shader program
+	if(!InitShader())
+		return 0;
+
+	glClearColor(0.3f, 0.3f, 0.3f, 0.0f);
+
+	colorScale = 1.0f;
+
+	//init mesh
+	InitMeshSingleStream();
+	InitMeshMultiStream();
     
     int screenWidth = Application::GetScreenWidth();
 	int screenHeight = Application::GetScreenHeight();
@@ -125,9 +162,7 @@ void LessonHelloTriangle::update(float dt)
 		
 	if(colorScale<0.0f)
 		colorScale=1.0f;
-	
 }
-
 
 void DrawArrayOfStructures()
 {
@@ -142,57 +177,19 @@ void DrawArrayOfStructures()
 
 void DrawStructureOfArrays()
 {
-	GLfloat vVertices[] = 
-	{
-		0.0f, 0.5f, 0.0f,
-		-0.5f, -0.5f, 0.0f,
-		0.5f, -0.5f, 0.0f,
-		
-		0.0f, 1.0f, 0.0f,
-		-0.5f, 0.5f, 0.0f,
-		0.5f, 0.5f, 0.0f
-	};
-
 	//Use the program object
-	//glUseProgram(userData->programObject);
 	glUseProgram(g_program->getProgramObject());
 
 	//set uniform
-	g_program->setUniform("u_blendColor", 1.0, 1.0, colorScale, 1.0);
+	g_program->setUniform("u_blendColor", colorScale, 1.0, 1.0, 1.0);
 	g_program->setUniform("u_posOffset", -1.0, 0, 0);
-	//glUniform4f(ublendColorLoc, 1.0, 1.0, colorScale, 1.0);
-	//glUniform3f(uPosOffsetLoc, -1.0, 0, 0);
 
-	//Load the vertex data
-	GLfloat colors[] = {
-		1.0f, 0.0f, 0.0f, 1.0f,
-		0.0f, 1.0f, 0.0f, 1.0f,
-		0.0f, 0.0f, 1.0f, 1.0f,
-
-		1.0f, 0.0f, 0.0f, 1.0f,
-		0.0f, 1.0f, 0.0f, 1.0f,
-		0.0f, 0.0f, 1.0f, 1.0f	
-	};
-
-	//If used vbo before without VBO, should bind vbo to 0 to clear it, or else will crash ( no buffer data found)
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-	glEnableVertexAttribArray(colorLoc);
-	glVertexAttribPointer(colorLoc, 4, GL_FLOAT, GL_FALSE, 4*sizeof(GLfloat), colors);	
-
-	glEnableVertexAttribArray(posLoc);
-	glVertexAttribPointer(posLoc, 3, GL_FLOAT, GL_FALSE, 3*sizeof(GLfloat), vVertices);	
-	
-
-	glDrawArrays(GL_TRIANGLES, 0, 6);
+	g_mesh2->render(g_program);
 }
 
 void LessonHelloTriangle::draw()
 {
-
-
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
-
 
 	DrawArrayOfStructures();
 
