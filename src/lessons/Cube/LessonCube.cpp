@@ -2,6 +2,7 @@
 #include "eslib/Shader.h"
 #include "eslib/ShaderProgram.h"
 #include "eslib/Geometry.h"
+#include "eslib/Material.h"
 #include "esUtil/esUtil.h"
 
 #include "LessonCube.h"
@@ -11,7 +12,7 @@ USING_NS_ESLIB
 
 static GLuint cub_texture;
 
-static ShaderProgramPtr g_program;
+static MaterialPtr g_material;
 static GeometryPtr g_mesh;
 
 int LessonCube::onInit()
@@ -92,18 +93,21 @@ int LessonCube::onInit()
 	ShaderPtr fs = new Shader();
 	fs->create(GL_FRAGMENT_SHADER, (const char*)fsSrc);
 
-	g_program = new ShaderProgram();
-	g_program->create(vs,fs);
+	ShaderProgramPtr program = new ShaderProgram();
+	program->create(vs,fs);
 
-	if(!g_program->isValid())
+	if(!program->isValid())
 		return 0;
+	
+	g_material = new Material();
 
-	cub_texture = esCreateTextureFromTGA("media/cube.tga");
+	g_material->setShaderProgram(program).setTextureProperty("u_map","media/cube.tga").setTextureProperty("u_map2","media/cube2.tga");
+	g_material->updateShaderProperites();
 
 	glEnable(GL_DEPTH_TEST);	
 
 	return 1;
-}
+} 
 
 void LessonCube::draw()
 {
@@ -134,18 +138,13 @@ void LessonCube::draw()
 
 	//-------------------------------------------------
 
-	glUseProgram(g_program->getProgramObject());
-
-	g_program->setUniformMatrix4fv("u_mvpMatrix", matModelViewProjection);
-	g_program->setUniform("u_map", 1);//set the uniform to the desired texture unit
-
 	
-	
-	//bind the texture to an texture unit
-	glActiveTexture(GL_TEXTURE1);//just for illustration
-	glBindTexture(GL_TEXTURE_2D, cub_texture);
 
-	g_mesh->render(g_program);
+	g_material->getShaderProgram()->setUniformMatrix4fv("u_mvpMatrix", matModelViewProjection);
+	
+	g_material->apply();
+
+	g_mesh->render(g_material->getShaderProgram());
 
 	
 }

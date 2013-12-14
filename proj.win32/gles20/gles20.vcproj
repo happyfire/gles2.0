@@ -365,6 +365,14 @@
 						RelativePath="..\..\src\eslib\ShaderProgram.h"
 						>
 					</File>
+					<File
+						RelativePath="..\..\src\eslib\Texture.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\eslib\Texture.h"
+						>
+					</File>
 				</Filter>
 				<Filter
 					Name="win32"
