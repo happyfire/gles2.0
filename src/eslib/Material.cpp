@@ -56,7 +56,7 @@ Material& Material::setTexture(int textureUnit, const char* textureFile)
 	ESL_ASSERT(textureUnit>=1 && textureUnit<=k_maxTextureUnitNum);
 
 	if(textureUnit<=m_textures.size())
-	{
+	{	
 		m_textures[textureUnit-1] = new Texture();
 		m_textures[textureUnit-1]->create(textureFile);
 	}
@@ -92,7 +92,7 @@ void Material::updateShaderProperites()
 				break;
 			case MPT_TEXTURE_UNIT:
 				m_shaderProgram->setUniform(matP.mName.c_str(), matP.iValue);
-				glActiveTexture(GL_TEXTURE1+matP.iValue-1);//just for illustration
+				glActiveTexture(GL_TEXTURE0+matP.iValue-1);//just for illustration
 				glBindTexture(GL_TEXTURE_2D, m_textures[matP.iValue-1]->getTextureObject());
 				break;
 

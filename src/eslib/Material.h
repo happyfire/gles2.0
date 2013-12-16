@@ -15,7 +15,7 @@ ESL_FORWARD_PTR(Texture)
 
 //Material class
 
-static const int k_maxTextureUnitNum = 4;
+static const int k_maxTextureUnitNum = 8;
 
 enum MatPropertyType
 {
