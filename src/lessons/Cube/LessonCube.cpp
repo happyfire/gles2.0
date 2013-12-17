@@ -104,10 +104,15 @@ int LessonCube::onInit()
 	g_material->setShaderProgram(program).setTextureProperty("u_map","media/cube.tga").setTextureProperty("u_map2","media/cube2.tga");
 	g_material->updateShaderProperites();
 
-	glEnable(GL_DEPTH_TEST);	
+	glEnable(GL_DEPTH_TEST);
+    
+    int screenWidth = Application::GetScreenWidth();
+	int screenHeight = Application::GetScreenHeight();
 
 	return 1;
-} 
+}
+
+static ESMatrix matModelViewProjection;
 
 void LessonCube::draw()
 {
@@ -118,27 +123,9 @@ void LessonCube::draw()
 
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 
-	//----------- compute mvpMatrix ---------------------
-	static float rotation = 0.0f;
-	rotation += 0.1f;
-
-	ESMatrix matRotY, matRotX, matModelView, matProjection;
-	ESMatrix matModelViewProjection;
-
-	esMatrixRotateX(matRotX, -rotation * 0.25f);
-	esMatrixRotateY(matRotY, rotation);
-
-	esMatrixMultiply(matRotY, matRotX, matModelView);
-
-	esMatrixSetTranslate(matModelView, 0, 0, -3);
-
-	esMatrixPerspective(matProjection, 45.0f, 0.1f, 100.0f, (float)screenWidth/screenHeight);
-
-	esMatrixMultiply(matProjection, matModelView, matModelViewProjection);
+	
 
 	//-------------------------------------------------
-
-	
 
 	g_material->getShaderProgram()->setUniformMatrix4fv("u_mvpMatrix", matModelViewProjection);
 	
@@ -151,5 +138,26 @@ void LessonCube::draw()
 
 void LessonCube::update(float dt)
 {
-
+    int screenWidth = Application::GetScreenWidth();
+	int screenHeight = Application::GetScreenHeight();
+    
+    static float rotation = 0.0f;
+    rotation += 0.1f*dt*1000;
+    
+    //----------- compute mvpMatrix ---------------------
+	
+    
+	ESMatrix matRotY, matRotX, matModelView, matProjection;
+    
+	esMatrixRotateX(matRotX, -rotation * 0.25f);
+	esMatrixRotateY(matRotY, rotation);
+    
+	esMatrixMultiply(matRotY, matRotX, matModelView);
+    
+	esMatrixSetTranslate(matModelView, 0, 0, -3);
+    
+	esMatrixPerspective(matProjection, 45.0f, 0.1f, 100.0f, (float)screenWidth/screenHeight);
+    
+	esMatrixMultiply(matProjection, matModelView, matModelViewProjection);
 }
+

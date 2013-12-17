@@ -16,6 +16,7 @@
 		680785A3183F028B00092A29 /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 68078598183F028B00092A29 /* Shader.cpp */; };
 		680785A4183F028B00092A29 /* ShaderProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6807859A183F028B00092A29 /* ShaderProgram.cpp */; };
 		680785A9183F07D600092A29 /* ESLViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 680785A8183F07D600092A29 /* ESLViewController.mm */; };
+		6811D9A6185FE9D100154FC8 /* Texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6811D9A4185FE9D100154FC8 /* Texture.cpp */; };
 		68575EE0178BFF6E00DAC11F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68575EDF178BFF6E00DAC11F /* UIKit.framework */; };
 		68575EE2178BFF6E00DAC11F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68575EE1178BFF6E00DAC11F /* Foundation.framework */; };
 		68575EE4178BFF6E00DAC11F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68575EE3178BFF6E00DAC11F /* CoreGraphics.framework */; };
@@ -65,6 +66,8 @@
 		6807859C183F028B00092A29 /* sharedPtr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sharedPtr.h; sourceTree = "<group>"; };
 		680785A7183F07D600092A29 /* ESLViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESLViewController.h; sourceTree = "<group>"; };
 		680785A8183F07D600092A29 /* ESLViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ESLViewController.mm; sourceTree = "<group>"; };
+		6811D9A4185FE9D100154FC8 /* Texture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Texture.cpp; sourceTree = "<group>"; };
+		6811D9A5185FE9D100154FC8 /* Texture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Texture.h; sourceTree = "<group>"; };
 		68575EDC178BFF6E00DAC11F /* glesworld.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = glesworld.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		68575EDF178BFF6E00DAC11F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		68575EE1178BFF6E00DAC11F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -123,6 +126,8 @@
 		68078587183F028B00092A29 /* eslib */ = {
 			isa = PBXGroup;
 			children = (
+				6811D9A4185FE9D100154FC8 /* Texture.cpp */,
+				6811D9A5185FE9D100154FC8 /* Texture.h */,
 				68E8D7C01842F88100AD1EBA /* Device.h */,
 				68E8D78C1842E4CE00AD1EBA /* Application.cpp */,
 				68E8D78D1842E4CE00AD1EBA /* Application.h */,
@@ -349,6 +354,7 @@
 				6807859F183F028B00092A29 /* Logger.cpp in Sources */,
 				680785A0183F028B00092A29 /* Material.cpp in Sources */,
 				680785A1183F028B00092A29 /* Mesh.cpp in Sources */,
+				6811D9A6185FE9D100154FC8 /* Texture.cpp in Sources */,
 				680785A2183F028B00092A29 /* Renderer.cpp in Sources */,
 				680785A3183F028B00092A29 /* Shader.cpp in Sources */,
 				680785A4183F028B00092A29 /* ShaderProgram.cpp in Sources */,
