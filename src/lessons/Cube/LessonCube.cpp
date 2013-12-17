@@ -10,7 +10,7 @@
 USING_NS_ESLIB
 
 
-static GLuint cub_texture;
+static ESMatrix g_matProjection, g_matModelViewProjection;
 
 static MaterialPtr g_material;
 static GeometryPtr g_mesh;
@@ -108,11 +108,13 @@ int LessonCube::onInit()
     
     int screenWidth = Application::GetScreenWidth();
 	int screenHeight = Application::GetScreenHeight();
+    
+    esMatrixPerspective(g_matProjection, 45.0f, 0.1f, 100.0f, (float)screenWidth/screenHeight);
 
 	return 1;
 }
 
-static ESMatrix matModelViewProjection;
+
 
 void LessonCube::draw()
 {
@@ -127,7 +129,7 @@ void LessonCube::draw()
 
 	//-------------------------------------------------
 
-	g_material->getShaderProgram()->setUniformMatrix4fv("u_mvpMatrix", matModelViewProjection);
+	g_material->getShaderProgram()->setUniformMatrix4fv("u_mvpMatrix", g_matModelViewProjection);
 	
 	g_material->apply();
 
@@ -138,16 +140,13 @@ void LessonCube::draw()
 
 void LessonCube::update(float dt)
 {
-    int screenWidth = Application::GetScreenWidth();
-	int screenHeight = Application::GetScreenHeight();
-    
     static float rotation = 0.0f;
     rotation += 0.1f*dt*1000;
     
     //----------- compute mvpMatrix ---------------------
 	
     
-	ESMatrix matRotY, matRotX, matModelView, matProjection;
+	ESMatrix matRotY, matRotX, matModelView;
     
 	esMatrixRotateX(matRotX, -rotation * 0.25f);
 	esMatrixRotateY(matRotY, rotation);
@@ -156,8 +155,6 @@ void LessonCube::update(float dt)
     
 	esMatrixSetTranslate(matModelView, 0, 0, -3);
     
-	esMatrixPerspective(matProjection, 45.0f, 0.1f, 100.0f, (float)screenWidth/screenHeight);
-    
-	esMatrixMultiply(matProjection, matModelView, matModelViewProjection);
+	esMatrixMultiply(g_matProjection, matModelView, g_matModelViewProjection);
 }
 

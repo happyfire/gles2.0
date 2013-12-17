@@ -81,7 +81,6 @@ USING_NS_ESLIB
     [EAGLContext setCurrentContext:self.context];
     glEnable(GL_DEPTH_TEST);
 
-    Application::init();
 }
 
 - (void)tearDownGL
@@ -105,6 +104,8 @@ USING_NS_ESLIB
     {
         Application::SetScreenSize(view.drawableWidth, view.drawableHeight);
         hasSetSize = true;
+        
+        Application::init();
     }
     
     Application::render();
