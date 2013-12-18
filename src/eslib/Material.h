@@ -54,11 +54,13 @@ public:
 	Material();
 	virtual ~Material();
 
+	Material& setShaderProgramFromFile(const char* vsFile, const char* fsFile);
+	Material& setShaderProgramFromSource(const char* vsSrc, const char* fsSrc);
 	Material& setShaderProgram(const ShaderProgramPtr& program);
 	Material& setProperty(const std::string& name, const MaterialProperty& property);
 	Material& setTextureProperty(const std::string& propertyName, const char* textureFile);
 
-	Material& setTexture(int textureUnit, const char* textureFile);
+	Material& setTexture(unsigned int textureUnit, const char* textureFile);
 
 	void updateShaderProperites();
 

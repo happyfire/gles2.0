@@ -1,6 +1,7 @@
 #include "Material.h"
-#include "ShaderProgram.h"
-#include "Texture.h"
+#include "eslib/ShaderProgram.h"
+#include "eslib/Texture.h"
+#include "eslib/Shader.h"
 #include "esUtil/esUtil.h"
 
 NS_ESLIB_BEGIN
@@ -12,6 +13,33 @@ Material::Material()
 Material::~Material()
 {
 	m_properties.clear();
+}
+
+Material& Material::setShaderProgramFromFile(const char* vsFile, const char* fsFile)
+{
+	char* vsSrc = 0;
+	esLoadFile(vsFile, &vsSrc);
+
+	char* fsSrc = 0;
+	esLoadFile(fsFile, &fsSrc);
+
+	return setShaderProgramFromSource(vsSrc, fsSrc);
+}
+
+Material& Material::setShaderProgramFromSource(const char* vsSrc, const char* fsSrc)
+{
+	ShaderPtr vs = new Shader();
+	vs->create(GL_VERTEX_SHADER, vsSrc);
+
+	ShaderPtr fs = new Shader();
+	fs->create(GL_FRAGMENT_SHADER, fsSrc);
+
+	m_shaderProgram = new ShaderProgram();
+	m_shaderProgram->create(vs,fs);
+
+	ESL_ASSERT(m_shaderProgram->isValid());
+
+	return *this;
 }
 
 Material& Material::setShaderProgram(const ShaderProgramPtr& program)
@@ -51,7 +79,7 @@ Material& Material::setTextureProperty(const std::string& propertyName, const ch
 	return *this;
 }
 
-Material& Material::setTexture(int textureUnit, const char* textureFile)
+Material& Material::setTexture(unsigned int textureUnit, const char* textureFile)
 {
 	ESL_ASSERT(textureUnit>=1 && textureUnit<=k_maxTextureUnitNum);
 

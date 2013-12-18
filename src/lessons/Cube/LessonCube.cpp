@@ -3,6 +3,7 @@
 #include "eslib/ShaderProgram.h"
 #include "eslib/Geometry.h"
 #include "eslib/Material.h"
+#include "eslib/Mesh.h"
 #include "esUtil/esUtil.h"
 
 #include "LessonCube.h"
@@ -12,8 +13,7 @@ USING_NS_ESLIB
 
 static ESMatrix g_matProjection, g_matModelViewProjection;
 
-static MaterialPtr g_material;
-static GeometryPtr g_mesh;
+static MeshPtr g_mesh;
 
 int LessonCube::onInit()
 {
@@ -60,49 +60,19 @@ int LessonCube::onInit()
 		18, 19, 16,
 	};
 
-	g_mesh = new Geometry();
+	g_mesh = new Mesh();
 
-	std::vector<const VertexAttribute*> meshAttributes;
-	VertexAttribute attributePos;
-	attributePos.ElementCount = 3;
-	attributePos.Name = "a_position";
-	meshAttributes.push_back(&attributePos);
-
-	VertexAttribute attributeTexcoord;
-	attributeTexcoord.ElementCount = 2;
-	attributeTexcoord.Name = "a_texCoord";
-	meshAttributes.push_back(&attributeTexcoord);
-
-	g_mesh->create(meshAttributes, 20, 36, true);
-	g_mesh->appendVertexData(0, cubeStructure, sizeof(cubeStructure));
-	g_mesh->appendIndexData(cubeIndices, sizeof(cubeIndices));
+	GeometryPtr geometry = g_mesh->createEmpty(MVF_POS_3F|MVF_TCOORD_2F, 20, 36, true);
+	geometry->appendVertexData(0, cubeStructure, sizeof(cubeStructure));
+	geometry->appendIndexData(cubeIndices, sizeof(cubeIndices));
 
 
-	//create shaders
+	//create material
+	MaterialPtr material = new Material();
+	material->setShaderProgramFromFile("media/texture.vs","media/texture.fs").setTextureProperty("u_map","media/cube.tga").setTextureProperty("u_map2","media/cube2.tga");
+	material->updateShaderProperites();
 
-	char* vsSrc = 0;
-	esLoadFile("media/texture.vs", &vsSrc);
-
-	char* fsSrc = 0;
-	esLoadFile("media/texture.fs", &fsSrc);
-
-
-	ShaderPtr vs = new Shader();
-	vs->create(GL_VERTEX_SHADER, (const char*)vsSrc);
-
-	ShaderPtr fs = new Shader();
-	fs->create(GL_FRAGMENT_SHADER, (const char*)fsSrc);
-
-	ShaderProgramPtr program = new ShaderProgram();
-	program->create(vs,fs);
-
-	if(!program->isValid())
-		return 0;
-	
-	g_material = new Material();
-
-	g_material->setShaderProgram(program).setTextureProperty("u_map","media/cube.tga").setTextureProperty("u_map2","media/cube2.tga");
-	g_material->updateShaderProperites();
+	g_mesh->setMaterial(material);
 
 	glEnable(GL_DEPTH_TEST);
     
@@ -129,11 +99,9 @@ void LessonCube::draw()
 
 	//-------------------------------------------------
 
-	g_material->getShaderProgram()->setUniformMatrix4fv("u_mvpMatrix", g_matModelViewProjection);
+	g_mesh->setTransform(g_matModelViewProjection);
 	
-	g_material->apply();
-
-	g_mesh->render(g_material->getShaderProgram());
+	g_mesh->render();
 
 	
 }

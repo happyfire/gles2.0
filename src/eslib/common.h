@@ -80,7 +80,6 @@ NS_ESLIB_END
 #define ESL_SAFE_DEL(p)					do{ if (p) { delete (p); p = null; } }while(false)
 #define ESL_SAFE_DEL_ARRAY(p)			do{ if (p) { delete[] (p); p = null; } }while(false)
 
-
 /// Use this define to forward declare a class and its smart pointer.
 #define ESL_FORWARD_PTR(className)                        \
 class className;                                      \
