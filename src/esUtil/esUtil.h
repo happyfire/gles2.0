@@ -55,6 +55,8 @@ GLuint esCreateTextureFromTGA(const char* tgaFilePath);
 /// File
 size_t esLoadFile(const char* pFilename, char** pData);
 
+FILE* esOpenFile(const char* pFilename);
+
 inline bool esTestFlag(int value, int flag)
 {
 	return (value&flag)!=0;

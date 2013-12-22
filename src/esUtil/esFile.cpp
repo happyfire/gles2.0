@@ -5,6 +5,16 @@
 
 USING_NS_ESLIB;
 
+FILE* esOpenFile(const char* pFilename)
+{
+	stringc path = Device::getInstance().getReadFilePath();
+	path+=pFilename;
+
+	FILE* pFile = fopen(path.c_str(), "rb");
+	return pFile;
+
+}
+
 size_t esLoadFile(const char* pFilename, char** pData)
 {
 	size_t size = 0;

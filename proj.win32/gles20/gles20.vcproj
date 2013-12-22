@@ -226,6 +226,26 @@
 						>
 					</File>
 				</Filter>
+				<Filter
+					Name="MD2"
+					>
+					<File
+						RelativePath="..\..\src\lessons\MD2\LessonMD2.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\lessons\MD2\LessonMD2.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\lessons\MD2\MD2MeshLoader.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\lessons\MD2\MD2MeshLoader.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="esUtil"
