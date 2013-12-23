@@ -39,17 +39,6 @@ struct MD2Frame
 	float m_translate[3];  
 	char m_name[16];  
 	MD2Vert * m_pVerts;
-	
-	MD2Frame()  
-	{  
-		m_pVerts = 0;  
-	}  
-	
-	~MD2Frame()  
-	{  
-//		if(m_pVerts)  
-//			delete [] m_pVerts;  
-	}
 }; 
 
 struct MD2Tri  
@@ -97,7 +86,7 @@ bool loadMD2Model(const char* md2File, MD2Model &mdl)
     
     mdl.m_skins = new MD2Skin[mdl.m_header.m_numSkins];
     mdl.m_texCoords = new MD2TexCoord[mdl.m_header.m_numTexCoords];
-    mdl.m_triangles = new MD2Tri[mdl.m_header.m_numTexCoords];
+    mdl.m_triangles = new MD2Tri[mdl.m_header.m_numTriangles];
     mdl.m_frames = new MD2Frame[mdl.m_header.m_numFrames];
     
     fseek(file, mdl.m_header.m_offsetSkins, SEEK_SET);
@@ -173,16 +162,16 @@ MeshPtr MD2MeshLoader::load(const char* md2File, const char* textureFile)
         
         int vertexNum = mdl.m_header.m_numVertices;
     
-        float* vertexPos = new float[vertexNum*3];
+        GLfloat* vertexPos = new GLfloat[vertexNum*3];
         for (int i=0; i<vertexNum; i+=3)
         {
             MD2Frame* frame = &mdl.m_frames[0];
-            vertexPos[i*3] = (frame->m_pVerts[i].v[0] * frame->m_scale[0]) + frame->m_translate[0];
-            vertexPos[i*3+1] = (frame->m_pVerts[i].v[1] * frame->m_scale[1]) + frame->m_translate[1];
-            vertexPos[i*3+2] = (frame->m_pVerts[i].v[2] * frame->m_scale[2]) + frame->m_translate[2];
+            vertexPos[i] = (frame->m_pVerts[i].v[0] * frame->m_scale[0]) + frame->m_translate[0];
+            vertexPos[i+1] = (frame->m_pVerts[i].v[1] * frame->m_scale[1]) + frame->m_translate[1];
+            vertexPos[i+2] = (frame->m_pVerts[i].v[2] * frame->m_scale[2]) + frame->m_translate[2];
         }
         
-        geometry->appendVertexData(0, vertexPos, sizeof(vertexPos));
+        geometry->appendVertexData(0, vertexPos, sizeof(GLfloat)*vertexNum*3);
         
         GLfloat* uvs = new GLfloat[vertexNum*2];
         GLushort* indices = new GLushort[triNum*3];
@@ -199,9 +188,9 @@ MeshPtr MD2MeshLoader::load(const char* md2File, const char* textureFile)
             }
         }
         
-        geometry->appendVertexData(1, uvs, sizeof(uvs));
+        geometry->appendVertexData(1, uvs, sizeof(GLfloat)*vertexNum*2);
         
-        geometry->appendIndexData(indices, sizeof(indices));
+        geometry->appendIndexData(indices, sizeof(GLushort)*triNum*3);
         
         //create material
         MaterialPtr material = new Material();
@@ -210,7 +199,8 @@ MeshPtr MD2MeshLoader::load(const char* md2File, const char* textureFile)
         
         mesh->setMaterial(material);
 
-
+		delete[] uvs;
+		delete[] indices;
         
         freeMD2Model(mdl);
         

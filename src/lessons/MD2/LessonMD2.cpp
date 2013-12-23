@@ -29,7 +29,7 @@ int LessonMD2::onInit()
     int screenWidth = Application::GetScreenWidth();
 	int screenHeight = Application::GetScreenHeight();
     
-    esMatrixPerspective(g_matProjection, 45.0f, 0.1f, 100.0f, (float)screenWidth/screenHeight);
+    esMatrixPerspective(g_matProjection, 45.0f, 0.1f, 1000.0f, (float)screenWidth/screenHeight);
 
 	return 1;
 }
@@ -71,7 +71,7 @@ void LessonMD2::update(float dt)
     
 	esMatrixMultiply(matRotY, matRotX, matModelView);
     
-	esMatrixSetTranslate(matModelView, 0, 0, -3);
+	esMatrixSetTranslate(matModelView, 0, 0, -200);
     
 	esMatrixMultiply(g_matProjection, matModelView, g_matModelViewProjection);
 }
