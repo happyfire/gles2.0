@@ -16,26 +16,38 @@ Mesh::~Mesh()
 
 }
 
-GeometryPtr Mesh::createEmpty(int vertexFlag, int vertexCount, int indexCount, bool useVBO)
+GeometryPtr Mesh::createEmpty(int vertexFlag, int vertexCount, int indexCount, bool useVBO, bool multiStream)
 {
 	m_geometry = new Geometry();
 
 	std::vector<const VertexAttribute*> meshAttributes;
+    
+    int streamID = 0;
 
 	VertexAttribute attributePos;
 	if(esTestFlag(vertexFlag,MVF_POS_3F))
 	{
 		attributePos.ElementCount = 3;
+        attributePos.VertexStreamID = streamID;
 		attributePos.Name = "a_position";
 		meshAttributes.push_back(&attributePos);
+        
+        if(multiStream){
+            streamID++;
+        }
 	}
 	
 	VertexAttribute attributeTexcoord;
 	if(esTestFlag(vertexFlag,MVF_TCOORD_2F))
 	{
 		attributeTexcoord.ElementCount = 2;
+        attributeTexcoord.VertexStreamID = streamID;
 		attributeTexcoord.Name = "a_texCoord";
 		meshAttributes.push_back(&attributeTexcoord);
+        
+        if(multiStream){
+            streamID++;
+        }
 	}
 	
 

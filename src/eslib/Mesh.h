@@ -25,7 +25,7 @@ public:
 	Mesh();
 	virtual ~Mesh();
 
-	GeometryPtr createEmpty(int vertexFlag, int vertexCount, int indexCount, bool useVBO=true);
+	GeometryPtr createEmpty(int vertexFlag, int vertexCount, int indexCount, bool useVBO=true, bool multiStream=false);
 	void setMaterial(const MaterialPtr& material);
 
 	void setTransform(const ESMatrix &transform);

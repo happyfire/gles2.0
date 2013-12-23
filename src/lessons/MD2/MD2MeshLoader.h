@@ -8,7 +8,7 @@ class MD2MeshLoader
 {
 public:
 	MD2MeshLoader();
-	eslib::MeshPtr load(const char* md2File);
+	eslib::MeshPtr load(const char* md2File, const char* textureFile);
 };
 
 #endif

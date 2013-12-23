@@ -22,62 +22,7 @@ int LessonMD2::onInit()
 
 	MD2MeshLoader md2Loader;
 
-	md2Loader.load("media/test.MD2");
-
-	//create buffer objects
-	GLfloat cubeStructure[]=
-	{
-		0.50, -0.50, -0.50, -0.00, 0.00,
-		0.50, -0.50, 0.50, 0.33, 0.00,
-		-0.50, -0.50, 0.50, 0.33, 0.33,
-		-0.50, -0.50, -0.50, -0.00, 0.33,
-		0.50, 0.50, -0.50, 0.67, 0.33,
-		0.50, -0.50, -0.50, 0.33, 0.33,
-		-0.50, -0.50, -0.50, 0.33, 0.00,
-		-0.50, 0.50, -0.50, 0.67, 0.00,
-		0.50, 0.50, 0.50, 0.67, 0.67,
-		0.50, -0.50, 0.50, 0.33, 0.67,
-		-0.50, 0.50, 0.50, 0.67, 1.00,
-		-0.50, -0.50, 0.50, 0.33, 1.00,
-		-0.50, 0.50, -0.50, 0.33, 1.00,
-		-0.50, -0.50, -0.50, -0.00, 1.00,
-		-0.50, -0.50, 0.50, -0.00, 0.67,
-		-0.50, 0.50, 0.50, 0.33, 0.67,
-		-0.50, 0.50, 0.50, -0.00, 0.67,
-		0.50, 0.50, 0.50, -0.00, 0.33,
-		0.50, 0.50, -0.50, 0.33, 0.33,
-		-0.50, 0.50, -0.50, 0.33, 0.67,
-	};
-
-	GLushort cubeIndices[]=
-	{
-		0, 1, 2,
-		2, 3, 0,
-		4, 5, 6,
-		6, 7, 4,
-		8, 9, 5,
-		5, 4, 8,
-		10, 11, 9,
-		9, 8, 10,
-		12, 13, 14,
-		14, 15, 12,
-		16, 17, 18,
-		18, 19, 16,
-	};
-
-	g_mesh = new Mesh();
-
-	GeometryPtr geometry = g_mesh->createEmpty(MVF_POS_3F|MVF_TCOORD_2F, 20, 36, true);
-	geometry->appendVertexData(0, cubeStructure, sizeof(cubeStructure));
-	geometry->appendIndexData(cubeIndices, sizeof(cubeIndices));
-
-
-	//create material
-	MaterialPtr material = new Material();
-	material->setShaderProgramFromFile("media/texture.vs","media/texture.fs").setTextureProperty("u_map","media/cube.tga").setTextureProperty("u_map2","media/cube2.tga");
-	material->updateShaderProperites();
-
-	g_mesh->setMaterial(material);
+	g_mesh = md2Loader.load("media/test.MD2","media/cube.tga");
 
 	glEnable(GL_DEPTH_TEST);
     
