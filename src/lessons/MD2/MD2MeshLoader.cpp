@@ -163,12 +163,12 @@ MeshPtr MD2MeshLoader::load(const char* md2File, const char* textureFile)
         int vertexNum = mdl.m_header.m_numVertices;
     
         GLfloat* vertexPos = new GLfloat[vertexNum*3];
-        for (int i=0; i<vertexNum; i+=3)
+        for (int i=0,p=0; i<vertexNum; i++,p+=3)
         {
             MD2Frame* frame = &mdl.m_frames[0];
-            vertexPos[i] = (frame->m_pVerts[i].v[0] * frame->m_scale[0]) + frame->m_translate[0];
-            vertexPos[i+1] = (frame->m_pVerts[i].v[1] * frame->m_scale[1]) + frame->m_translate[1];
-            vertexPos[i+2] = (frame->m_pVerts[i].v[2] * frame->m_scale[2]) + frame->m_translate[2];
+            vertexPos[p] = (frame->m_pVerts[i].v[0] * frame->m_scale[0]) + frame->m_translate[0];
+            vertexPos[p+1] = (frame->m_pVerts[i].v[1] * frame->m_scale[1]) + frame->m_translate[1];
+            vertexPos[p+2] = (frame->m_pVerts[i].v[2] * frame->m_scale[2]) + frame->m_translate[2];
         }
         
         geometry->appendVertexData(0, vertexPos, sizeof(GLfloat)*vertexNum*3);
@@ -181,7 +181,7 @@ MeshPtr MD2MeshLoader::load(const char* md2File, const char* textureFile)
             MD2Tri* tri = &mdl.m_triangles[i];
             for(int j=0; j<3; j++)
             {
-                int vertexIndex = tri->m_vertIndices[j];
+                GLushort vertexIndex = tri->m_vertIndices[j];
                 indices[i*3+j] = vertexIndex;
                 uvs[vertexIndex*2] = (GLfloat)mdl.m_texCoords[tri->m_texIndices[j]].u / mdl.m_header.m_skinWidth;
                 uvs[vertexIndex*2+1] = (GLfloat)mdl.m_texCoords[tri->m_texIndices[j]].v / mdl.m_header.m_skinHeight;

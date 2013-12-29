@@ -22,7 +22,7 @@ int LessonMD2::onInit()
 
 	MD2MeshLoader md2Loader;
 
-	g_mesh = md2Loader.load("media/test.MD2","media/cube.tga");
+	g_mesh = md2Loader.load("media/tris.MD2","media/tris.tga");
 
 	glEnable(GL_DEPTH_TEST);
     
@@ -66,7 +66,7 @@ void LessonMD2::update(float dt)
     
 	ESMatrix matRotY, matRotX, matModelView;
     
-	esMatrixRotateX(matRotX, -rotation * 0.25f);
+	esMatrixRotateX(matRotX, 3.1415926/2);
 	esMatrixRotateY(matRotY, rotation);
     
 	esMatrixMultiply(matRotY, matRotX, matModelView);
