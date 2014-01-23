@@ -9,7 +9,9 @@
 
 #elif defined(TARGET_OS_IPHONE) || defined(TARGET_IPHONE_SIMULATOR) //Note:these are defined in a header file, not by compile, so when used in a project not include header file, you should define ES_DEVICE_IOS in build setting.
 
+#ifndef ESL_DEVICE_IOS
 #define ESL_DEVICE_IOS
+#endif
 
 #else
 
