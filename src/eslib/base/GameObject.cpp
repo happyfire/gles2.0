@@ -29,8 +29,7 @@ GameObject::GameObject(const GameObject& rhs)
     CompTable::iterator iter;
     for(iter=components.begin(); iter!=components.end(); ++iter)
     {
-        Component* comp = NULL;
-        //Component* comp = new Component(*(iter->second)); //TODO: use a component factory to copy concreate component
+        Component* comp = iter->second->clone();
         Component* old = setComponent(comp);
         if(old!=NULL)
         {
@@ -51,8 +50,7 @@ GameObject& GameObject::operator=(const GameObject& rhs)
     CompTable::iterator iter;
     for(iter=components.begin(); iter!=components.end(); ++iter)
     {
-        Component* comp = NULL;
-        //Component* comp = new Component(*(iter->second)); //TODO: use a component factory to copy concreate component
+        Component* comp = iter->second->clone();
         Component* old = setComponent(comp);
         if(old!=NULL)
         {

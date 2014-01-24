@@ -19,6 +19,8 @@ public:
     Component(const Component& rhs);
     Component& operator=(const Component& rhs);
     
+    virtual Component* clone() const = 0;
+    
     virtual const CompIDType& getFamilyID() const = 0;
     
 	virtual const CompIDType& getComponentID() const = 0;
