@@ -6,6 +6,10 @@
 #include "eslib/Mesh.h"
 #include "esUtil/esUtil.h"
 
+#include "eslib/base/GameObject.h"
+#include "eslib/base/Component.h"
+#include "eslib/components/MeshRenderer.h"
+
 #include "LessonMD2.h"
 #include "MD2MeshLoader.h"
 
@@ -14,15 +18,21 @@ USING_NS_ESLIB
 
 static ESMatrix g_matProjection, g_matModelViewProjection;
 
-static MeshPtr g_mesh;
+//static MeshPtr g_mesh;
+
+static GameObjectPtr g_obj;
 
 int LessonMD2::onInit()
 {
 	glClearColor(0.3f, 0.3f, 0.3f, 0.0f);
-
-	MD2MeshLoader md2Loader;
-
-	g_mesh = md2Loader.load("media/tris.MD2","media/tris.tga");
+    
+    MD2MeshLoader md2Loader;
+	MeshPtr mesh = md2Loader.load("media/tris.MD2","media/tris.tga");
+    
+    g_obj = new GameObject();
+    MeshRenderer* mesh_renderer = new MeshRenderer();
+    mesh_renderer->setMesh(mesh);
+    g_obj->setComponent(mesh_renderer);
 
 	glEnable(GL_DEPTH_TEST);
     
@@ -48,12 +58,10 @@ void LessonMD2::draw()
 	
 
 	//-------------------------------------------------
-
-	g_mesh->setTransform(g_matModelViewProjection);
-	
-	g_mesh->render();
-
-	
+    
+    MeshRenderer* mesh_renderer = static_cast<MeshRenderer*>(g_obj->getComponent("MeshRenderer"));
+    mesh_renderer->getMesh()->setTransform(g_matModelViewProjection); //TODO: move transform to Transform component
+    mesh_renderer->render(); //TODO: add a IRenderer componenet interface
 }
 
 void LessonMD2::update(float dt)

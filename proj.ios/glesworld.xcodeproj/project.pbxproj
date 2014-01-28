@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		680539AF1897B489009317D0 /* MeshRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 680539AD1897B489009317D0 /* MeshRenderer.cpp */; };
 		6807859D183F028B00092A29 /* BaseObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 68078588183F028B00092A29 /* BaseObject.cpp */; };
 		6807859E183F028B00092A29 /* Geometry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6807858C183F028B00092A29 /* Geometry.cpp */; };
 		6807859F183F028B00092A29 /* Logger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 68078590183F028B00092A29 /* Logger.cpp */; };
@@ -47,6 +48,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		680539AD1897B489009317D0 /* MeshRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MeshRenderer.cpp; sourceTree = "<group>"; };
+		680539AE1897B489009317D0 /* MeshRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeshRenderer.h; sourceTree = "<group>"; };
 		68078588183F028B00092A29 /* BaseObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BaseObject.cpp; sourceTree = "<group>"; };
 		68078589183F028B00092A29 /* BaseObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseObject.h; sourceTree = "<group>"; };
 		6807858A183F028B00092A29 /* common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
@@ -135,9 +138,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		680539AC1897B489009317D0 /* components */ = {
+			isa = PBXGroup;
+			children = (
+				680539AD1897B489009317D0 /* MeshRenderer.cpp */,
+				680539AE1897B489009317D0 /* MeshRenderer.h */,
+			);
+			path = components;
+			sourceTree = "<group>";
+		};
 		68078587183F028B00092A29 /* eslib */ = {
 			isa = PBXGroup;
 			children = (
+				680539AC1897B489009317D0 /* components */,
 				68B71E771890C58700647994 /* base */,
 				6811D9A4185FE9D100154FC8 /* Texture.cpp */,
 				6811D9A5185FE9D100154FC8 /* Texture.h */,
@@ -408,6 +421,7 @@
 				68E8D7AF1842F1D600AD1EBA /* LessonDelegate.cpp in Sources */,
 				6861C2C41867D83B0064D0EF /* MD2MeshLoader.cpp in Sources */,
 				6861C2C31867D83B0064D0EF /* LessonMD2.cpp in Sources */,
+				680539AF1897B489009317D0 /* MeshRenderer.cpp in Sources */,
 				68E8D7B01842F1D600AD1EBA /* LessonFactory.cpp in Sources */,
 				68E8D7C31842F95300AD1EBA /* IOSDevice.mm in Sources */,
 			);
