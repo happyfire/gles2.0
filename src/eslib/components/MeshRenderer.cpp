@@ -3,6 +3,8 @@
 
 NS_ESLIB_BEGIN
 
+static CompIDType sCompID = "MeshRenderer";
+
 MeshRenderer::MeshRenderer()
 {
 }
@@ -34,14 +36,6 @@ Component* MeshRenderer::clone() const
     return newComp;
 }
 
-static CompIDType sFamilyID = "MeshRenderer";
-static CompIDType sCompID = "MeshRenderer";
-
-const CompIDType& MeshRenderer::getFamilyID() const
-{
-    return sFamilyID;
-}
-
 const CompIDType& MeshRenderer::getComponentID() const
 {
     return sCompID;
@@ -53,14 +47,12 @@ void MeshRenderer::update()
     
 }
 
-void MeshRenderer::setMesh(MeshPtr mesh)
+void MeshRenderer::setTransform(const ESMatrix &transform)
 {
-    m_mesh = mesh;
-}
-
-MeshPtr MeshRenderer::getMesh()
-{
-    return m_mesh;
+	if(m_mesh.isValid())
+	{
+		m_mesh->setTransform(transform);
+	}
 }
 
 void MeshRenderer::render()
@@ -68,5 +60,14 @@ void MeshRenderer::render()
     m_mesh->render();
 }
 
+void MeshRenderer::setMesh(MeshPtr mesh)
+{
+	m_mesh = mesh;
+}
+
+MeshPtr MeshRenderer::getMesh()
+{
+	return m_mesh;
+}
 
 NS_ESLIB_END

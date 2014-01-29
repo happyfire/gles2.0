@@ -3,14 +3,15 @@
 
 #include "eslib/common.h"
 #include "eslib/SharedPtr.h"
-#include "eslib/base/Component.h"
+#include "eslib/components/IRenderer.h"
+#include "esUtil/esUtil.h"
 
 NS_ESLIB_BEGIN
 
 ESL_FORWARD_PTR(Mesh)
 
 
-class MeshRenderer: public Component
+class MeshRenderer: public IRenderer
 {
 public:
     MeshRenderer();
@@ -21,16 +22,18 @@ public:
     
     virtual Component* clone() const;
     
-    virtual const CompIDType& getFamilyID() const;
-    
 	virtual const CompIDType& getComponentID() const;
 	
 	virtual void update();
     
 public:
-    void setMesh(MeshPtr mesh);
-    MeshPtr getMesh();
-    void render();
+	virtual void setTransform(const ESMatrix &transform);
+    virtual void render();
+
+public:
+	void setMesh(MeshPtr mesh);
+	MeshPtr getMesh();
+
     
 private:
     MeshPtr m_mesh;

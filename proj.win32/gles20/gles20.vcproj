@@ -410,6 +410,54 @@
 						>
 					</File>
 				</Filter>
+				<Filter
+					Name="base"
+					>
+					<File
+						RelativePath="..\..\src\eslib\base\Component.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\eslib\base\Component.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\eslib\base\GameObject.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\eslib\base\GameObject.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="components"
+					>
+					<File
+						RelativePath="..\..\src\eslib\components\IRenderer.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\eslib\components\IRenderer.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\eslib\components\MeshRenderer.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\eslib\components\MeshRenderer.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\eslib\components\Transform.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\eslib\components\Transform.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 		</Filter>
 	</Files>

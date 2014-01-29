@@ -8,6 +8,7 @@
 
 #include "eslib/base/GameObject.h"
 #include "eslib/base/Component.h"
+#include "eslib/components/Transform.h"
 #include "eslib/components/MeshRenderer.h"
 
 #include "LessonMD2.h"
@@ -16,9 +17,7 @@
 USING_NS_ESLIB
 
 
-static ESMatrix g_matProjection, g_matModelViewProjection;
-
-//static MeshPtr g_mesh;
+static ESMatrix g_matProjection;
 
 static GameObjectPtr g_obj;
 
@@ -30,9 +29,12 @@ int LessonMD2::onInit()
 	MeshPtr mesh = md2Loader.load("media/tris.MD2","media/tris.tga");
     
     g_obj = new GameObject();
+	Transform* transform = new Transform();
+	g_obj->addComponent(transform);
     MeshRenderer* mesh_renderer = new MeshRenderer();
     mesh_renderer->setMesh(mesh);
-    g_obj->setComponent(mesh_renderer);
+    g_obj->addComponent(mesh_renderer);
+	g_obj->setup();
 
 	glEnable(GL_DEPTH_TEST);
     
@@ -59,9 +61,7 @@ void LessonMD2::draw()
 
 	//-------------------------------------------------
     
-    MeshRenderer* mesh_renderer = static_cast<MeshRenderer*>(g_obj->getComponent("MeshRenderer"));
-    mesh_renderer->getMesh()->setTransform(g_matModelViewProjection); //TODO: move transform to Transform component
-    mesh_renderer->render(); //TODO: add a IRenderer componenet interface
+	g_obj->render();
 }
 
 void LessonMD2::update(float dt)
@@ -72,7 +72,7 @@ void LessonMD2::update(float dt)
     //----------- compute mvpMatrix ---------------------
 	
     
-	ESMatrix matRotY, matRotX, matModelView;
+	ESMatrix matRotY, matRotX, matModelView, matMVP;
     
 	esMatrixRotateX(matRotX, 3.1415926/2);
 	esMatrixRotateY(matRotY, rotation);
@@ -81,6 +81,8 @@ void LessonMD2::update(float dt)
     
 	esMatrixSetTranslate(matModelView, 0, 0, -200);
     
-	esMatrixMultiply(g_matProjection, matModelView, g_matModelViewProjection);
+	esMatrixMultiply(g_matProjection, matModelView, matMVP);
+
+	g_obj->getTransform()->setMVPMatrix(matMVP);
 }
 

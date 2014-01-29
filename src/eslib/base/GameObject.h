@@ -9,6 +9,9 @@ NS_ESLIB_BEGIN
 
 ESL_FORWARD_PTR(GameObject)
 
+class Transform;
+class IRenderer;
+
 class GameObject: public BaseObject
 {
 public:
@@ -22,9 +25,15 @@ public:
 
     Component* getComponent(const CompIDType& familyID);
     
-    Component* setComponent(Component* newComp);
+    Component* addComponent(Component* newComp);
     
     void clearComponents();
+
+	void setup();
+
+	Transform* getTransform();
+
+	void render();
     
 protected:
     int m_id;
@@ -33,6 +42,9 @@ protected:
     CompTable m_components;
     
     static int sAutoIDLast;
+
+	Transform* m_transform;
+	IRenderer* m_renderer;
 };
 
 

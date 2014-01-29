@@ -1,5 +1,7 @@
 #include "eslib/base/Component.h"
 #include "eslib/base/GameObject.h"
+#include "eslib/components/Transform.h"
+#include "eslib/components/IRenderer.h"
 
 
 NS_ESLIB_BEGIN
@@ -8,6 +10,8 @@ int GameObject::sAutoIDLast = 1;
 
 GameObject::GameObject()
     :BaseObject()
+	,m_transform(NULL)
+	,m_renderer(NULL)
 {
     m_id = sAutoIDLast;
     sAutoIDLast++;
@@ -30,7 +34,7 @@ GameObject::GameObject(const GameObject& rhs)
     for(iter=components.begin(); iter!=components.end(); ++iter)
     {
         Component* comp = iter->second->clone();
-        Component* old = setComponent(comp);
+        Component* old = addComponent(comp);
         if(old!=NULL)
         {
             delete old;
@@ -51,7 +55,7 @@ GameObject& GameObject::operator=(const GameObject& rhs)
     for(iter=components.begin(); iter!=components.end(); ++iter)
     {
         Component* comp = iter->second->clone();
-        Component* old = setComponent(comp);
+        Component* old = addComponent(comp);
         if(old!=NULL)
         {
             delete old;
@@ -71,7 +75,7 @@ Component* GameObject::getComponent(const CompIDType& familyID)
     return m_components[familyID];
 }
 
-Component* GameObject::setComponent(Component* newComp)
+Component* GameObject::addComponent(Component* newComp)
 {
     if(newComp==NULL)
     {
@@ -92,6 +96,28 @@ void GameObject::clearComponents()
         delete iter->second;
     }
     m_components.clear();
+}
+
+void GameObject::setup()
+{
+	m_transform = static_cast<Transform*>(getComponent("Transform"));
+	ESL_ASSERT(m_transform!=NULL);
+
+	m_renderer = static_cast<IRenderer*>(getComponent("IRenderer"));
+}
+
+Transform* GameObject::getTransform()
+{
+	return m_transform;
+}
+
+void GameObject::render()
+{
+	if(m_renderer!=NULL)
+	{
+		m_renderer->setTransform(m_transform->getMVPMatrix());
+		m_renderer->render();
+	}
 }
 
 
