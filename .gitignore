@@ -1,3 +1,8 @@
 proj.ios/glesworld.xcodeproj/project.xcworkspace/xcshareddata/
 proj.ios/glesworld.xcodeproj/xcuserdata/wuhao.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
 proj.ios/glesworld.xcodeproj/project.xcworkspace/xcuserdata/wuhao.xcuserdatad/UserInterfaceState.xcuserstate
+bin/**
+proj.win32/gles20/Debug/**
+*.ncb
+*.suo
+*.user
