@@ -15,6 +15,8 @@ GameObject::GameObject()
 {
     m_id = sAutoIDLast;
     sAutoIDLast++;
+
+	addComponent(new Transform());
 }
 
 GameObject::~GameObject()
@@ -34,11 +36,7 @@ GameObject::GameObject(const GameObject& rhs)
     for(iter=components.begin(); iter!=components.end(); ++iter)
     {
         Component* comp = iter->second->clone();
-        Component* old = addComponent(comp);
-        if(old!=NULL)
-        {
-            delete old;
-        }
+        addComponent(comp);
     }
 }
 
@@ -55,11 +53,7 @@ GameObject& GameObject::operator=(const GameObject& rhs)
     for(iter=components.begin(); iter!=components.end(); ++iter)
     {
         Component* comp = iter->second->clone();
-        Component* old = addComponent(comp);
-        if(old!=NULL)
-        {
-            delete old;
-        }
+        addComponent(comp);
     }
     
     return *this;
@@ -75,17 +69,24 @@ Component* GameObject::getComponent(const CompIDType& familyID)
     return m_components[familyID];
 }
 
-Component* GameObject::addComponent(Component* newComp)
+void GameObject::addComponent(Component* newComp)
 {
     if(newComp==NULL)
     {
-        return NULL;
+        return ;
     }
     
     CompIDType family = newComp->getFamilyID();
     Component* oldComp = m_components[family];
     m_components[family] = newComp;
-    return oldComp;
+	delete oldComp;
+
+	if(family=="Transform"){
+		m_transform = static_cast<Transform*>(newComp);
+	}
+	else if(family=="IRenderer"){
+		m_renderer = static_cast<IRenderer*>(newComp);
+	}
 }
 
 void GameObject::clearComponents()
@@ -96,14 +97,6 @@ void GameObject::clearComponents()
         delete iter->second;
     }
     m_components.clear();
-}
-
-void GameObject::setup()
-{
-	m_transform = static_cast<Transform*>(getComponent("Transform"));
-	ESL_ASSERT(m_transform!=NULL);
-
-	m_renderer = static_cast<IRenderer*>(getComponent("IRenderer"));
 }
 
 Transform* GameObject::getTransform()

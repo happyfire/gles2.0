@@ -29,12 +29,9 @@ int LessonMD2::onInit()
 	MeshPtr mesh = md2Loader.load("media/tris.MD2","media/tris.tga");
     
     g_obj = new GameObject();
-	Transform* transform = new Transform();
-	g_obj->addComponent(transform);
     MeshRenderer* mesh_renderer = new MeshRenderer();
     mesh_renderer->setMesh(mesh);
     g_obj->addComponent(mesh_renderer);
-	g_obj->setup();
 
 	glEnable(GL_DEPTH_TEST);
     

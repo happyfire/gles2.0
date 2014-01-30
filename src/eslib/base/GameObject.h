@@ -25,11 +25,11 @@ public:
 
     Component* getComponent(const CompIDType& familyID);
     
-    Component* addComponent(Component* newComp);
+	///add a new component to game object,
+	///if it has already haven a component has the same interface, the old componenet will be removed. 
+    void addComponent(Component* newComp);
     
     void clearComponents();
-
-	void setup();
 
 	Transform* getTransform();
 
