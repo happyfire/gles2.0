@@ -12,6 +12,7 @@ Transform::~Transform()
 }
 
 Transform::Transform(const Transform& rhs)
+	:Component(rhs)
 {
     memcpy(m_matMVP, rhs.m_matMVP, sizeof(rhs.m_matMVP));
 }
@@ -21,6 +22,8 @@ Transform& Transform::operator=(const Transform& rhs)
     if (&rhs==this) {
         return *this;
     }
+
+	Component::operator=(rhs);
     
     memcpy(m_matMVP, rhs.m_matMVP, sizeof(rhs.m_matMVP));
     

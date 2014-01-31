@@ -21,7 +21,7 @@ GameObject::GameObject()
 
 GameObject::~GameObject()
 {
-    
+    clearComponents();
 }
 
 GameObject::GameObject(const GameObject& rhs)
@@ -81,6 +81,8 @@ void GameObject::addComponent(Component* newComp)
     m_components[family] = newComp;
 	delete oldComp;
 
+	newComp->setOwnerObject(this);
+
 	if(family=="Transform"){
 		m_transform = static_cast<Transform*>(newComp);
 	}
@@ -97,6 +99,9 @@ void GameObject::clearComponents()
         delete iter->second;
     }
     m_components.clear();
+
+	m_transform = NULL;
+	m_renderer = NULL;
 }
 
 Transform* GameObject::getTransform()

@@ -19,7 +19,7 @@ USING_NS_ESLIB
 
 static ESMatrix g_matProjection;
 
-static GameObjectPtr g_obj;
+static GameObjectPtr g_obj, g_obj2;
 
 int LessonMD2::onInit()
 {
@@ -32,6 +32,9 @@ int LessonMD2::onInit()
     MeshRenderer* mesh_renderer = new MeshRenderer();
     mesh_renderer->setMesh(mesh);
     g_obj->addComponent(mesh_renderer);
+
+	g_obj2 = new GameObject(*g_obj);
+
 
 	glEnable(GL_DEPTH_TEST);
     
@@ -59,6 +62,7 @@ void LessonMD2::draw()
 	//-------------------------------------------------
     
 	g_obj->render();
+	g_obj2->render();
 }
 
 void LessonMD2::update(float dt)
@@ -81,5 +85,12 @@ void LessonMD2::update(float dt)
 	esMatrixMultiply(g_matProjection, matModelView, matMVP);
 
 	g_obj->getTransform()->setMVPMatrix(matMVP);
+
+
+	esMatrixSetTranslate(matModelView, 0, 50, -200);
+
+	esMatrixMultiply(g_matProjection, matModelView, matMVP);
+
+	g_obj2->getTransform()->setMVPMatrix(matMVP);
 }
 

@@ -15,6 +15,7 @@ MeshRenderer::~MeshRenderer()
 }
 
 MeshRenderer::MeshRenderer(const MeshRenderer& rhs)
+	:IRenderer(rhs)
 {
     m_mesh = rhs.m_mesh;
 }
@@ -24,6 +25,8 @@ MeshRenderer& MeshRenderer::operator=(const MeshRenderer& rhs)
     if (&rhs==this) {
         return *this;
     }
+
+	IRenderer::operator=(rhs);
     
     m_mesh = rhs.m_mesh;
     
