@@ -458,6 +458,18 @@
 						>
 					</File>
 				</Filter>
+				<Filter
+					Name="math"
+					>
+					<File
+						RelativePath="..\..\src\eslib\math\Vector3.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\eslib\math\Vector3.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 		</Filter>
 	</Files>
