@@ -462,6 +462,22 @@
 					Name="math"
 					>
 					<File
+						RelativePath="..\..\src\eslib\math\MathUtil.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\eslib\math\Matrix4.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\eslib\math\Matrix4.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\eslib\math\Matrix4Impl.h"
+						>
+					</File>
+					<File
 						RelativePath="..\..\src\eslib\math\Vector3.cpp"
 						>
 					</File>

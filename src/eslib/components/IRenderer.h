@@ -6,7 +6,7 @@
 #include "eslib/common.h"
 #include "eslib/SharedPtr.h"
 #include "eslib/base/Component.h"
-#include "esUtil/esUtil.h"
+#include "eslib/math/Matrix4.h"
 
 NS_ESLIB_BEGIN
 
@@ -20,7 +20,7 @@ public:
 	virtual const CompIDType& getFamilyID() const;
 
 public:
-	virtual void setTransform(const ESMatrix &transform) = 0;
+	virtual void setTransform(const Matrix4 &transform) = 0;
 	
 	virtual void render() = 0;
 };

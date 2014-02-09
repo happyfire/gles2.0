@@ -5,6 +5,7 @@
 #include "eslib/Material.h"
 #include "eslib/Mesh.h"
 #include "esUtil/esUtil.h"
+#include "eslib/math/Matrix4.h"
 
 #include "LessonCube.h"
 
@@ -99,7 +100,8 @@ void LessonCube::draw()
 
 	//-------------------------------------------------
 
-	g_mesh->setTransform(g_matModelViewProjection);
+	Matrix4 mvp(g_matModelViewProjection);
+	g_mesh->setTransform(mvp);
 	
 	g_mesh->render();
 

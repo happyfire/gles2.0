@@ -6,12 +6,13 @@
 #include "glcommon.h"
 #include "esUtil/esUtil.h"
 
-
 NS_ESLIB_BEGIN
 
 ESL_FORWARD_PTR(Mesh)
 ESL_FORWARD_PTR(Material)
 ESL_FORWARD_PTR(Geometry)
+
+class Matrix4;
 
 enum EMeshVertexFlag
 {
@@ -28,7 +29,7 @@ public:
 	GeometryPtr createEmpty(int vertexFlag, int vertexCount, int indexCount, bool useVBO=true, bool multiStream=false);
 	void setMaterial(const MaterialPtr& material);
 
-	void setTransform(const ESMatrix &transform);
+	void setTransform(const Matrix4 &transform);
 
 	void render();
 

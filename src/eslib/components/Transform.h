@@ -4,7 +4,7 @@
 #include "eslib/common.h"
 #include "eslib/SharedPtr.h"
 #include "eslib/base/Component.h"
-#include "esUtil/esUtil.h"
+#include "eslib/math/Matrix4.h"
 
 NS_ESLIB_BEGIN
 
@@ -26,11 +26,13 @@ public:
 	virtual void update();
     
 public:
-    void setMVPMatrix(const ESMatrix& mvp);
-	ESMatrix& getMVPMatrix();
+    void setMVPMatrix(const Matrix4& mvp);
+	Matrix4& getMVPMatrix();
     
 private:
-    ESMatrix m_matMVP;
+	Transform* m_parent;
+
+    Matrix4 m_matMVP;
 };
 
 

@@ -4,7 +4,7 @@
 #include "eslib/common.h"
 #include "eslib/SharedPtr.h"
 #include "eslib/components/IRenderer.h"
-#include "esUtil/esUtil.h"
+#include "eslib/math/Matrix4.h"
 
 NS_ESLIB_BEGIN
 
@@ -27,7 +27,7 @@ public:
 	virtual void update();
     
 public:
-	virtual void setTransform(const ESMatrix &transform);
+	virtual void setTransform(const Matrix4 &transform);
     virtual void render();
 
 public:

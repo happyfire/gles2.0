@@ -50,7 +50,7 @@ void MeshRenderer::update()
     
 }
 
-void MeshRenderer::setTransform(const ESMatrix &transform)
+void MeshRenderer::setTransform(const Matrix4 &transform)
 {
 	if(m_mesh.isValid())
 	{

@@ -14,7 +14,7 @@ Transform::~Transform()
 Transform::Transform(const Transform& rhs)
 	:Component(rhs)
 {
-    memcpy(m_matMVP, rhs.m_matMVP, sizeof(rhs.m_matMVP));
+	m_matMVP = rhs.m_matMVP;
 }
 
 Transform& Transform::operator=(const Transform& rhs)
@@ -25,7 +25,7 @@ Transform& Transform::operator=(const Transform& rhs)
 
 	Component::operator=(rhs);
     
-    memcpy(m_matMVP, rhs.m_matMVP, sizeof(rhs.m_matMVP));
+    m_matMVP = rhs.m_matMVP;
     
     return *this;
 }
@@ -55,12 +55,12 @@ void Transform::update()
     
 }
 
-void Transform::setMVPMatrix(const ESMatrix& mvp)
+void Transform::setMVPMatrix(const Matrix4& mvp)
 {
-	memcpy(m_matMVP, mvp, sizeof(mvp));
+	m_matMVP = mvp;
 }
 
-ESMatrix& Transform::getMVPMatrix()
+Matrix4& Transform::getMVPMatrix()
 {
 	return m_matMVP;
 }

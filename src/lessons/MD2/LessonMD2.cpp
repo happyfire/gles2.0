@@ -11,13 +11,15 @@
 #include "eslib/components/Transform.h"
 #include "eslib/components/MeshRenderer.h"
 
+#include "eslib/math/Matrix4.h"
+
 #include "LessonMD2.h"
 #include "MD2MeshLoader.h"
 
 USING_NS_ESLIB
 
 
-static ESMatrix g_matProjection;
+static Matrix4 g_matProjection;
 
 static GameObjectPtr g_obj, g_obj2;
 
@@ -40,9 +42,9 @@ int LessonMD2::onInit()
     
     int screenWidth = Application::GetScreenWidth();
 	int screenHeight = Application::GetScreenHeight();
-    
-    esMatrixPerspective(g_matProjection, 45.0f, 0.1f, 1000.0f, (float)screenWidth/screenHeight);
 
+	g_matProjection.makePerspectiveProjectionMatrix(45.0f, 0.1f, 1000.0f, (float)screenWidth/screenHeight);
+    
 	return 1;
 }
 
@@ -73,24 +75,22 @@ void LessonMD2::update(float dt)
     //----------- compute mvpMatrix ---------------------
 	
     
-	ESMatrix matRotY, matRotX, matModelView, matMVP;
+	Matrix4 matRotY, matRotX, matModelView, matMVP;
     
-	esMatrixRotateX(matRotX, 3.1415926/2);
-	esMatrixRotateY(matRotY, rotation);
+	matRotX.makeRotateXMatrix(3.1415926/2);
+	matRotY.makeRotateYMatrix(rotation);
+
+	matModelView = matRotX * matRotY;
+	matModelView.setTranslation(0, 0, -200);
     
-	esMatrixMultiply(matRotY, matRotX, matModelView);
-    
-	esMatrixSetTranslate(matModelView, 0, 0, -200);
-    
-	esMatrixMultiply(g_matProjection, matModelView, matMVP);
+	matMVP = g_matProjection * matModelView;
 
 	g_obj->getTransform()->setMVPMatrix(matMVP);
 
 
-	esMatrixSetTranslate(matModelView, 0, 50, -200);
-
-	esMatrixMultiply(g_matProjection, matModelView, matMVP);
-
+	matModelView.setTranslation(0, 50, -200);
+	matMVP = g_matProjection * matModelView;
+	
 	g_obj2->getTransform()->setMVPMatrix(matMVP);
 }
 

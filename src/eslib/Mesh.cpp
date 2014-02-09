@@ -1,7 +1,7 @@
-#include "esUtil/esUtil.h"
 #include "eslib/Material.h"
 #include "eslib/Geometry.h"
 #include "eslib/ShaderProgram.h"
+#include "eslib/math/Matrix4.h"
 #include "Mesh.h"
 
 NS_ESLIB_BEGIN
@@ -61,11 +61,11 @@ void Mesh::setMaterial(const MaterialPtr& material)
 	m_material = material;
 }
 
-void Mesh::setTransform(const ESMatrix &transform)
+void Mesh::setTransform(const Matrix4 &transform)
 {
 	ESL_ASSERT(m_material.isValid());
 
-	m_material->getShaderProgram()->setUniformMatrix4fv("u_mvpMatrix", transform);
+	m_material->getShaderProgram()->setUniformMatrix4fv("u_mvpMatrix", transform.getData());
 }
 
 void Mesh::render()
