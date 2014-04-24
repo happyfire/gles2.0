@@ -21,7 +21,7 @@ Transform::Transform(const Transform& rhs)
     m_scale = rhs.m_scale;
     m_flag = rhs.m_flag;
     m_relativeTransform = rhs.m_relativeTransform;
-    m_absoulteTransform = rhs.m_absoulteTransform;
+    m_absoluteTransform = rhs.m_absoluteTransform;
     
 	m_matMVP = rhs.m_matMVP;
 }
@@ -38,7 +38,7 @@ Transform& Transform::operator=(const Transform& rhs)
     m_scale = rhs.m_scale;
     m_flag = rhs.m_flag;
     m_relativeTransform = rhs.m_relativeTransform;
-    m_absoulteTransform = rhs.m_absoulteTransform;
+    m_absoluteTransform = rhs.m_absoluteTransform;
     
     m_matMVP = rhs.m_matMVP;
     
@@ -108,22 +108,58 @@ void Transform::setScale(f32 scale)
     m_flag |= ETransformScaleChanged;
 }
 
-const Matrix4& Transform::getRelativeTransform() const
+const Quaternion& Transform::getRotation() const
+{
+    return m_rotation;
+}
+
+void Transform::setRotation(Quaternion& rot)
+{
+    m_rotation = rot;
+    m_flag |= ETransformRotationChanged;
+}
+
+void Transform::setRotation(const Vector3& axis, f32 degree)
+{
+    m_rotation.fromAxisAngle(axis, degree);
+    m_flag |= ETransformRotationChanged;
+}
+
+const Matrix4& Transform::getRelativeTransform()
 {
     if(m_flag & ERelativeTransformChanged){
-        
+        updateRelativeTransform();
+        m_flag &= ERelativeTransformChanged;
     }
     
     return m_relativeTransform;
 }
 
-const Matrix4& Transform::getAbsoluteTransform() const
+const Matrix4& Transform::getAbsoluteTransform()
 {
     if(m_flag & EAbsoluteTransformChanged){
-        
+        updateAbsoluteTransform();
+        m_flag &= ~EAbsoluteTransformChanged;
     }
     
-    return m_absoulteTransform;
+    return m_absoluteTransform;
+}
+
+void Transform::updateRelativeTransform()
+{
+    Matrix4 rotMat;
+    m_rotation.getRotationMatrix(rotMat);
+    
+    m_relativeTransform.makeScaleMatrix(m_scale.x, m_scale.y, m_scale.z);
+    
+    m_relativeTransform.setTranslation(m_translation.x,m_translation.y,m_translation.z);
+    
+    m_relativeTransform*=rotMat;
+}
+
+void Transform::updateAbsoluteTransform()
+{
+    
 }
 
 void Transform::setMVPMatrix(const Matrix4& mvp)

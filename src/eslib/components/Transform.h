@@ -6,6 +6,7 @@
 #include "eslib/base/Component.h"
 #include "eslib/math/Matrix4.h"
 #include "eslib/math/Vector3.h"
+#include "eslib/math/Quaternion.h"
 
 NS_ESLIB_BEGIN
 
@@ -35,8 +36,12 @@ public:
     void setScale(const Vector3 &scale);
     void setScale(f32 scale);
     
-    const Matrix4& getRelativeTransform() const;
-    const Matrix4& getAbsoluteTransform() const;
+    const Quaternion& getRotation() const;
+    void setRotation(Quaternion& rot);
+    void setRotation(const Vector3& axis, f32 degree);
+    
+    const Matrix4& getRelativeTransform();
+    const Matrix4& getAbsoluteTransform();
     
     
     void setMVPMatrix(const Matrix4& mvp);
@@ -47,10 +52,11 @@ private:
     
     Vector3 m_translation;
     Vector3 m_scale;
+    Quaternion m_rotation;
     
     Matrix4 m_relativeTransform;
     
-    Matrix4 m_absoulteTransform;
+    Matrix4 m_absoluteTransform;
 
     Matrix4 m_matMVP;
     
@@ -60,10 +66,13 @@ private:
         ETransformRotationChanged = ETransformTranslationChanged<<1,
         ETransformScaleChanged = ETransformRotationChanged<<1,
         ERelativeTransformChanged = ETransformTranslationChanged | ETransformRotationChanged | ETransformScaleChanged,
-        EAbsoluteTransformChanged,
+        EAbsoluteTransformChanged = ETransformScaleChanged<<1,
     };
     
     int m_flag;
+    
+    void updateRelativeTransform();
+    void updateAbsoluteTransform();
 };
 
 
