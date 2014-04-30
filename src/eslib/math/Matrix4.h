@@ -50,9 +50,13 @@ public:
 
 	Matrix4& makeTranslationMatrix(f32 x, f32 y, f32 z);
 
+    Matrix4& setTranslation(const Vector3 &translation);
+    
 	Matrix4& setTranslation(f32 x, f32 y, f32 z);
 
 	Vector3 getTranslation() const;
+    
+    Matrix4& postScale(const Vector3 &scale);
 
 	Matrix4& makeScaleMatrix(f32 sx, f32 sy, f32 sz);
 
@@ -73,6 +77,8 @@ public:
 };
 
 Matrix4 operator*(f32 a, const Matrix4 &m);
+
+void multiplyMatrix(const Matrix4& mat1, const Matrix4& mat2, Matrix4& matOut);
 
 #include "eslib/math/Matrix4Impl.h"
 

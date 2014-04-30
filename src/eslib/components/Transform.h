@@ -41,15 +41,16 @@ public:
     void setRotation(const Vector3& axis, f32 degree);
     
     const Matrix4& getRelativeTransform();
+    
+    void updateAbsoluteTransform(bool updateChildren);
+    
     const Matrix4& getAbsoluteTransform();
     
     
     void setMVPMatrix(const Matrix4& mvp);
 	Matrix4& getMVPMatrix();
     
-private:
-	Transform* m_parent;
-    
+private:    
     Vector3 m_translation;
     Vector3 m_scale;
     Quaternion m_rotation;
@@ -67,12 +68,12 @@ private:
         ETransformScaleChanged = ETransformRotationChanged<<1,
         ERelativeTransformChanged = ETransformTranslationChanged | ETransformRotationChanged | ETransformScaleChanged,
         EAbsoluteTransformChanged = ETransformScaleChanged<<1,
+        ETransformAllDirty = ERelativeTransformChanged | EAbsoluteTransformChanged,
     };
     
     int m_flag;
     
     void updateRelativeTransform();
-    void updateAbsoluteTransform();
 };
 
 

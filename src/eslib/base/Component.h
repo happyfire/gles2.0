@@ -30,7 +30,7 @@ public:
     void setOwnerObject(GameObjectPtr obj);
     GameObjectPtr getOwnerObject();
     
-private:
+protected:
     GameObjectPtr m_ownerObj;
 };
 

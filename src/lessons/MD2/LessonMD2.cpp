@@ -77,17 +77,18 @@ void LessonMD2::update(float dt)
     
 	Matrix4 matRotY, matRotX, matModelView, matMVP;
     
-	matRotX.makeRotateXMatrix(3.1415926/2);
-	matRotY.makeRotateYMatrix(rotation);
-
-	matModelView = matRotX * matRotY;
-	matModelView.setTranslation(0, 0, -200);
     
-	matMVP = g_matProjection * matModelView;
+    //obj1
+	g_obj->getTransform()->setRotation(Vector3(1, 0, 0),rotation);
+    g_obj->getTransform()->setPosition(0,0,-200);
+    matMVP = g_matProjection * g_obj->getTransform()->getAbsoluteTransform();
+    g_obj->getTransform()->setMVPMatrix(matMVP);
 
-	g_obj->getTransform()->setMVPMatrix(matMVP);
-
-
+    //obj2
+    matRotX.makeRotateXMatrix(3.1415926/2);
+	matRotY.makeRotateYMatrix(rotation);
+    matModelView = matRotX * matRotY;
+	matModelView.setTranslation(0, 0, -200);
 	matModelView.setTranslation(0, 50, -200);
 	matMVP = g_matProjection * matModelView;
 	

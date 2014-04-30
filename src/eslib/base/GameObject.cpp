@@ -118,5 +118,41 @@ void GameObject::render()
 	}
 }
 
+const GameObjectPtr& GameObject::getParent() const
+{
+    return m_parent;
+}
+
+void GameObject::setParent(GameObject* obj)
+{
+    m_parent = obj;
+}
+
+GameObjectList& GameObject::getChildren()
+{
+    return m_children;
+}
+
+void GameObject::addChild(GameObject* obj)
+{
+    obj->removeFromParent();
+    obj->setParent(this);
+    m_children.push_back(obj);
+}
+
+void GameObject::removeChild(GameObject* obj)
+{
+    obj->setParent(NULL);
+    m_children.remove(obj);
+}
+
+void GameObject::removeFromParent()
+{
+    if (m_parent.isValid()) {
+        m_parent->removeChild(this);
+        m_parent = NULL;
+    }
+}
+
 
 NS_ESLIB_END

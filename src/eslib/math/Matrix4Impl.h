@@ -231,28 +231,8 @@ inline Matrix4& Matrix4::makeByMultiply(const Matrix4 &mat1, const Matrix4 &mat2
 inline Matrix4 Matrix4::operator *(const Matrix4 &rhs) const
 {
 	Matrix4 temp;
-	const f32 *m1 = m;
-	const f32 *m2 = rhs.m;
-
-	temp.m[0] = m1[0]*m2[0] + m1[4]*m2[1] + m1[8]*m2[2] + m1[12]*m2[3];
-	temp.m[1] = m1[1]*m2[0] + m1[5]*m2[1] + m1[9]*m2[2] + m1[13]*m2[3];
-	temp.m[2] = m1[2]*m2[0] + m1[6]*m2[1] + m1[10]*m2[2] + m1[14]*m2[3];
-	temp.m[3] = m1[3]*m2[0] + m1[7]*m2[1] + m1[11]*m2[2] + m1[15]*m2[3];
-
-	temp.m[4] = m1[0]*m2[4] + m1[4]*m2[5] + m1[8]*m2[6] + m1[12]*m2[7];
-	temp.m[5] = m1[1]*m2[4] + m1[5]*m2[5] + m1[9]*m2[6] + m1[13]*m2[7];
-	temp.m[6] = m1[2]*m2[4] + m1[6]*m2[5] + m1[10]*m2[6] + m1[14]*m2[7];
-	temp.m[7] = m1[3]*m2[4] + m1[7]*m2[5] + m1[11]*m2[6] + m1[15]*m2[7];
-
-	temp.m[8] = m1[0]*m2[8] + m1[4]*m2[9] + m1[8]*m2[10] + m1[12]*m2[11];
-	temp.m[9] = m1[1]*m2[8] + m1[5]*m2[9] + m1[9]*m2[10] + m1[13]*m2[11];
-	temp.m[10] = m1[2]*m2[8] + m1[6]*m2[9] + m1[10]*m2[10] + m1[14]*m2[11];
-	temp.m[11] = m1[3]*m2[8] + m1[7]*m2[9] + m1[11]*m2[10] + m1[15]*m2[11];
-
-	temp.m[12] = m1[0]*m2[12] + m1[4]*m2[13] + m1[8]*m2[14] + m1[12]*m2[15];
-	temp.m[13] = m1[1]*m2[12] + m1[5]*m2[13] + m1[9]*m2[14] + m1[13]*m2[15];
-	temp.m[14] = m1[2]*m2[12] + m1[6]*m2[13] + m1[10]*m2[14] + m1[14]*m2[15];
-	temp.m[15] = m1[3]*m2[12] + m1[7]*m2[13] + m1[11]*m2[14] + m1[15]*m2[15];
+    
+    multiplyMatrix(*this, rhs, temp);
 
 	return temp;
 }
@@ -280,6 +260,14 @@ inline Matrix4& Matrix4::makeTranslationMatrix(f32 x, f32 y, f32 z)
 	return *this;
 }
 
+inline Matrix4& Matrix4::setTranslation(const Vector3 &translation)
+{
+    m[12] = translation.x;
+	m[13] = translation.y;
+	m[14] = translation.z;
+	return *this;
+}
+
 inline Matrix4& Matrix4::setTranslation(f32 x, f32 y, f32 z)
 {
 	m[12] = x;
@@ -291,6 +279,20 @@ inline Matrix4& Matrix4::setTranslation(f32 x, f32 y, f32 z)
 inline Vector3 Matrix4::getTranslation() const
 {
 	return Vector3(m[12],m[13],m[14]);
+}
+
+inline Matrix4& Matrix4::postScale(const Vector3 &scale)
+{
+    m[0] *= scale.x;
+    m[1] *= scale.x;
+    m[2] *= scale.x;
+    m[4] *= scale.y;
+    m[5] *= scale.y;
+    m[6] *= scale.y;
+    m[8] *= scale.z;
+    m[9] *= scale.z;
+    m[10] *= scale.z;
+    return *this;
 }
 
 inline Matrix4& Matrix4::makeScaleMatrix(f32 sx, f32 sy, f32 sz)
@@ -399,3 +401,30 @@ inline Matrix4 operator*(f32 a, const Matrix4 &m)
 	return temp;
 
 }
+
+inline void multiplyMatrix(const Matrix4& mat1, const Matrix4& mat2, Matrix4& matOut)
+{
+	const f32 *m1 = mat1.getData();
+	const f32 *m2 = mat2.getData();
+    
+	matOut.m[0] = m1[0]*m2[0] + m1[4]*m2[1] + m1[8]*m2[2] + m1[12]*m2[3];
+	matOut.m[1] = m1[1]*m2[0] + m1[5]*m2[1] + m1[9]*m2[2] + m1[13]*m2[3];
+	matOut.m[2] = m1[2]*m2[0] + m1[6]*m2[1] + m1[10]*m2[2] + m1[14]*m2[3];
+	matOut.m[3] = m1[3]*m2[0] + m1[7]*m2[1] + m1[11]*m2[2] + m1[15]*m2[3];
+    
+	matOut.m[4] = m1[0]*m2[4] + m1[4]*m2[5] + m1[8]*m2[6] + m1[12]*m2[7];
+	matOut.m[5] = m1[1]*m2[4] + m1[5]*m2[5] + m1[9]*m2[6] + m1[13]*m2[7];
+	matOut.m[6] = m1[2]*m2[4] + m1[6]*m2[5] + m1[10]*m2[6] + m1[14]*m2[7];
+	matOut.m[7] = m1[3]*m2[4] + m1[7]*m2[5] + m1[11]*m2[6] + m1[15]*m2[7];
+    
+	matOut.m[8] = m1[0]*m2[8] + m1[4]*m2[9] + m1[8]*m2[10] + m1[12]*m2[11];
+	matOut.m[9] = m1[1]*m2[8] + m1[5]*m2[9] + m1[9]*m2[10] + m1[13]*m2[11];
+	matOut.m[10] = m1[2]*m2[8] + m1[6]*m2[9] + m1[10]*m2[10] + m1[14]*m2[11];
+	matOut.m[11] = m1[3]*m2[8] + m1[7]*m2[9] + m1[11]*m2[10] + m1[15]*m2[11];
+    
+	matOut.m[12] = m1[0]*m2[12] + m1[4]*m2[13] + m1[8]*m2[14] + m1[12]*m2[15];
+	matOut.m[13] = m1[1]*m2[12] + m1[5]*m2[13] + m1[9]*m2[14] + m1[13]*m2[15];
+	matOut.m[14] = m1[2]*m2[12] + m1[6]*m2[13] + m1[10]*m2[14] + m1[14]*m2[15];
+	matOut.m[15] = m1[3]*m2[12] + m1[7]*m2[13] + m1[11]*m2[14] + m1[15]*m2[15];
+}
+

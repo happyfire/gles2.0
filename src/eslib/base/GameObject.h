@@ -4,6 +4,7 @@
 #include "eslib/BaseObject.h"
 #include "eslib/sharedPtr.h"
 #include "eslib/base/Component.h"
+#include <list>
 
 NS_ESLIB_BEGIN
 
@@ -11,6 +12,9 @@ ESL_FORWARD_PTR(GameObject)
 
 class Transform;
 class IRenderer;
+
+typedef std::list<GameObjectPtr> GameObjectList;
+typedef GameObjectList::iterator GameObjectIter;
 
 class GameObject: public BaseObject
 {
@@ -35,6 +39,18 @@ public:
 
 	void render();
     
+    const GameObjectPtr& getParent() const;
+    
+    void setParent(GameObject* obj);
+    
+    GameObjectList& getChildren();
+    
+    void addChild(GameObject* obj);
+    
+    void removeChild(GameObject* obj);
+    
+    void removeFromParent();
+    
 protected:
     int m_id;
     
@@ -45,6 +61,9 @@ protected:
 
 	Transform* m_transform;
 	IRenderer* m_renderer;
+    
+    GameObjectList m_children;
+    GameObjectPtr m_parent;
 };
 
 

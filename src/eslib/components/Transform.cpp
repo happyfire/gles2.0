@@ -1,11 +1,13 @@
 #include "eslib/components/Transform.h"
+#include "eslib/base/GameObject.h"
 
 NS_ESLIB_BEGIN
 
 Transform::Transform()
-    :m_flag(0)
+    :m_flag(ETransformAllDirty)
     ,m_translation(0.0f,0.0f,0.0f)
     ,m_scale(1.0f,1.0f,1.0f)
+    ,m_rotation()
 {
 }
 
@@ -19,6 +21,7 @@ Transform::Transform(const Transform& rhs)
 {
     m_translation = rhs.m_translation;
     m_scale = rhs.m_scale;
+    m_rotation = rhs.m_rotation;
     m_flag = rhs.m_flag;
     m_relativeTransform = rhs.m_relativeTransform;
     m_absoluteTransform = rhs.m_absoluteTransform;
@@ -36,6 +39,7 @@ Transform& Transform::operator=(const Transform& rhs)
     
     m_translation = rhs.m_translation;
     m_scale = rhs.m_scale;
+    m_rotation = rhs.m_rotation;
     m_flag = rhs.m_flag;
     m_relativeTransform = rhs.m_relativeTransform;
     m_absoluteTransform = rhs.m_absoluteTransform;
@@ -122,6 +126,7 @@ void Transform::setRotation(Quaternion& rot)
 void Transform::setRotation(const Vector3& axis, f32 degree)
 {
     m_rotation.fromAxisAngle(axis, degree);
+    m_rotation.normalize();
     m_flag |= ETransformRotationChanged;
 }
 
@@ -130,6 +135,7 @@ const Matrix4& Transform::getRelativeTransform()
     if(m_flag & ERelativeTransformChanged){
         updateRelativeTransform();
         m_flag &= ERelativeTransformChanged;
+        m_flag |= EAbsoluteTransformChanged;
     }
     
     return m_relativeTransform;
@@ -137,29 +143,56 @@ const Matrix4& Transform::getRelativeTransform()
 
 const Matrix4& Transform::getAbsoluteTransform()
 {
-    if(m_flag & EAbsoluteTransformChanged){
-        updateAbsoluteTransform();
-        m_flag &= ~EAbsoluteTransformChanged;
-    }
+    updateAbsoluteTransform(false);
     
     return m_absoluteTransform;
 }
 
 void Transform::updateRelativeTransform()
 {
-    Matrix4 rotMat;
-    m_rotation.getRotationMatrix(rotMat);
+    if(m_flag & (ETransformRotationChanged | ETransformScaleChanged))
+    {
+        m_rotation.getRotationMatrix(m_relativeTransform);
+        m_relativeTransform.postScale(m_scale);
+        m_relativeTransform.setTranslation(m_translation);
+    }
+    else
+    {
+        m_relativeTransform.setTranslation(m_translation);
+    }
     
-    m_relativeTransform.makeScaleMatrix(m_scale.x, m_scale.y, m_scale.z);
-    
-    m_relativeTransform.setTranslation(m_translation.x,m_translation.y,m_translation.z);
-    
-    m_relativeTransform*=rotMat;
 }
 
-void Transform::updateAbsoluteTransform()
+void Transform::updateAbsoluteTransform(bool updateChildren)
 {
+    const Matrix4& relativeTransform = getRelativeTransform();
     
+    if(m_flag & EAbsoluteTransformChanged)
+    {
+        const GameObjectPtr& parentObj = m_ownerObj->getParent();
+        if (parentObj.isValid())
+        {
+            Transform* parentTransform = parentObj->getTransform();
+            multiplyMatrix(parentTransform->getAbsoluteTransform(), relativeTransform, m_absoluteTransform);
+        }
+        else
+        {
+            m_absoluteTransform = relativeTransform;
+        }
+        
+        m_flag &= ~EAbsoluteTransformChanged;
+    }
+    
+    if (updateChildren)
+    {
+        GameObjectList& children = m_ownerObj->getChildren();
+        GameObjectIter iter = children.begin();
+        for (GameObjectIter iterEnd=children.end(); iter!=iterEnd; ++iter)
+        {
+            GameObjectPtr& obj = *iter;
+            obj->getTransform()->updateAbsoluteTransform(true);
+        }
+    }
 }
 
 void Transform::setMVPMatrix(const Matrix4& mvp)
