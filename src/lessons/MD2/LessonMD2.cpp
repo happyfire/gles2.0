@@ -37,6 +37,7 @@ int LessonMD2::onInit()
 
 	g_obj2 = new GameObject(*g_obj);
 
+	g_obj->addChild(g_obj2);
 
 	glEnable(GL_DEPTH_TEST);
     
@@ -75,23 +76,20 @@ void LessonMD2::update(float dt)
     //----------- compute mvpMatrix ---------------------
 	
     
-	Matrix4 matRotY, matRotX, matModelView, matMVP;
+	Matrix4 matMVP;
     
     
     //obj1
+	//g_obj->getTransform()->setRotation(Vector3(1, 0, 0),-90);
 	g_obj->getTransform()->setRotation(Vector3(1, 0, 0),rotation);
     g_obj->getTransform()->setPosition(0,0,-200);
     matMVP = g_matProjection * g_obj->getTransform()->getAbsoluteTransform();
     g_obj->getTransform()->setMVPMatrix(matMVP);
 
     //obj2
-    matRotX.makeRotateXMatrix(3.1415926/2);
-	matRotY.makeRotateYMatrix(rotation);
-    matModelView = matRotX * matRotY;
-	matModelView.setTranslation(0, 0, -200);
-	matModelView.setTranslation(0, 50, -200);
-	matMVP = g_matProjection * matModelView;
-	
+	//g_obj2->getTransform()->setRotation(Vector3(0,1,0),rotation);
+	g_obj2->getTransform()->setPosition(0,50,-50);
+	matMVP = g_matProjection * g_obj2->getTransform()->getAbsoluteTransform();
 	g_obj2->getTransform()->setMVPMatrix(matMVP);
 }
 
