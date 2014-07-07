@@ -6,6 +6,9 @@
 #include "eslib/Mesh.h"
 #include "esUtil/esUtil.h"
 #include "eslib/math/Matrix4.h"
+#include "eslib/base/GameObject.h"
+#include "eslib/components/MeshRenderer.h"
+#include "eslib/components/Transform.h"
 
 #include "LessonCube.h"
 
@@ -14,7 +17,7 @@ USING_NS_ESLIB
 
 static ESMatrix g_matProjection, g_matModelViewProjection;
 
-static MeshPtr g_mesh;
+static GameObjectPtr g_obj;
 
 int LessonCube::onInit()
 {
@@ -61,9 +64,9 @@ int LessonCube::onInit()
 		18, 19, 16,
 	};
 
-	g_mesh = new Mesh();
+	MeshPtr mesh = new Mesh();
 
-	GeometryPtr geometry = g_mesh->createEmpty(MVF_POS_3F|MVF_TCOORD_2F, 20, 36, true);
+	GeometryPtr geometry = mesh->createEmpty(MVF_POS_3F|MVF_TCOORD_2F, 20, 36, true);
 	geometry->appendVertexData(0, cubeStructure, sizeof(cubeStructure));
 	geometry->appendIndexData(cubeIndices, sizeof(cubeIndices));
 
@@ -73,7 +76,13 @@ int LessonCube::onInit()
 	material->setShaderProgramFromFile("media/texture.vs","media/texture.fs").setTextureProperty("u_map","media/cube.tga").setTextureProperty("u_map2","media/cube2.tga");
 	material->updateShaderProperites();
 
-	g_mesh->setMaterial(material);
+	mesh->setMaterial(material);
+
+	MeshRenderer* mesh_renderer = new MeshRenderer();
+	mesh_renderer->setMesh(mesh);
+
+	g_obj = new GameObject();
+	g_obj->addComponent(mesh_renderer);
 
 	glEnable(GL_DEPTH_TEST);
     
@@ -101,9 +110,9 @@ void LessonCube::draw()
 	//-------------------------------------------------
 
 	Matrix4 mvp(g_matModelViewProjection);
-	g_mesh->setTransform(mvp);
+	g_obj->getTransform()->setMVPMatrix(mvp);
 	
-	g_mesh->render();
+	g_obj->render();
 
 	
 }
