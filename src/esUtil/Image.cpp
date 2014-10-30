@@ -56,7 +56,7 @@ bool Image::loadTGA( TexImage* texture, const char* filename )
 
 	if ( header.bpp == 32 )
 		texture->imageType = GL_RGBA;
-	else if ( header.bpp = 24 )
+	else if ( header.bpp == 24 )
 		texture->imageType = GL_RGB;
 	else{
 		TRACE("Image type error!\n");
