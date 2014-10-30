@@ -41,8 +41,6 @@ public:
     
     const GameObjectPtr& getParent() const;
     
-    void setParent(GameObject* obj);
-    
     GameObjectList& getChildren();
     
     void addChild(GameObject* obj);
@@ -50,6 +48,9 @@ public:
     void removeChild(GameObject* obj);
     
     void removeFromParent();
+    
+protected:
+    void setParent(GameObject* obj);
     
 protected:
     int m_id;

@@ -22,7 +22,7 @@ ShaderProgram::~ShaderProgram()
 
 bool ShaderProgram::create(const ShaderPtr& vs, const ShaderPtr& fs)
 {
-	if(!vs.isValid() || !fs.isValid())
+	if(!vs->isValid() || !fs->isValid())
 	{
 		ESL_DBG("gl","Error create shader program because shader is not valid.");
 		return false;
