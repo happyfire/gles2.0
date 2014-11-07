@@ -30,7 +30,7 @@ Component& Component::operator=(const Component& rhs)
 }
 
 
-void Component::update()
+void Component::update(float dt)
 {
     
 }

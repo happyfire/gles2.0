@@ -25,7 +25,7 @@ public:
     
 	virtual const CompIDType& getComponentID() const = 0;
 	
-	virtual void update();
+	virtual void update(float dt);
     
     void setOwnerObject(GameObjectPtr obj);
     GameObjectPtr getOwnerObject();

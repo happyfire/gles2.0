@@ -68,12 +68,6 @@ const CompIDType& Transform::getComponentID() const
     return sCompID;
 }
 
-
-void Transform::update()
-{
-    
-}
-
 const Vector3& Transform::getPosition() const
 {
     return m_translation;

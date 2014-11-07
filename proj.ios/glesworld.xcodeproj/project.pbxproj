@@ -22,6 +22,7 @@
 		68368CB318A47C3D002B6A48 /* IRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 68368CAF18A47C3D002B6A48 /* IRenderer.cpp */; };
 		68368CB418A47C3D002B6A48 /* Transform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 68368CB118A47C3D002B6A48 /* Transform.cpp */; };
 		68368CB818A47C4A002B6A48 /* Vector3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 68368CB618A47C4A002B6A48 /* Vector3.cpp */; };
+		684ADF091A0C749D00E78828 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 684ADF071A0C749D00E78828 /* Camera.cpp */; };
 		68575EE0178BFF6E00DAC11F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68575EDF178BFF6E00DAC11F /* UIKit.framework */; };
 		68575EE2178BFF6E00DAC11F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68575EE1178BFF6E00DAC11F /* Foundation.framework */; };
 		68575EE4178BFF6E00DAC11F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68575EE3178BFF6E00DAC11F /* CoreGraphics.framework */; };
@@ -89,6 +90,8 @@
 		68368CB218A47C3D002B6A48 /* Transform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Transform.h; sourceTree = "<group>"; };
 		68368CB618A47C4A002B6A48 /* Vector3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vector3.cpp; sourceTree = "<group>"; };
 		68368CB718A47C4A002B6A48 /* Vector3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vector3.h; sourceTree = "<group>"; };
+		684ADF071A0C749D00E78828 /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
+		684ADF081A0C749D00E78828 /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
 		68575EDC178BFF6E00DAC11F /* glesworld.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = glesworld.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		68575EDF178BFF6E00DAC11F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		68575EE1178BFF6E00DAC11F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -159,6 +162,8 @@
 		680539AC1897B489009317D0 /* components */ = {
 			isa = PBXGroup;
 			children = (
+				684ADF071A0C749D00E78828 /* Camera.cpp */,
+				684ADF081A0C749D00E78828 /* Camera.h */,
 				68368CAF18A47C3D002B6A48 /* IRenderer.cpp */,
 				68368CB018A47C3D002B6A48 /* IRenderer.h */,
 				68368CB118A47C3D002B6A48 /* Transform.cpp */,
@@ -447,6 +452,7 @@
 				680785A1183F028B00092A29 /* Mesh.cpp in Sources */,
 				6811D9A6185FE9D100154FC8 /* Texture.cpp in Sources */,
 				680785A2183F028B00092A29 /* Renderer.cpp in Sources */,
+				684ADF091A0C749D00E78828 /* Camera.cpp in Sources */,
 				685CFF6B1890E3ED0071D00C /* Component.cpp in Sources */,
 				680785A3183F028B00092A29 /* Shader.cpp in Sources */,
 				680785A4183F028B00092A29 /* ShaderProgram.cpp in Sources */,

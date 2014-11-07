@@ -24,8 +24,6 @@ public:
     virtual const CompIDType& getFamilyID() const;
     
 	virtual const CompIDType& getComponentID() const;
-	
-	virtual void update();
     
 public:
     const Vector3& getPosition() const;

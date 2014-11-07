@@ -45,7 +45,7 @@ const CompIDType& MeshRenderer::getComponentID() const
 }
 
 
-void MeshRenderer::update()
+void MeshRenderer::update(float dt)
 {
     
 }

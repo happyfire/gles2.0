@@ -24,7 +24,7 @@ public:
     
 	virtual const CompIDType& getComponentID() const;
 	
-	virtual void update();
+	virtual void update(float dt);
     
 public:
 	virtual void setTransform(const Matrix4 &transform);

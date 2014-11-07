@@ -9,15 +9,17 @@
 #include "eslib/base/GameObject.h"
 #include "eslib/components/MeshRenderer.h"
 #include "eslib/components/Transform.h"
+#include "eslib/components/Camera.h"
 
 #include "LessonCube.h"
 
 USING_NS_ESLIB
 
 
-static ESMatrix g_matProjection, g_matModelViewProjection;
+static ESMatrix g_matModelView;
 
 static GameObjectPtr g_obj;
+static GameObjectPtr g_camera;
 
 int LessonCube::onInit()
 {
@@ -83,13 +85,16 @@ int LessonCube::onInit()
 
 	g_obj = new GameObject();
 	g_obj->addComponent(mesh_renderer);
-
-	glEnable(GL_DEPTH_TEST);
     
     int screenWidth = Application::GetScreenWidth();
-	int screenHeight = Application::GetScreenHeight();
+    int screenHeight = Application::GetScreenHeight();
     
-    esMatrixPerspective(g_matProjection, 45.0f, 0.1f, 100.0f, (float)screenWidth/screenHeight);
+    g_camera = new GameObject();
+    Camera* cam_comp = new Camera();
+    cam_comp->setPerspectiveProjection(45.0f, 0.1f, 100.0f, (float)screenWidth/screenHeight);
+    g_camera->addComponent(cam_comp);
+
+	glEnable(GL_DEPTH_TEST);
 
 	return 1;
 }
@@ -109,7 +114,12 @@ void LessonCube::draw()
 
 	//-------------------------------------------------
 
-	Matrix4 mvp(g_matModelViewProjection);
+    Camera* cam_comp = static_cast<Camera*>(g_camera->getComponent("Camera"));
+    const Matrix4& matProjection = cam_comp->getProjectionMatrix();
+    
+    Matrix4 mvp;
+    multiplyMatrix(matProjection, g_matModelView, mvp);
+    
 	g_obj->getTransform()->setMVPMatrix(mvp);
 	
 	g_obj->render();
@@ -125,15 +135,14 @@ void LessonCube::update(float dt)
     //----------- compute mvpMatrix ---------------------
 	
     
-	ESMatrix matRotY, matRotX, matModelView;
+	ESMatrix matRotY, matRotX;
     
 	esMatrixRotateX(matRotX, -rotation * 0.25f);
 	esMatrixRotateY(matRotY, rotation);
     
-	esMatrixMultiply(matRotY, matRotX, matModelView);
+	esMatrixMultiply(matRotY, matRotX, g_matModelView);
     
-	esMatrixSetTranslate(matModelView, 0, 0, -3);
+	esMatrixSetTranslate(g_matModelView, 0, 0, -3);
     
-	esMatrixMultiply(g_matProjection, matModelView, g_matModelViewProjection);
 }
 
