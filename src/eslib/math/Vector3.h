@@ -41,6 +41,13 @@ public:
 		y = 0.0f;
 		z = 0.0f;
 	}
+    
+    void set(f32 nx, f32 ny, f32 nz)
+    {
+        x = nx;
+        y = ny;
+        z = nz;
+    }
 
 	Vector3 operator -() const
 	{
