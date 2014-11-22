@@ -29,6 +29,10 @@ Component& Component::operator=(const Component& rhs)
     return *this;
 }
 
+void Component::receiveMessage(Component *sender, int messageId, void *payload)
+{
+    
+}
 
 void Component::update(float dt)
 {

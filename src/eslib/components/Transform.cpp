@@ -77,6 +77,7 @@ void Transform::setPosition(const Vector3 &pos)
 {
     m_translation = pos;
     m_flag |= ETransformTranslationChanged;
+    m_ownerObj->broadcastMessage(this, ComponentMessage::Message_TransformPositionChanged, NULL);
 }
 
 void Transform::setPosition(f32 x, f32 y, f32 z)
@@ -85,6 +86,7 @@ void Transform::setPosition(f32 x, f32 y, f32 z)
     m_translation.y = y;
     m_translation.z = z;
     m_flag |= ETransformTranslationChanged;
+    m_ownerObj->broadcastMessage(this, ComponentMessage::Message_TransformPositionChanged, NULL);
 }
 
 const Vector3& Transform::getScale() const
@@ -115,6 +117,7 @@ void Transform::setRotation(Quaternion& rot)
 {
     m_rotation = rot;
     m_flag |= ETransformRotationChanged;
+    m_ownerObj->broadcastMessage(this, ComponentMessage::Message_TransformRotationChanged, NULL);
 }
 
 void Transform::setRotation(const Vector3& axis, f32 degree)
@@ -122,6 +125,7 @@ void Transform::setRotation(const Vector3& axis, f32 degree)
     m_rotation.fromAxisAngle(axis, degree);
     m_rotation.normalize();
     m_flag |= ETransformRotationChanged;
+    m_ownerObj->broadcastMessage(this, ComponentMessage::Message_TransformRotationChanged, NULL);
 }
 
 const Matrix4& Transform::getRelativeTransform()

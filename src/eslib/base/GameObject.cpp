@@ -66,7 +66,13 @@ int GameObject::getID() const
 
 Component* GameObject::getComponent(const CompIDType& familyID)
 {
-    return m_components[familyID];
+    CompTable::iterator iter = m_components.find(familyID);
+    if (iter!=m_components.end()) {
+        return iter->second;
+    }
+    else{
+        return NULL;
+    }
 }
 
 void GameObject::addComponent(Component* newComp)
@@ -102,6 +108,28 @@ void GameObject::clearComponents()
 
 	m_transform = NULL;
 	m_renderer = NULL;
+}
+
+void GameObject::broadcastMessage(Component *sender, int messageId, void *payload)
+{
+    CompTable::iterator iter;
+    for(iter=m_components.begin(); iter!=m_components.end(); ++iter)
+    {
+        Component* receiver = iter->second;
+        if(receiver!=sender)
+        {
+            receiver->receiveMessage(sender, messageId, payload);
+        }
+    }
+}
+
+void GameObject::sendMessage(Component *sender, const CompIDType& receiverCompFamilyId, int messageId, void *payload)
+{
+    Component* receiver = getComponent(receiverCompFamilyId);
+    if (receiver!=NULL)
+    {
+        receiver->receiveMessage(sender, messageId, payload);
+    }
 }
 
 Transform* GameObject::getTransform()

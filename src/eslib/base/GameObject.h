@@ -16,6 +16,14 @@ class IRenderer;
 typedef std::list<GameObjectPtr> GameObjectList;
 typedef GameObjectList::iterator GameObjectIter;
 
+enum ComponentMessage
+{
+    Message_TransformPositionChanged,
+    Message_TransformRotationChanged,
+    
+    Message_CustomStart //custom message should start from it
+};
+
 class GameObject: public BaseObject
 {
 public:
@@ -34,6 +42,11 @@ public:
     void addComponent(Component* newComp);
     
     void clearComponents();
+    
+    //组件间通信，通过消息
+    void broadcastMessage(Component *sender, int messageId, void *payload);
+    
+    void sendMessage(Component *sender, const CompIDType& receiverCompFamilyId, int messageId, void *payload);
 
 	Transform* getTransform();
 

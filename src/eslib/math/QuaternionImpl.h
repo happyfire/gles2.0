@@ -113,7 +113,7 @@ inline Vector3 Quaternion::operator*(const Vector3& v) const
 
 inline Quaternion& Quaternion::fromAxisAngle(const Vector3& axis, f32 angle)
 {
-    f32 half_rad = degreeToRadian(angle/2);
+    f32 half_rad = degreeToRadian(angle*0.5f);
     f32 sine = sinf(half_rad);
     
     x = axis.x * sine;

@@ -64,6 +64,14 @@ const CompIDType& Camera::getComponentID() const
     return sCompID;
 }
 
+void Camera::receiveMessage(Component *sender, int messageId, void *payload)
+{
+    if (messageId==ComponentMessage::Message_TransformPositionChanged
+        || messageId==ComponentMessage::Message_TransformRotationChanged)
+    {
+        m_isMatViewDirty = true;
+    }
+}
 
 void Camera::setPerspectiveProjection(float fovAngle, float nearPlane, float farPlane, float aspect)
 {

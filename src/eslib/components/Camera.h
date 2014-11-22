@@ -26,6 +26,8 @@ public:
     virtual const CompIDType& getFamilyID() const;
     
     virtual const CompIDType& getComponentID() const;
+    
+    virtual void receiveMessage(Component *sender, int messageId, void *payload);
 
 public:
     
