@@ -35,7 +35,7 @@ public:
     void setScale(f32 scale);
     
     const Quaternion& getRotation() const;
-    void setRotation(Quaternion& rot);
+    void setRotation(const Quaternion& rot);
     void setRotation(const Vector3& axis, f32 degree);
     
     const Matrix4& getRelativeTransform();

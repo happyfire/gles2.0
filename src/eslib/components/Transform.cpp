@@ -113,7 +113,7 @@ const Quaternion& Transform::getRotation() const
     return m_rotation;
 }
 
-void Transform::setRotation(Quaternion& rot)
+void Transform::setRotation(const Quaternion& rot)
 {
     m_rotation = rot;
     m_flag |= ETransformRotationChanged;

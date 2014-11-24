@@ -86,6 +86,8 @@ int LessonCube::onInit()
 	g_obj = new GameObject();
 	g_obj->addComponent(mesh_renderer);
     
+    g_obj->getTransform()->setPosition(0, 0, -3);
+    
     int screenWidth = Application::GetScreenWidth();
     int screenHeight = Application::GetScreenHeight();
     
@@ -93,6 +95,9 @@ int LessonCube::onInit()
     Camera* cam_comp = new Camera();
     cam_comp->setPerspectiveProjection(45.0f, 0.1f, 100.0f, (float)screenWidth/screenHeight);
     g_camera->addComponent(cam_comp);
+    
+    g_camera->getTransform()->setPosition(0, 0, 0);
+    cam_comp->setTarget(Vector3(0,0,-1));
 
 	glEnable(GL_DEPTH_TEST);
 
@@ -110,21 +115,10 @@ void LessonCube::draw()
 
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 
-	
-
 	//-------------------------------------------------
 
-    Camera* cam_comp = static_cast<Camera*>(g_camera->getComponent("Camera"));
-    const Matrix4& matProjection = cam_comp->getProjectionMatrix();
     
-    Matrix4 mvp;
-    multiplyMatrix(matProjection, g_matModelView, mvp);
-    
-	g_obj->getTransform()->setMVPMatrix(mvp);
-	
 	g_obj->render();
-
-	
 }
 
 void LessonCube::update(float dt)
@@ -133,16 +127,33 @@ void LessonCube::update(float dt)
     rotation += 0.1f*dt*1000;
     
     //----------- compute mvpMatrix ---------------------
-	
     
-	ESMatrix matRotY, matRotX;
+    Quaternion qx, qy;
+    qx.fromAxisAngle(Vector3(1,0,0), -rotation * 0.25f);
+    qy.fromAxisAngle(Vector3(0,1,0), rotation);
+    g_obj->getTransform()->setRotation(qy*qx);
     
-	esMatrixRotateX(matRotX, -rotation * 0.25f);
-	esMatrixRotateY(matRotY, rotation);
+    Camera* cam_comp = static_cast<Camera*>(g_camera->getComponent("Camera"));
+    const Matrix4& matProjection = cam_comp->getProjectionMatrix();
     
-	esMatrixMultiply(matRotY, matRotX, g_matModelView);
+    const Matrix4& matView = cam_comp->getViewMatrix();
     
-	esMatrixSetTranslate(g_matModelView, 0, 0, -3);
+    const Matrix4& objMat = g_obj->getTransform()->getAbsoluteTransform();
+    
+    Matrix4 mv, mvp;
+    multiplyMatrix(matView, objMat, mv);
+    multiplyMatrix(matProjection, mv, mvp);
+    
+    g_obj->getTransform()->setMVPMatrix(mvp);
+    
+	//ESMatrix matRotY, matRotX;
+    
+	//esMatrixRotateX(matRotX, -rotation * 0.25f);
+	//esMatrixRotateY(matRotY, rotation);
+    
+	//esMatrixMultiply(matRotY, matRotX, g_matModelView);
+    
+	//esMatrixSetTranslate(g_matModelView, 0, 0, -3);
     
 }
 
