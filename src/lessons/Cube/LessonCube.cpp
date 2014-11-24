@@ -86,7 +86,7 @@ int LessonCube::onInit()
 	g_obj = new GameObject();
 	g_obj->addComponent(mesh_renderer);
     
-    g_obj->getTransform()->setPosition(0, 0, -3);
+    g_obj->getTransform()->setPosition(0, 0, 0);
     
     int screenWidth = Application::GetScreenWidth();
     int screenHeight = Application::GetScreenHeight();
@@ -96,7 +96,7 @@ int LessonCube::onInit()
     cam_comp->setPerspectiveProjection(45.0f, 0.1f, 100.0f, (float)screenWidth/screenHeight);
     g_camera->addComponent(cam_comp);
     
-    g_camera->getTransform()->setPosition(0, 0, 0);
+    g_camera->getTransform()->setPosition(0, 0, 10);
     cam_comp->setTarget(Vector3(0,0,-1));
 
 	glEnable(GL_DEPTH_TEST);
