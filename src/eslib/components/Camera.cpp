@@ -10,10 +10,16 @@ static CompIDType sCompID = "Camera";
 
 Camera::Camera()
     :m_isMatViewDirty(true)
+    ,m_fov(45)
+    ,m_near(1)
+    ,m_far(1000)
+    ,m_aspect(1.5)
 {
     m_matView.makeIdentity();
     m_targetPos.zero();
-    m_upVector.set(0, 1, 0);
+    m_u.set(1, 0, 0);
+    m_v.set(0, 1, 0);
+    m_n.set(0, 0, 1);
 }
 
 Camera::~Camera()
@@ -26,8 +32,15 @@ Camera::Camera(const Camera& rhs)
 {
     m_matProjection = rhs.m_matProjection;
     m_matView = rhs.m_matView;
+    m_isMatViewDirty = rhs.m_isMatViewDirty;
+    m_fov = rhs.m_fov;
+    m_near = rhs.m_near;
+    m_far = rhs.m_far;
+    m_aspect = rhs.m_aspect;
     m_targetPos = rhs.m_targetPos;
-    m_upVector = rhs.m_upVector;
+    m_u = rhs.m_u;
+    m_v = rhs.m_v;
+    m_n = rhs.m_n;
 }
 
 Camera& Camera::operator=(const Camera& rhs)
@@ -40,8 +53,15 @@ Camera& Camera::operator=(const Camera& rhs)
     
     m_matProjection = rhs.m_matProjection;
     m_matView = rhs.m_matView;
+    m_isMatViewDirty = rhs.m_isMatViewDirty;
+    m_fov = rhs.m_fov;
+    m_near = rhs.m_near;
+    m_far = rhs.m_far;
+    m_aspect = rhs.m_aspect;
     m_targetPos = rhs.m_targetPos;
-    m_upVector = rhs.m_upVector;
+    m_u = rhs.m_u;
+    m_v = rhs.m_v;
+    m_n = rhs.m_n;
     
     return *this;
 }
@@ -69,18 +89,39 @@ void Camera::receiveMessage(Component *sender, int messageId, void *payload)
     if (messageId==ComponentMessage::Message_TransformPositionChanged
         || messageId==ComponentMessage::Message_TransformRotationChanged)
     {
+        if(messageId==ComponentMessage::Message_TransformRotationChanged)
+        {
+            Transform* transform = m_ownerObj->getTransform();
+            const Quaternion& rot = transform->getRotation();
+        
+            Matrix4 matRot;
+            rot.getRotationMatrix(matRot);
+            
+            m_u.set(matRot[0], matRot[1], matRot[2]);
+            m_v.set(matRot[4], matRot[5], matRot[6]);
+            m_n.set(matRot[8], matRot[9], matRot[10]);
+            
+            m_targetPos = m_eyePos - Vector3(matRot[8], matRot[9], matRot[10]);
+        }
+        
         m_isMatViewDirty = true;
     }
 }
 
 void Camera::setPerspectiveProjection(float fovAngle, float nearPlane, float farPlane, float aspect)
 {
-    m_matProjection.makePerspectiveProjectionMatrix(fovAngle, nearPlane, farPlane, aspect);
+    m_fov = fovAngle;
+    m_near = nearPlane;
+    m_far = farPlane;
+    m_aspect = aspect;
+    
+    m_matProjection.makePerspectiveProjectionMatrix(m_fov, m_near, m_far, m_aspect);
 }
 
-const Matrix4& Camera::getProjectionMatrix() const
+void Camera::setFOV(float fovAngle)
 {
-    return m_matProjection;
+    m_fov = fovAngle;
+    m_matProjection.makePerspectiveProjectionMatrix(m_fov, m_near, m_far, m_aspect);
 }
 
 void Camera::setTarget(const Vector3 &targetPos)
@@ -91,9 +132,44 @@ void Camera::setTarget(const Vector3 &targetPos)
 
 void Camera::setUpVector(const Vector3 &upVector)
 {
-    m_upVector = upVector;
-    m_upVector.normalize();
+    m_v = upVector;
+    m_v.normalize();
     m_isMatViewDirty = true;
+}
+
+void Camera::yaw(float angle)
+{
+    Quaternion qYaw;
+    qYaw.fromAxisAngle(m_v, angle);
+    
+    Transform* transform = m_ownerObj->getTransform();
+    const Quaternion& rot = transform->getRotation();
+    transform->setRotation(qYaw*rot);
+}
+
+void Camera::pitch(float angle)
+{
+    Quaternion qPitch;
+    qPitch.fromAxisAngle(m_u, angle);
+    
+    Transform* transform = m_ownerObj->getTransform();
+    const Quaternion& rot = transform->getRotation();
+    transform->setRotation(qPitch*rot);
+}
+
+void Camera::roll(float angle)
+{
+    Quaternion qRoll;
+    qRoll.fromAxisAngle(m_n, angle);
+    
+    Transform* transform = m_ownerObj->getTransform();
+    const Quaternion& rot = transform->getRotation();
+    transform->setRotation(qRoll*rot);
+}
+
+const Matrix4& Camera::getProjectionMatrix() const
+{
+    return m_matProjection;
 }
 
 const Matrix4& Camera::getViewMatrix()
@@ -108,31 +184,34 @@ const Matrix4& Camera::getViewMatrix()
 
 void Camera::updateViewMatrix()
 {
-    GameObjectPtr owner = getOwnerObject();
-    const Matrix4& mat = owner->getTransform()->getAbsoluteTransform();
-    Vector3 eyePos = mat.getTranslation();
+    m_eyePos = m_ownerObj->getTransform()->getAbsolutePosition();
     
-    Vector3 n = eyePos - m_targetPos;
-    n.normalize();
+    m_n = m_eyePos - m_targetPos;
+    m_n.normalize();
     
-    Vector3 u = crossProduct(m_upVector, n);
-    u.normalize();
+    m_u = crossProduct(m_v, m_n);
+    m_u.normalize();
     
-    Vector3 v = crossProduct(n, u);
+    m_v = crossProduct(m_n, m_u);
     
+    computeViewMatrixByUVN();
+}
+
+void Camera::computeViewMatrixByUVN()
+{
     m_matView.makeIdentity();
-    m_matView[0] = u.x;
-    m_matView[1] = v.x;
-    m_matView[2] = n.x;
-    m_matView[4] = u.y;
-    m_matView[5] = v.y;
-    m_matView[6] = n.y;
-    m_matView[8] = u.z;
-    m_matView[9] = v.z;
-    m_matView[10] = n.z;
-    m_matView[12] = -(u*eyePos);
-    m_matView[13] = -(v*eyePos);
-    m_matView[14] = -(n*eyePos);
+    m_matView[0] = m_u.x;
+    m_matView[1] = m_v.x;
+    m_matView[2] = m_n.x;
+    m_matView[4] = m_u.y;
+    m_matView[5] = m_v.y;
+    m_matView[6] = m_n.y;
+    m_matView[8] = m_u.z;
+    m_matView[9] = m_v.z;
+    m_matView[10] = m_n.z;
+    m_matView[12] = -(m_u*m_eyePos);
+    m_matView[13] = -(m_v*m_eyePos);
+    m_matView[14] = -(m_n*m_eyePos);
 }
 
 

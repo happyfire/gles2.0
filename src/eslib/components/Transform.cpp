@@ -146,6 +146,12 @@ const Matrix4& Transform::getAbsoluteTransform()
     return m_absoluteTransform;
 }
 
+Vector3 Transform::getAbsolutePosition()
+{
+    updateAbsoluteTransform(false);
+    return m_absoluteTransform.getTranslation();
+}
+
 void Transform::updateRelativeTransform()
 {
     if(m_flag & (ETransformRotationChanged | ETransformScaleChanged))

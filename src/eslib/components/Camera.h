@@ -31,25 +31,52 @@ public:
 
 public:
     
-    virtual void setPerspectiveProjection(float fovAngle, float nearPlane, float farPlane, float aspect);
+    void setPerspectiveProjection(float fovAngle, float nearPlane, float farPlane, float aspect);
     
-    virtual const Matrix4& getProjectionMatrix() const;
+    void setFOV(float fovAngle);
     
-    virtual void setTarget(const Vector3 &targetPos);
+    void setTarget(const Vector3 &targetPos);
     
-    virtual void setUpVector(const Vector3 &upVector);
+    void setUpVector(const Vector3 &upVector);
     
-    virtual const Matrix4& getViewMatrix();
+    void yaw(float angle);
+    
+    void pitch(float angle);
+    
+    void roll(float angle);
+    
+    const Matrix4& getProjectionMatrix() const;
+    
+    const Matrix4& getViewMatrix();
+    
+    float getFov() const { return m_fov; }
+    
+    const Vector3& getRightVector() const { return m_u; }
+    
+    const Vector3& getUpVector() const { return m_v; }
+    
+    const Vector3& getLookatVector() const { return m_n; }
+    
+    const Vector3& getEyePos() const { return m_eyePos; }
     
 private:
     void updateViewMatrix();
+    
+    void computeViewMatrixByUVN();
     
 protected:
     Matrix4 m_matProjection;
     Matrix4 m_matView;
     
+    float m_fov;
+    float m_near;
+    float m_far;
+    float m_aspect;
+    
     Vector3 m_targetPos;
-    Vector3 m_upVector;
+    
+    Vector3 m_u, m_v, m_n;
+    Vector3 m_eyePos;
     
     bool m_isMatViewDirty;
 	

@@ -44,6 +44,8 @@ public:
     
     const Matrix4& getAbsoluteTransform();
     
+    Vector3 getAbsolutePosition();
+    
     
     void setMVPMatrix(const Matrix4& mvp);
 	Matrix4& getMVPMatrix();

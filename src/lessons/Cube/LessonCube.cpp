@@ -93,12 +93,12 @@ int LessonCube::onInit()
     
     g_camera = new GameObject();
     Camera* cam_comp = new Camera();
-    cam_comp->setPerspectiveProjection(45.0f, 0.1f, 100.0f, (float)screenWidth/screenHeight);
+    cam_comp->setPerspectiveProjection(60.0f, 0.1f, 100.0f, (float)screenWidth/screenHeight);
     g_camera->addComponent(cam_comp);
     
     g_camera->getTransform()->setPosition(0, 0, 10);
-    cam_comp->setTarget(Vector3(0,0,-1));
-
+    cam_comp->setTarget(Vector3(0,0,0));
+    
 	glEnable(GL_DEPTH_TEST);
 
 	return 1;
@@ -133,7 +133,12 @@ void LessonCube::update(float dt)
     qy.fromAxisAngle(Vector3(0,1,0), rotation);
     g_obj->getTransform()->setRotation(qy*qx);
     
+    
+    g_camera->getTransform()->setPosition(10*sin(degreeToRadian(rotation*2)), 0, 10*cos(degreeToRadian(rotation*2)));
+    
     Camera* cam_comp = static_cast<Camera*>(g_camera->getComponent("Camera"));
+    
+
     const Matrix4& matProjection = cam_comp->getProjectionMatrix();
     
     const Matrix4& matView = cam_comp->getViewMatrix();
