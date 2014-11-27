@@ -2,7 +2,11 @@
 
 NS_ESLIB_BEGIN
 
-BaseObject::BaseObject():m_refCount(0),m_name("_unnamed_")
+BaseObject::BaseObject()
+    :m_refCount(0)
+    ,m_name("_unnamed_")
+    ,m_tag(0)
+    ,m_userData(NULL)
 {
 }
 
@@ -47,6 +51,26 @@ void BaseObject::setName(const stringc& name)
 const stringc& BaseObject::getName() const
 {
 	return m_name;
+}
+
+void BaseObject::setTag(int tag)
+{
+    m_tag = tag;
+}
+
+int BaseObject::getTag() const
+{
+    return m_tag;
+}
+
+void BaseObject::setUserData(void* userData)
+{
+    m_userData = userData;
+}
+
+void* BaseObject::getUserData() const
+{
+    return m_userData;
 }
 
 NS_ESLIB_END

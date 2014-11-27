@@ -25,11 +25,23 @@ public:
 	void setName(const stringc& name);
 	
 	const stringc& getName() const;
+    
+    void setTag(int tag);
+    
+    int getTag() const;
+    
+    void setUserData(void* userData);
+    
+    void* getUserData() const;
 
 protected:
 	virtual void onDelete();
 	
-	stringc m_name;	
+	stringc m_name;
+    
+    int m_tag;
+    
+    void* m_userData;
 
 private:
 	mutable s32 m_refCount;	

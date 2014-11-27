@@ -192,5 +192,20 @@ void GameObject::removeFromParent()
     }
 }
 
+GameObject* GameObject::getChildByTag(int tag)
+{
+    GameObjectIter iter = m_children.begin();
+    
+    for (GameObjectIter iterEnd=m_children.end(); iter!=iterEnd; ++iter)
+    {
+        GameObjectPtr& obj = *iter;
+        
+        if(obj->m_tag==tag)
+            return obj;
+    }
+    
+    return NULL;
+}
+
 
 NS_ESLIB_END

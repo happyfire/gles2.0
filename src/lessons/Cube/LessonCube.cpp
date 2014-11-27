@@ -16,10 +16,82 @@
 
 USING_NS_ESLIB
 
-
-static GameObjectPtr g_obj;
+enum{
+    Tag_Cube1 = 1,
+    Tag_Cube2,
+};
 
 static ScenePtr g_scene;
+
+GameObjectPtr createCube()
+{
+    GameObjectPtr cubeObj;
+    
+    GLfloat cubeStructure[]=
+    {
+        0.50, -0.50, -0.50, -0.00, 0.00,
+        0.50, -0.50, 0.50, 0.33, 0.00,
+        -0.50, -0.50, 0.50, 0.33, 0.33,
+        -0.50, -0.50, -0.50, -0.00, 0.33,
+        0.50, 0.50, -0.50, 0.67, 0.33,
+        0.50, -0.50, -0.50, 0.33, 0.33,
+        -0.50, -0.50, -0.50, 0.33, 0.00,
+        -0.50, 0.50, -0.50, 0.67, 0.00,
+        0.50, 0.50, 0.50, 0.67, 0.67,
+        0.50, -0.50, 0.50, 0.33, 0.67,
+        -0.50, 0.50, 0.50, 0.67, 1.00,
+        -0.50, -0.50, 0.50, 0.33, 1.00,
+        -0.50, 0.50, -0.50, 0.33, 1.00,
+        -0.50, -0.50, -0.50, -0.00, 1.00,
+        -0.50, -0.50, 0.50, -0.00, 0.67,
+        -0.50, 0.50, 0.50, 0.33, 0.67,
+        -0.50, 0.50, 0.50, -0.00, 0.67,
+        0.50, 0.50, 0.50, -0.00, 0.33,
+        0.50, 0.50, -0.50, 0.33, 0.33,
+        -0.50, 0.50, -0.50, 0.33, 0.67,
+    };
+    
+    GLushort cubeIndices[]=
+    {
+        0, 1, 2,
+        2, 3, 0,
+        4, 5, 6,
+        6, 7, 4,
+        8, 9, 5,
+        5, 4, 8,
+        10, 11, 9,
+        9, 8, 10,
+        12, 13, 14,
+        14, 15, 12,
+        16, 17, 18,
+        18, 19, 16,
+    };
+    
+    //create mesh
+    MeshPtr mesh = new Mesh();
+    
+    //create geometry
+    GeometryPtr geometry = mesh->createEmpty(MVF_POS_3F|MVF_TCOORD_2F, 20, 36, true);
+    geometry->appendVertexData(0, cubeStructure, sizeof(cubeStructure));
+    geometry->appendIndexData(cubeIndices, sizeof(cubeIndices));
+    
+    //create material
+    MaterialPtr material = new Material();
+    material->setShaderProgramFromFile("media/texture.vs","media/texture.fs").setTextureProperty("u_map","media/cube.tga").setTextureProperty("u_map2","media/cube2.tga");
+    material->updateShaderProperites();
+    
+    mesh->setMaterial(material);
+    
+    //mesh renderer
+    MeshRenderer* mesh_renderer = new MeshRenderer();
+    mesh_renderer->setMesh(mesh);
+    
+    //game object with mesh renderer
+    cubeObj = new GameObject();
+    cubeObj->addComponent(mesh_renderer);
+    
+    return cubeObj;
+}
 
 int LessonCube::onInit()
 {
@@ -27,71 +99,23 @@ int LessonCube::onInit()
     
     g_scene = new Scene();
 
-	//create buffer objects
-	GLfloat cubeStructure[]=
-	{
-		0.50, -0.50, -0.50, -0.00, 0.00,
-		0.50, -0.50, 0.50, 0.33, 0.00,
-		-0.50, -0.50, 0.50, 0.33, 0.33,
-		-0.50, -0.50, -0.50, -0.00, 0.33,
-		0.50, 0.50, -0.50, 0.67, 0.33,
-		0.50, -0.50, -0.50, 0.33, 0.33,
-		-0.50, -0.50, -0.50, 0.33, 0.00,
-		-0.50, 0.50, -0.50, 0.67, 0.00,
-		0.50, 0.50, 0.50, 0.67, 0.67,
-		0.50, -0.50, 0.50, 0.33, 0.67,
-		-0.50, 0.50, 0.50, 0.67, 1.00,
-		-0.50, -0.50, 0.50, 0.33, 1.00,
-		-0.50, 0.50, -0.50, 0.33, 1.00,
-		-0.50, -0.50, -0.50, -0.00, 1.00,
-		-0.50, -0.50, 0.50, -0.00, 0.67,
-		-0.50, 0.50, 0.50, 0.33, 0.67,
-		-0.50, 0.50, 0.50, -0.00, 0.67,
-		0.50, 0.50, 0.50, -0.00, 0.33,
-		0.50, 0.50, -0.50, 0.33, 0.33,
-		-0.50, 0.50, -0.50, 0.33, 0.67,
-	};
-
-	GLushort cubeIndices[]=
-	{
-		0, 1, 2,
-		2, 3, 0,
-		4, 5, 6,
-		6, 7, 4,
-		8, 9, 5,
-		5, 4, 8,
-		10, 11, 9,
-		9, 8, 10,
-		12, 13, 14,
-		14, 15, 12,
-		16, 17, 18,
-		18, 19, 16,
-	};
-
-	MeshPtr mesh = new Mesh();
-
-	GeometryPtr geometry = mesh->createEmpty(MVF_POS_3F|MVF_TCOORD_2F, 20, 36, true);
-	geometry->appendVertexData(0, cubeStructure, sizeof(cubeStructure));
-	geometry->appendIndexData(cubeIndices, sizeof(cubeIndices));
-
-
-	//create material
-	MaterialPtr material = new Material();
-	material->setShaderProgramFromFile("media/texture.vs","media/texture.fs").setTextureProperty("u_map","media/cube.tga").setTextureProperty("u_map2","media/cube2.tga");
-	material->updateShaderProperites();
-
-	mesh->setMaterial(material);
-
-	MeshRenderer* mesh_renderer = new MeshRenderer();
-	mesh_renderer->setMesh(mesh);
-
-	g_obj = new GameObject();
-	g_obj->addComponent(mesh_renderer);
+    //cube1
+    GameObjectPtr cube1 = createCube();
+    cube1->setTag(Tag_Cube1);
     
-    g_obj->getTransform()->setPosition(0, 0, 0);
+    cube1->getTransform()->setPosition(0, 0, 0);
     
-    g_scene->getRoot()->addChild(g_obj);
+    g_scene->getRoot()->addChild(cube1);
     
+    //cube2
+    GameObjectPtr cube2 = createCube();
+    cube2->setTag(Tag_Cube2);
+    
+    cube2->getTransform()->setPosition(2, 0, 0);
+    
+    g_scene->getRoot()->addChild(cube2);
+    
+    //camera
     int screenWidth = Application::GetScreenWidth();
     int screenHeight = Application::GetScreenHeight();
     
@@ -134,38 +158,14 @@ void LessonCube::update(float dt)
     
     //----------- compute mvpMatrix ---------------------
     
+    GameObject* cube1 = g_scene->getRoot()->getChildByTag(Tag_Cube1);
     Quaternion qx, qy;
     qx.fromAxisAngle(Vector3(1,0,0), -rotation * 0.25f);
     qy.fromAxisAngle(Vector3(0,1,0), rotation);
-    g_obj->getTransform()->setRotation(qy*qx);
+    cube1->getTransform()->setRotation(qy*qx);
     
     GameObject* camera = g_scene->getCurrentCamera();
     
     camera->getTransform()->setPosition(10*sin(degreeToRadian(rotation*2)), 0, 10*cos(degreeToRadian(rotation*2)));
-    
-    Camera* cam_comp = camera->getCamera();
-    
-
-    const Matrix4& matProjection = cam_comp->getProjectionMatrix();
-    
-    const Matrix4& matView = cam_comp->getViewMatrix();
-    
-    const Matrix4& objMat = g_obj->getTransform()->getAbsoluteTransform();
-    
-    Matrix4 mv, mvp;
-    multiplyMatrix(matView, objMat, mv);
-    multiplyMatrix(matProjection, mv, mvp);
-    
-    g_obj->getTransform()->setMVPMatrix(mvp);
-    
-	//ESMatrix matRotY, matRotX;
-    
-	//esMatrixRotateX(matRotX, -rotation * 0.25f);
-	//esMatrixRotateY(matRotY, rotation);
-    
-	//esMatrixMultiply(matRotY, matRotX, g_matModelView);
-    
-	//esMatrixSetTranslate(g_matModelView, 0, 0, -3);
-    
 }
 

@@ -65,6 +65,8 @@ public:
     
     void removeFromParent();
     
+    GameObject* getChildByTag(int tag);
+    
 protected:
     void setParent(GameObject* obj);
     
