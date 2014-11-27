@@ -12,6 +12,7 @@ ESL_FORWARD_PTR(GameObject)
 
 class Transform;
 class IRenderer;
+class Camera;
 
 typedef std::list<GameObjectPtr> GameObjectList;
 typedef GameObjectList::iterator GameObjectIter;
@@ -49,6 +50,8 @@ public:
     void sendMessage(Component *sender, const CompIDType& receiverCompFamilyId, int messageId, void *payload);
 
 	Transform* getTransform();
+    
+    Camera* getCamera();
 
 	void render();
     
@@ -75,6 +78,7 @@ protected:
 
 	Transform* m_transform;
 	IRenderer* m_renderer;
+    Camera* m_camera;
     
     GameObjectList m_children;
     GameObjectPtr m_parent;

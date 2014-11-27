@@ -96,10 +96,9 @@ int LessonCube::onInit()
     int screenHeight = Application::GetScreenHeight();
     
     GameObjectPtr camera = g_scene->createCamera();
-    Camera* cam_comp = static_cast<Camera*>(camera->getComponent("Camera"));
-    cam_comp->setPerspectiveProjection(60.0f, 0.1f, 100.0f, (float)screenWidth/screenHeight);
+    camera->getCamera()->setPerspectiveProjection(60.0f, 0.1f, 100.0f, (float)screenWidth/screenHeight);
     camera->getTransform()->setPosition(0, 0, 10);
-    cam_comp->setTarget(Vector3(0,0,0));
+    camera->getCamera()->setTarget(Vector3(0,0,0));
     
     g_scene->getRoot()->addChild(camera);
     g_scene->setCurrentCamera(camera);
@@ -144,7 +143,7 @@ void LessonCube::update(float dt)
     
     camera->getTransform()->setPosition(10*sin(degreeToRadian(rotation*2)), 0, 10*cos(degreeToRadian(rotation*2)));
     
-    Camera* cam_comp = static_cast<Camera*>(camera->getComponent("Camera"));
+    Camera* cam_comp = camera->getCamera();
     
 
     const Matrix4& matProjection = cam_comp->getProjectionMatrix();

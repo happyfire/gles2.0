@@ -2,7 +2,7 @@
 #include "eslib/base/GameObject.h"
 #include "eslib/components/Transform.h"
 #include "eslib/components/IRenderer.h"
-
+#include "eslib/components/Camera.h"
 
 NS_ESLIB_BEGIN
 
@@ -12,6 +12,7 @@ GameObject::GameObject()
     :BaseObject()
 	,m_transform(NULL)
 	,m_renderer(NULL)
+    ,m_camera(NULL)
 {
     m_id = sAutoIDLast;
     sAutoIDLast++;
@@ -95,6 +96,9 @@ void GameObject::addComponent(Component* newComp)
 	else if(family=="IRenderer"){
 		m_renderer = static_cast<IRenderer*>(newComp);
 	}
+    else if(family=="Camera"){
+        m_camera = static_cast<Camera*>(newComp);
+    }
 }
 
 void GameObject::clearComponents()
@@ -108,6 +112,7 @@ void GameObject::clearComponents()
 
 	m_transform = NULL;
 	m_renderer = NULL;
+    m_camera = NULL;
 }
 
 void GameObject::broadcastMessage(Component *sender, int messageId, void *payload)
@@ -135,6 +140,11 @@ void GameObject::sendMessage(Component *sender, const CompIDType& receiverCompFa
 Transform* GameObject::getTransform()
 {
 	return m_transform;
+}
+
+Camera* GameObject::getCamera()
+{
+    return m_camera;
 }
 
 void GameObject::render()
