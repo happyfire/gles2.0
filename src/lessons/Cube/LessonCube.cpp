@@ -10,20 +10,22 @@
 #include "eslib/components/MeshRenderer.h"
 #include "eslib/components/Transform.h"
 #include "eslib/components/Camera.h"
+#include "Scene.h"
 
 #include "LessonCube.h"
 
 USING_NS_ESLIB
 
 
-static ESMatrix g_matModelView;
-
 static GameObjectPtr g_obj;
-static GameObjectPtr g_camera;
+
+static ScenePtr g_scene;
 
 int LessonCube::onInit()
 {
 	glClearColor(0.3f, 0.3f, 0.3f, 0.0f);
+    
+    g_scene = new Scene();
 
 	//create buffer objects
 	GLfloat cubeStructure[]=
@@ -88,16 +90,19 @@ int LessonCube::onInit()
     
     g_obj->getTransform()->setPosition(0, 0, 0);
     
+    g_scene->getRoot()->addChild(g_obj);
+    
     int screenWidth = Application::GetScreenWidth();
     int screenHeight = Application::GetScreenHeight();
     
-    g_camera = new GameObject();
-    Camera* cam_comp = new Camera();
+    GameObjectPtr camera = g_scene->createCamera();
+    Camera* cam_comp = static_cast<Camera*>(camera->getComponent("Camera"));
     cam_comp->setPerspectiveProjection(60.0f, 0.1f, 100.0f, (float)screenWidth/screenHeight);
-    g_camera->addComponent(cam_comp);
-    
-    g_camera->getTransform()->setPosition(0, 0, 10);
+    camera->getTransform()->setPosition(0, 0, 10);
     cam_comp->setTarget(Vector3(0,0,0));
+    
+    g_scene->getRoot()->addChild(camera);
+    g_scene->setCurrentCamera(camera);
     
 	glEnable(GL_DEPTH_TEST);
 
@@ -118,11 +123,13 @@ void LessonCube::draw()
 	//-------------------------------------------------
 
     
-	g_obj->render();
+    g_scene->render();
 }
 
 void LessonCube::update(float dt)
 {
+    g_scene->update(dt);
+    
     static float rotation = 0.0f;
     rotation += 0.1f*dt*1000;
     
@@ -133,10 +140,11 @@ void LessonCube::update(float dt)
     qy.fromAxisAngle(Vector3(0,1,0), rotation);
     g_obj->getTransform()->setRotation(qy*qx);
     
+    GameObject* camera = g_scene->getCurrentCamera();
     
-    g_camera->getTransform()->setPosition(10*sin(degreeToRadian(rotation*2)), 0, 10*cos(degreeToRadian(rotation*2)));
+    camera->getTransform()->setPosition(10*sin(degreeToRadian(rotation*2)), 0, 10*cos(degreeToRadian(rotation*2)));
     
-    Camera* cam_comp = static_cast<Camera*>(g_camera->getComponent("Camera"));
+    Camera* cam_comp = static_cast<Camera*>(camera->getComponent("Camera"));
     
 
     const Matrix4& matProjection = cam_comp->getProjectionMatrix();
