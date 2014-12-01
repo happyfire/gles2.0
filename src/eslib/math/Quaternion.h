@@ -56,6 +56,10 @@ public:
      \param axis Rotation axis. */
     Quaternion& fromAxisAngle(const Vector3& axis, f32 angle);
     
+    Quaternion& fromEulerAngle(f32 yaw, f32 pitch, f32 roll);
+    
+    void toEulerAngle(Vector3& euler) const;
+    
     //! Set quaternion to represent a rotation from one vector to another.
     Quaternion& rotationFromTo(const Vector3& from, const Vector3& to);
     

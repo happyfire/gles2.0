@@ -1,4 +1,6 @@
 
+#include "MathUtil.h"
+
 inline Quaternion::Quaternion()
 {
     x = 0.f;
@@ -122,6 +124,52 @@ inline Quaternion& Quaternion::fromAxisAngle(const Vector3& axis, f32 angle)
     w = cosf(half_rad);
     
     return *this;
+}
+
+inline Quaternion& Quaternion::fromEulerAngle(f32 yaw, f32 pitch, f32 roll)
+{
+    f64 angle;
+    
+    angle = roll * 0.5;
+    const f64 sr = sin(angle);
+    const f64 cr = cos(angle);
+    
+    angle = pitch * 0.5;
+    const f64 sp = sin(angle);
+    const f64 cp = cos(angle);
+    
+    angle = yaw * 0.5;
+    const f64 sy = sin(angle);
+    const f64 cy = cos(angle);
+    
+    const f64 cpcy = cp * cy;
+    const f64 spcy = sp * cy;
+    const f64 cpsy = cp * sy;
+    const f64 spsy = sp * sy;
+    
+    x = (f32)(sr * cpcy - cr * spsy);
+    y = (f32)(cr * spcy + sr * cpsy);
+    z = (f32)(cr * cpsy - sr * spcy);
+    w = (f32)(cr * cpcy + sr * spsy);
+    
+    return normalize();
+}
+
+inline void Quaternion::toEulerAngle(Vector3& euler) const
+{
+    const f64 sqw = w*w;
+    const f64 sqx = x*x;
+    const f64 sqy = y*y;
+    const f64 sqz = z*z;
+    
+    // heading = rotation about z-axis
+    euler.z = (f32) (atan2(2.0 * (x*y +z*w),(sqx - sqy - sqz + sqw)));
+    
+    // bank = rotation about x-axis
+    euler.x = (f32) (atan2(2.0 * (y*z +x*w),(-sqx - sqy + sqz + sqw)));
+    
+    // attitude = rotation about y-axis
+    euler.y = asinf( clamp(-2.0f * (x*z - y*w), -1.0f, 1.0f) );
 }
 
 inline Quaternion& Quaternion::rotationFromTo(const Vector3& from, const Vector3& to)

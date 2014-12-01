@@ -189,6 +189,13 @@ void Camera::updateViewMatrix()
     m_n = m_eyePos - m_targetPos;
     m_n.normalize();
     
+    // if upvector (m_v) and vector to the target (m_n) are the same, we have a
+    // problem. so solve this problem:
+    f32 dp = m_n * m_v;
+    if (equalsF(dp, 1.0f)) {
+        m_v.x += 0.5f;
+    }
+    
     m_u = crossProduct(m_v, m_n);
     m_u.normalize();
     
