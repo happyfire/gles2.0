@@ -108,6 +108,7 @@
 		68575EF5178BFF6E00DAC11F /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		68575EF7178BFF6E00DAC11F /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		68575EF9178BFF6E00DAC11F /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		685A975F1A3AE9B4009B2A46 /* Plane3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Plane3D.h; sourceTree = "<group>"; };
 		685CFF6A1890E3ED0071D00C /* Component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Component.cpp; sourceTree = "<group>"; };
 		6861C2BF1867D83B0064D0EF /* LessonMD2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LessonMD2.cpp; sourceTree = "<group>"; };
 		6861C2C01867D83B0064D0EF /* LessonMD2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LessonMD2.h; sourceTree = "<group>"; };
@@ -230,6 +231,7 @@
 		68368CB518A47C4A002B6A48 /* math */ = {
 			isa = PBXGroup;
 			children = (
+				685A975F1A3AE9B4009B2A46 /* Plane3D.h */,
 				6826B3FE18BB1CE80023E75A /* Quaternion.cpp */,
 				6826B3FF18BB1CE80023E75A /* Quaternion.h */,
 				6826B40018BB1CE80023E75A /* QuaternionImpl.h */,

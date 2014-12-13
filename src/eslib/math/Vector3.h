@@ -3,6 +3,7 @@
 
 #include <math.h>
 #include "eslib/common.h"
+#include "eslib/math/MathUtil.h"
 
 
 NS_ESLIB_BEGIN
@@ -27,13 +28,18 @@ public:
 
 	bool operator ==(const Vector3 &rhs) const
 	{
-		return x==rhs.x && y==rhs.y && z==rhs.z;
+        return this->equals(rhs);
 	}
 
 	bool operator !=(const Vector3 &rhs) const
 	{
-		return x!=rhs.x || y!=rhs.y || z!=rhs.z;
+        return !this->equals(rhs);
 	}
+    
+    bool equals(const Vector3 &other) const
+    {
+        return equalsF(x, other.x) && equalsF(y, other.y) && equalsF(z, other.z);
+    }
 
 	void zero()
 	{

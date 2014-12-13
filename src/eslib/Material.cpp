@@ -23,7 +23,12 @@ Material& Material::setShaderProgramFromFile(const char* vsFile, const char* fsF
 	char* fsSrc = 0;
 	esLoadFile(fsFile, &fsSrc);
 
-	return setShaderProgramFromSource(vsSrc, fsSrc);
+    setShaderProgramFromSource(vsSrc, fsSrc);
+    
+    delete[] vsSrc;
+    delete[] fsSrc;
+    
+    return *this;
 }
 
 Material& Material::setShaderProgramFromSource(const char* vsSrc, const char* fsSrc)

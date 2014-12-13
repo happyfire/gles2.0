@@ -52,7 +52,7 @@ inline Quaternion& Quaternion::makeIdentity()
 
 inline bool Quaternion::operator==(const Quaternion& rhs) const
 {
-    return x==rhs.x && y==rhs.y && z==rhs.z && w==rhs.w;
+    return equalsF(x, rhs.x) && equalsF(y, rhs.y) && equalsF(z, rhs.z) && equalsF(w, rhs.w);
 }
 
 inline Quaternion& Quaternion::operator=(const Quaternion& rhs)
