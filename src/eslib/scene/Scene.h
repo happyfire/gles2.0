@@ -1,9 +1,9 @@
-#ifndef ESL_SCENE_H
-#define ESL_SCENE_H
+#ifndef ESL_SCENE_SCENE_H
+#define ESL_SCENE_SCENE_H
 
 #include "eslib/BaseObject.h"
 #include "eslib/sharedPtr.h"
-#include "base/GameObject.h"
+#include "eslib/base/GameObject.h"
 
 NS_ESLIB_BEGIN
 
@@ -39,4 +39,4 @@ protected:
 
 NS_ESLIB_END
 
-#endif //ESL_SCENE_H
+#endif //ESL_SCENE_SCENE_H

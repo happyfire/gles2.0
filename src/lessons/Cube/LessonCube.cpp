@@ -10,7 +10,7 @@
 #include "eslib/components/MeshRenderer.h"
 #include "eslib/components/Transform.h"
 #include "eslib/components/Camera.h"
-#include "Scene.h"
+#include "eslib/Scene/Scene.h"
 
 #include "LessonCube.h"
 

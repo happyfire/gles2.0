@@ -36,6 +36,26 @@ public:
         return !this->equals(rhs);
 	}
     
+    bool operator <=(const Vector3 &rhs) const
+    {
+        return x <= rhs.x && y <= rhs.y && z <= rhs.z;
+    }
+    
+    bool operator >=(const Vector3 &rhs) const
+    {
+        return x >= rhs.x && y >= rhs.y && z >= rhs.z;
+    }
+    
+    bool operator <(const Vector3 &rhs) const
+    {
+        return x < rhs.x && y < rhs.y && z < rhs.z;
+    }
+    
+    bool operator >(const Vector3 &rhs) const
+    {
+        return x > rhs.x && y > rhs.y && z > rhs.z;
+    }
+    
     bool equals(const Vector3 &other) const
     {
         return equalsF(x, other.x) && equalsF(y, other.y) && equalsF(z, other.z);

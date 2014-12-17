@@ -37,9 +37,11 @@
 		685CFF6B1890E3ED0071D00C /* Component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 685CFF6A1890E3ED0071D00C /* Component.cpp */; };
 		6861C2C31867D83B0064D0EF /* LessonMD2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6861C2BF1867D83B0064D0EF /* LessonMD2.cpp */; };
 		6861C2C41867D83B0064D0EF /* MD2MeshLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6861C2C11867D83B0064D0EF /* MD2MeshLoader.cpp */; };
-		689F1B3A1A25FE86009C4A8F /* Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 689F1B381A25FE86009C4A8F /* Scene.cpp */; };
 		68B71E7B1890C58700647994 /* GameObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 68B71E781890C58700647994 /* GameObject.cpp */; };
 		68BEFEF618AA2D36009BF248 /* Matrix4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 68BEFEF318AA2D36009BF248 /* Matrix4.cpp */; };
+		68CF819C1A41733700313176 /* Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 68CF819A1A41733700313176 /* Scene.cpp */; };
+		68CF819F1A4174AE00313176 /* AABBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 68CF819D1A4174AE00313176 /* AABBox.cpp */; };
+		68CF81A21A41A62A00313176 /* ViewFrustum.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 68CF81A01A41A62A00313176 /* ViewFrustum.cpp */; };
 		68E8D78F1842E4CE00AD1EBA /* Application.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 68E8D78C1842E4CE00AD1EBA /* Application.cpp */; };
 		68E8D7971842E50900AD1EBA /* esFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 68E8D7901842E50900AD1EBA /* esFile.cpp */; };
 		68E8D7981842E50900AD1EBA /* esMath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 68E8D7911842E50900AD1EBA /* esMath.cpp */; };
@@ -114,8 +116,6 @@
 		6861C2C01867D83B0064D0EF /* LessonMD2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LessonMD2.h; sourceTree = "<group>"; };
 		6861C2C11867D83B0064D0EF /* MD2MeshLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MD2MeshLoader.cpp; sourceTree = "<group>"; };
 		6861C2C21867D83B0064D0EF /* MD2MeshLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MD2MeshLoader.h; sourceTree = "<group>"; };
-		689F1B381A25FE86009C4A8F /* Scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Scene.cpp; sourceTree = "<group>"; };
-		689F1B391A25FE86009C4A8F /* Scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scene.h; sourceTree = "<group>"; };
 		68B71E781890C58700647994 /* GameObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameObject.cpp; sourceTree = "<group>"; };
 		68B71E791890C58700647994 /* GameObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameObject.h; sourceTree = "<group>"; };
 		68B71E7A1890C58700647994 /* Component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Component.h; sourceTree = "<group>"; };
@@ -123,6 +123,12 @@
 		68BEFEF318AA2D36009BF248 /* Matrix4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Matrix4.cpp; sourceTree = "<group>"; };
 		68BEFEF418AA2D36009BF248 /* Matrix4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Matrix4.h; sourceTree = "<group>"; };
 		68BEFEF518AA2D36009BF248 /* Matrix4Impl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Matrix4Impl.h; sourceTree = "<group>"; };
+		68CF819A1A41733700313176 /* Scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Scene.cpp; sourceTree = "<group>"; };
+		68CF819B1A41733700313176 /* Scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scene.h; sourceTree = "<group>"; };
+		68CF819D1A4174AE00313176 /* AABBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AABBox.cpp; sourceTree = "<group>"; };
+		68CF819E1A4174AE00313176 /* AABBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AABBox.h; sourceTree = "<group>"; };
+		68CF81A01A41A62A00313176 /* ViewFrustum.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ViewFrustum.cpp; sourceTree = "<group>"; };
+		68CF81A11A41A62A00313176 /* ViewFrustum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewFrustum.h; sourceTree = "<group>"; };
 		68E8D78C1842E4CE00AD1EBA /* Application.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Application.cpp; sourceTree = "<group>"; };
 		68E8D78D1842E4CE00AD1EBA /* Application.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Application.h; sourceTree = "<group>"; };
 		68E8D78E1842E4CE00AD1EBA /* IAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAppDelegate.h; sourceTree = "<group>"; };
@@ -181,8 +187,7 @@
 		68078587183F028B00092A29 /* eslib */ = {
 			isa = PBXGroup;
 			children = (
-				689F1B381A25FE86009C4A8F /* Scene.cpp */,
-				689F1B391A25FE86009C4A8F /* Scene.h */,
+				68CF81991A41733700313176 /* scene */,
 				68368CB518A47C4A002B6A48 /* math */,
 				680539AC1897B489009317D0 /* components */,
 				68B71E771890C58700647994 /* base */,
@@ -334,6 +339,19 @@
 			path = base;
 			sourceTree = "<group>";
 		};
+		68CF81991A41733700313176 /* scene */ = {
+			isa = PBXGroup;
+			children = (
+				68CF81A01A41A62A00313176 /* ViewFrustum.cpp */,
+				68CF81A11A41A62A00313176 /* ViewFrustum.h */,
+				68CF819D1A4174AE00313176 /* AABBox.cpp */,
+				68CF819E1A4174AE00313176 /* AABBox.h */,
+				68CF819A1A41733700313176 /* Scene.cpp */,
+				68CF819B1A41733700313176 /* Scene.h */,
+			);
+			path = scene;
+			sourceTree = "<group>";
+		};
 		68E8D79C1842E51E00AD1EBA /* esUtil */ = {
 			isa = PBXGroup;
 			children = (
@@ -455,8 +473,9 @@
 				68BEFEF618AA2D36009BF248 /* Matrix4.cpp in Sources */,
 				6807859E183F028B00092A29 /* Geometry.cpp in Sources */,
 				6807859F183F028B00092A29 /* Logger.cpp in Sources */,
-				689F1B3A1A25FE86009C4A8F /* Scene.cpp in Sources */,
+				68CF819C1A41733700313176 /* Scene.cpp in Sources */,
 				680785A0183F028B00092A29 /* Material.cpp in Sources */,
+				68CF81A21A41A62A00313176 /* ViewFrustum.cpp in Sources */,
 				680785A1183F028B00092A29 /* Mesh.cpp in Sources */,
 				6811D9A6185FE9D100154FC8 /* Texture.cpp in Sources */,
 				680785A2183F028B00092A29 /* Renderer.cpp in Sources */,
@@ -472,6 +491,7 @@
 				68E8D7991842E50900AD1EBA /* esTexture.cpp in Sources */,
 				68E8D79A1842E50900AD1EBA /* esUtil.cpp in Sources */,
 				68E8D79B1842E50900AD1EBA /* Image.cpp in Sources */,
+				68CF819F1A4174AE00313176 /* AABBox.cpp in Sources */,
 				68E8D7AD1842F1D600AD1EBA /* LessonCube.cpp in Sources */,
 				68E8D7AE1842F1D600AD1EBA /* LessonHelloTriangle.cpp in Sources */,
 				68368CB318A47C3D002B6A48 /* IRenderer.cpp in Sources */,

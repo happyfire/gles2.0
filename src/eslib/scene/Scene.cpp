@@ -1,6 +1,6 @@
-#include "Scene.h"
-#include "components/Camera.h"
-#include "components/Transform.h"
+#include "eslib/scene/Scene.h"
+#include "eslib/components/Camera.h"
+#include "eslib/components/Transform.h"
 
 NS_ESLIB_BEGIN
 
