@@ -108,9 +108,9 @@ void Camera::receiveMessage(Component *sender, int messageId, void *payload)
     }
 }
 
-void Camera::setPerspectiveProjection(float fovAngle, float nearPlane, float farPlane, float aspect)
+void Camera::setPerspectiveProjection(float fovAngleHor, float nearPlane, float farPlane, float aspect)
 {
-    m_fov = fovAngle;
+    m_fov = fovAngleHor;
     m_near = nearPlane;
     m_far = farPlane;
     m_aspect = aspect;

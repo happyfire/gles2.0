@@ -346,9 +346,9 @@ inline Matrix4& Matrix4::makeRotateZMatrix(f32 rotDegree)
 	return *this;
 }
 
-inline Matrix4& Matrix4::makePerspectiveProjectionMatrix(f32 fovAngle, f32 nearPlane, f32 farPlane, f32 aspect)
+inline Matrix4& Matrix4::makePerspectiveProjectionMatrix(f32 fovAngleHor, f32 nearPlane, f32 farPlane, f32 aspect)
 {
-	float size = nearPlane * tanf(degreeToRadian(fovAngle) / 2.0f);
+	float size = nearPlane * tanf(degreeToRadian(fovAngleHor) / 2.0f);
 	float left = -size, right = size, bottom = -size / aspect, top = size / aspect;
 
 	// Unused values in perspective formula.

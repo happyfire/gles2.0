@@ -66,7 +66,9 @@ public:
 
 	Matrix4& makeRotateZMatrix(f32 rotDegree);
 
-	Matrix4& makePerspectiveProjectionMatrix(f32 fovAngle, f32 nearPlane, f32 farPlane, f32 aspect);
+    //fovAngleHor: 水平方向视角，单位：度
+    //aspect: 视口宽/高
+	Matrix4& makePerspectiveProjectionMatrix(f32 fovAngleHor, f32 nearPlane, f32 farPlane, f32 aspect);
 
 	const f32* getData() const;
 

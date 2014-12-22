@@ -27,10 +27,34 @@ ViewFrustum& ViewFrustum::operator=(const ViewFrustum& rhs)
     return *this;
 }
 
-void ViewFrustum::setFromCamera(f32 fov, f32 near, f32 far, f32 aspect, const Vector3& position, const Vector3& lookDir, const Vector3& upDir, const Vector3& rightDir)
+void ViewFrustum::setFromCamera(f32 fovHor, f32 near, f32 far, f32 aspect, const Vector3& position, const Vector3& lookDir, const Vector3& upDir, const Vector3& rightDir)
 {
-    f32 tang = tanf(degreeToRadian(fov) * 0.5f);
-    f32 nearH = near * tang;
+    f32 tang = tanf(degreeToRadian(fovHor) * 0.5f);
+    f32 nearHalfW = near * tang;
+    f32 farHalfW = far * tang;
+    f32 nearHalfH = nearHalfW / aspect;
+    f32 farHalfH = farHalfW / aspect;
+    
+    Vector3 nc = position + lookDir*near;
+    Vector3 fc = position + lookDir*far;
+    
+    m_planes[PLANE_NEAR].setPlane(nc, lookDir);
+    m_planes[PLANE_FAR].setPlane(fc, -lookDir);
+    
+    Vector3 a = nc + rightDir*nearHalfW - position;
+    a.normalize();
+    Vector3 faceNormal = crossProduct(upDir, a);
+    faceNormal.normalize();
+    m_planes[PLANE_RIGHT].setPlane(position, faceNormal);
+    
+    a = nc - rightDir*nearHalfW - position;
+    a.normalize();
+    faceNormal = crossProduct(a, upDir);
+    faceNormal.normalize();
+    m_planes[PLANE_LEFT].setPlane(position, faceNormal);
+    
+    //a = nc - upDir
+    
 }
 
 NS_ESLIB_END

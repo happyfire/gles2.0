@@ -31,7 +31,9 @@ public:
 
 public:
     
-    void setPerspectiveProjection(float fovAngle, float nearPlane, float farPlane, float aspect);
+    //fovAngleHor: 水平方向视角，单位：度
+    //aspect: 视口宽/高
+    void setPerspectiveProjection(float fovAngleHor, float nearPlane, float farPlane, float aspect);
     
     void setFOV(float fovAngle);
     
@@ -68,10 +70,10 @@ protected:
     Matrix4 m_matProjection;
     Matrix4 m_matView;
     
-    float m_fov;
+    float m_fov; //水平方向视角，单位：度
     float m_near;
     float m_far;
-    float m_aspect;
+    float m_aspect; //视口宽高比
     
     Vector3 m_targetPos;
     
