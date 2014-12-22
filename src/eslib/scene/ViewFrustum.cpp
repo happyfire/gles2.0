@@ -31,9 +31,7 @@ void ViewFrustum::setFromCamera(f32 fovHor, f32 near, f32 far, f32 aspect, const
 {
     f32 tang = tanf(degreeToRadian(fovHor) * 0.5f);
     f32 nearHalfW = near * tang;
-    f32 farHalfW = far * tang;
     f32 nearHalfH = nearHalfW / aspect;
-    f32 farHalfH = farHalfW / aspect;
     
     Vector3 nc = position + lookDir*near;
     Vector3 fc = position + lookDir*far;
@@ -53,8 +51,17 @@ void ViewFrustum::setFromCamera(f32 fovHor, f32 near, f32 far, f32 aspect, const
     faceNormal.normalize();
     m_planes[PLANE_LEFT].setPlane(position, faceNormal);
     
-    //a = nc - upDir
+    a = nc + upDir*nearHalfH - position;
+    a.normalize();
+    faceNormal = crossProduct(a, rightDir);
+    faceNormal.normalize();
+    m_planes[PLANE_TOP].setPlane(position, faceNormal);
     
+    a = nc - upDir*nearHalfH - position;
+    a.normalize();
+    faceNormal = crossProduct(rightDir, a);
+    faceNormal.normalize();
+    m_planes[PLANE_BOTTOM].setPlane(position, faceNormal);
 }
 
 NS_ESLIB_END

@@ -57,7 +57,8 @@ public:
     
     const Vector3& getUpVector() const { return m_v; }
     
-    const Vector3& getLookatVector() const { return m_n; }
+    //opengl中look at方向是m_n的反方向
+    const Vector3 getLookatVector() const { return -m_n; }
     
     const Vector3& getEyePos() const { return m_eyePos; }
     
