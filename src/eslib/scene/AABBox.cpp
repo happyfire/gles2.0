@@ -66,7 +66,7 @@ void AABBox::setBox(const Vector3& minPoint, const Vector3& maxPoint)
     MaxPoint = MaxPoint;
 }
 
-Vector3 AABBox::getVectorP(const Vector3& normal)
+Vector3 AABBox::getVectorP(const Vector3& normal) const
 {
     Vector3 p = MinPoint;
     
@@ -83,7 +83,7 @@ Vector3 AABBox::getVectorP(const Vector3& normal)
     return p;
 }
 
-Vector3 AABBox::getVectorN(const Vector3& normal)
+Vector3 AABBox::getVectorN(const Vector3& normal) const
 {
     Vector3 p = MaxPoint;
     

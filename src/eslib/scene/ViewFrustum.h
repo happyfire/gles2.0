@@ -7,6 +7,7 @@
 
 NS_ESLIB_BEGIN
 
+class AABBox;
 
 class ViewFrustum
 {
@@ -24,6 +25,8 @@ public:
     ViewFrustum& operator=(const ViewFrustum& rhs);
     
     void setFromCamera(f32 fovHor, f32 near, f32 far, f32 aspect, const Vector3& position, const Vector3& lookDir, const Vector3& upDir, const Vector3& rightDir);
+    
+    int isAABBInFrustum(const AABBox& box);
     
 private:
     enum{

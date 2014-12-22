@@ -1,4 +1,5 @@
 #include "eslib/scene/ViewFrustum.h"
+#include "eslib/scene/AABBox.h"
 
 NS_ESLIB_BEGIN
 
@@ -62,6 +63,23 @@ void ViewFrustum::setFromCamera(f32 fovHor, f32 near, f32 far, f32 aspect, const
     faceNormal = crossProduct(rightDir, a);
     faceNormal.normalize();
     m_planes[PLANE_BOTTOM].setPlane(position, faceNormal);
+}
+
+int ViewFrustum::isAABBInFrustum(const AABBox& box)
+{
+    for (int i=0; i<6; i++) {
+        Plane3D& plane = m_planes[i];
+        //is the positive vertex outside?
+        if (plane.getDistanceTo(box.getVectorP(plane.m_normal))<0) {
+            return ViewFrustum::OUTSIDE;
+        }
+        //is the negative vertex outside?
+        if (plane.getDistanceTo(box.getVectorN(plane.m_normal))<0) {
+            return ViewFrustum::INTERSECT;
+        }
+    }
+    
+    return ViewFrustum::INSIDE;
 }
 
 NS_ESLIB_END

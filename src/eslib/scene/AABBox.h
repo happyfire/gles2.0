@@ -24,9 +24,9 @@ public:
     
     void setBox(const Vector3& minPoint, const Vector3& maxPoint);
     
-    Vector3 getVectorP(const Vector3& normal);
+    Vector3 getVectorP(const Vector3& normal) const;
     
-    Vector3 getVectorN(const Vector3& normal);
+    Vector3 getVectorN(const Vector3& normal) const;
     
     bool isIntersectsWithBox(const AABBox& other) const;
     
