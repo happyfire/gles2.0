@@ -44,6 +44,18 @@ inline const f32& Matrix4::operator[](int index) const
 	return m[index];
 }
 
+inline f32& Matrix4::operator()(int row, int col)
+{
+    ESL_ASSERT(row>=0 && row<4 && col>=0 && col<4);
+    return m[row*4+col];
+}
+
+inline const f32& Matrix4::operator()(int row, int col) const
+{
+    ESL_ASSERT(row>=0 && row<4 && col>=0 && col<4);
+    return m[row*4+col];
+}
+
 inline bool Matrix4::operator ==(const Matrix4 &rhs) const
 {
 	for (int i = 0; i < 16; ++i)

@@ -23,6 +23,10 @@ public:
 	f32& operator[](int index);
 
 	const f32& operator[](int index) const;
+    
+    f32& operator()(int row, int col);
+    
+    const f32& operator()(int row, int col) const;
 
 	bool operator ==(const Matrix4 &rhs) const;
 

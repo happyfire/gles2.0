@@ -72,6 +72,45 @@ void AABBox::setBox(const Vector3& minPoint, const Vector3& maxPoint)
     MaxPoint = MaxPoint;
 }
 
+void AABBox::transform(const Matrix4 &transform)
+{
+    const f32 Amin[3] = {MinPoint.x, MinPoint.y, MinPoint.z};
+    const f32 Amax[3] = {MaxPoint.x, MaxPoint.y, MaxPoint.z};
+    
+    f32 Bmin[3];
+    f32 Bmax[3];
+    
+    Bmin[0] = Bmax[0] = transform[12];
+    Bmin[1] = Bmax[1] = transform[13];
+    Bmin[2] = Bmax[2] = transform[14];
+    
+    for (int i=0; i<3; i++)
+    {
+        for (int j=0; j<3; j++)
+        {
+            f32 a = transform(i,j) * Amin[j];
+            f32 b = transform(i,j) * Amax[j];
+            if (a<b)
+            {
+                Bmin[i] += a;
+                Bmax[i] += b;
+            }
+            else
+            {
+                Bmin[i] += b;
+                Bmax[i] += a;
+            }
+        }
+    }
+    
+    MinPoint.x = Bmin[0];
+    MinPoint.y = Bmin[1];
+    MinPoint.z = Bmin[2];
+    MaxPoint.x = Bmax[0];
+    MaxPoint.y = Bmax[1];
+    MaxPoint.z = Bmax[2];
+}
+
 Vector3 AABBox::getVectorP(const Vector3& normal) const
 {
     Vector3 p = MinPoint;

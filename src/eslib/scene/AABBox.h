@@ -2,6 +2,7 @@
 #define ESL_SCENE_AABBOX_H
 
 #include "eslib/math/Vector3.h"
+#include "eslib/math/Matrix4.h"
 
 
 NS_ESLIB_BEGIN
@@ -25,6 +26,8 @@ public:
     void addBox(const AABBox& box);
     
     void setBox(const Vector3& minPoint, const Vector3& maxPoint);
+    
+    void transform(const Matrix4 &transform);
     
     Vector3 getVectorP(const Vector3& normal) const;
     

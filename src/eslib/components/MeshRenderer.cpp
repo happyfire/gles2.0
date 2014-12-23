@@ -57,7 +57,11 @@ void MeshRenderer::setTransform(const Matrix4 &transform)
 	{
 		m_mesh->setTransform(transform);
         
-        //TODO: transform AABB
+        //get and transform AABB
+        const GeometryPtr& geometry = m_mesh->getGeometry();
+        const AABBox& aabb = geometry->getAABB();
+        m_aabb = aabb;
+        m_aabb.transform(transform);
 	}
 }
 
@@ -74,10 +78,6 @@ const AABBox& MeshRenderer::getTransformedAABB()
 void MeshRenderer::setMesh(MeshPtr mesh)
 {
 	m_mesh = mesh;
-    
-    const GeometryPtr& geometry = m_mesh->getGeometry();
-    const AABBox& aabb = geometry->getAABB();
-    m_aabb = aabb;
 }
 
 MeshPtr MeshRenderer::getMesh()
