@@ -5,6 +5,7 @@
 #include "sharedPtr.h"
 #include "glcommon.h"
 #include <vector>
+#include "eslib/scene/AABBox.h"
 
 
 NS_ESLIB_BEGIN
@@ -14,6 +15,14 @@ ESL_FORWARD_PTR(Geometry)
 
 //Shader class, vertex or fragment shader
 
+enum AttributeType
+{
+    Type_Custom,
+    Type_Position,
+    Type_Normal,
+    Type_UV,
+};
+
 struct VertexAttribute
 {
 	int ElementCount;
@@ -21,12 +30,14 @@ struct VertexAttribute
 	int offset; //offset in its data stream, in float
 	int Location;
 	std::string Name; //Name in shader
+    AttributeType Type;
 
 	VertexAttribute()
 		:ElementCount(0)
 		,VertexStreamID(0)
 		,offset(0)
 		,Location(-1)
+        ,Type(Type_Custom)
 	{
 
 	}
@@ -66,11 +77,14 @@ public:
 	void appendIndexData(GLushort* data, int dataSize);
 
 	void render(const ShaderProgramPtr& shader);
+    
+    const AABBox& getAABB() const;
 
 private:
 	void getAttributeLocations(const ShaderProgramPtr& shader);
 	
-
+    void computeAABB(int streamID, VertexDataStream &vds);
+    
 private:
 	int m_attributeCount;
 	VertexAttribute* m_attributes;
@@ -90,6 +104,8 @@ private:
 
 	//GLfloat* m_vertexAppendPointer;
 	GLushort* m_indexAppendPointer;
+    
+    AABBox m_aabb;
 };
 
 

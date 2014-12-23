@@ -202,6 +202,8 @@ void Camera::updateViewMatrix()
     m_v = crossProduct(m_n, m_u);
     
     computeViewMatrixByUVN();
+    
+    m_frustum.setFromCamera(m_fov, m_near, m_far, m_aspect, m_eyePos, -m_n, m_v, m_u);
 }
 
 void Camera::computeViewMatrixByUVN()

@@ -30,6 +30,7 @@ GeometryPtr Mesh::createEmpty(int vertexFlag, int vertexCount, int indexCount, b
 		attributePos.ElementCount = 3;
         attributePos.VertexStreamID = streamID;
 		attributePos.Name = "a_position";
+        attributePos.Type = Type_Position;
 		meshAttributes.push_back(&attributePos);
         
         if(multiStream){
@@ -43,6 +44,7 @@ GeometryPtr Mesh::createEmpty(int vertexFlag, int vertexCount, int indexCount, b
 		attributeTexcoord.ElementCount = 2;
         attributeTexcoord.VertexStreamID = streamID;
 		attributeTexcoord.Name = "a_texCoord";
+        attributeTexcoord.Type = Type_UV;
 		meshAttributes.push_back(&attributeTexcoord);
         
         if(multiStream){

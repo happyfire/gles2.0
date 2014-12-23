@@ -25,6 +25,12 @@ AABBox& AABBox::operator=(const AABBox& rhs)
     return *this;
 }
 
+void AABBox::clear()
+{
+    MinPoint.set(-1, -1, -1);
+    MaxPoint.set(1, 1, 1);
+}
+
 void AABBox::reset(const Vector3& point)
 {
     MinPoint = point;

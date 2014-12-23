@@ -16,6 +16,8 @@ public:
     
     AABBox& operator=(const AABBox& rhs);
     
+    void clear();
+        
     void reset(const Vector3& point);
     
     void addPoint(const Vector3& point);

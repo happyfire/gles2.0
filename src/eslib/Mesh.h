@@ -34,6 +34,8 @@ public:
 	void render();
 
 	const MaterialPtr& getMaterial() { return m_material; }
+    
+    const GeometryPtr& getGeometry() { return m_geometry; }
 
 protected:
 	MaterialPtr m_material;

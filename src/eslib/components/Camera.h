@@ -8,6 +8,7 @@
 #include "eslib/base/Component.h"
 #include "eslib/math/Matrix4.h"
 #include "eslib/math/Vector3.h"
+#include "eslib/scene/ViewFrustum.h"
 
 NS_ESLIB_BEGIN
 
@@ -62,6 +63,8 @@ public:
     
     const Vector3& getEyePos() const { return m_eyePos; }
     
+    const ViewFrustum& getViewFrsutum() const { return m_frustum; }
+    
 private:
     void updateViewMatrix();
     
@@ -82,6 +85,8 @@ protected:
     Vector3 m_eyePos;
     
     bool m_isMatViewDirty;
+    
+    ViewFrustum m_frustum;
 	
 };
 

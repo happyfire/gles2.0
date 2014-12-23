@@ -10,6 +10,7 @@
 
 NS_ESLIB_BEGIN
 
+class AABBox;
 
 class IRenderer: public Component
 {
@@ -23,6 +24,8 @@ public:
 	virtual void setTransform(const Matrix4 &transform) = 0;
 	
 	virtual void render() = 0;
+    
+    virtual const AABBox& getTransformedAABB() = 0;
 };
 
 

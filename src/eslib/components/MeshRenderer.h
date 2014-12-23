@@ -5,6 +5,7 @@
 #include "eslib/SharedPtr.h"
 #include "eslib/components/IRenderer.h"
 #include "eslib/math/Matrix4.h"
+#include "eslib/scene/AABBox.h"
 
 NS_ESLIB_BEGIN
 
@@ -29,6 +30,7 @@ public:
 public:
 	virtual void setTransform(const Matrix4 &transform);
     virtual void render();
+    virtual const AABBox& getTransformedAABB();
 
 public:
 	void setMesh(MeshPtr mesh);
@@ -37,6 +39,8 @@ public:
     
 private:
     MeshPtr m_mesh;
+    
+    AABBox m_aabb;
 };
 
 

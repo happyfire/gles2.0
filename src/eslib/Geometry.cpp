@@ -82,6 +82,7 @@ void Geometry::create(const std::vector<const VertexAttribute*>& attributes, int
 
 		m_attributes[i].ElementCount = attributes[i]->ElementCount;
 		m_attributes[i].Name = attributes[i]->Name;
+        m_attributes[i].Type = attributes[i]->Type;
 
 		int vsID = attributes[i]->VertexStreamID;
 
@@ -138,13 +139,18 @@ void Geometry::appendVertexData(int streamID, float* data, int dataSize)
 
 	vds.m_vertexAppendPointer += dataSize/sizeof(GLfloat);
 
-	if(vds.vbo>0 && vds.m_vertexAppendPointer==vds.VertexData+vds.VertexFSize * m_vertexCount)
+	if(vds.m_vertexAppendPointer==vds.VertexData+vds.VertexFSize * m_vertexCount)
 	{
-		glBindBuffer(GL_ARRAY_BUFFER, vds.vbo);
-		glBufferData(GL_ARRAY_BUFFER, vds.VertexFSize * m_vertexCount * sizeof(GLfloat), vds.VertexData, GL_STATIC_DRAW);
-		delete[] vds.VertexData;
-		vds.VertexData = null;
-		vds.m_vertexAppendPointer = null;
+        computeAABB(streamID, vds);
+        
+        if (vds.vbo>0)
+        {
+            glBindBuffer(GL_ARRAY_BUFFER, vds.vbo);
+            glBufferData(GL_ARRAY_BUFFER, vds.VertexFSize * m_vertexCount * sizeof(GLfloat), vds.VertexData, GL_STATIC_DRAW);
+            delete[] vds.VertexData;
+            vds.VertexData = null;
+            vds.m_vertexAppendPointer = null;
+        }
 	}
 }
 
@@ -169,6 +175,32 @@ void Geometry::appendIndexData(GLushort* data, int dataSize)
 		m_indices = null;
 		m_indexAppendPointer = null;
 	}
+}
+
+void Geometry::computeAABB(int streamID, VertexDataStream &vds)
+{
+    Vector3 point;
+    
+    for(int i=0; i<m_attributeCount; i++)
+    {
+        VertexAttribute& attr = m_attributes[i];
+        
+        if(attr.Type==Type_Position && attr.VertexStreamID==streamID)
+        {
+            GLfloat* posData = vds.VertexData + attr.offset;
+            point.set(*posData, *(posData+1), *(posData+2));
+            m_aabb.reset(point);
+            
+            for (int vi=1; vi<m_vertexCount; vi++) {
+                posData+=vds.VertexFSize;
+                
+                point.set(*posData, *(posData+1), *(posData+2));
+                m_aabb.addPoint(point);
+            }
+            
+            break;
+        }
+    }
 }
 
 void Geometry::getAttributeLocations(const ShaderProgramPtr& shader)
@@ -243,6 +275,11 @@ void Geometry::render(const ShaderProgramPtr& shader)
 	{
 		glDrawArrays(GL_TRIANGLES, 0, m_vertexCount);
 	}
+}
+
+const AABBox& Geometry::getAABB() const
+{
+    return m_aabb;
 }
 
 NS_ESLIB_END
