@@ -27,6 +27,9 @@ public:
 	virtual ~Mesh();
 
 	GeometryPtr createEmpty(int vertexFlag, int vertexCount, int indexCount, bool useVBO=true, bool multiStream=false);
+    
+    GeometryPtr createDebugBox();
+    
 	void setMaterial(const MaterialPtr& material);
 
 	void setTransform(const Matrix4 &transform);

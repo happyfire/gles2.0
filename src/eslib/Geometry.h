@@ -62,9 +62,9 @@ struct VertexDataStream
 class Geometry: public BaseObject
 {
 public:
-	Geometry();
+	Geometry(int primitiveType=GL_TRIANGLES);
 	virtual ~Geometry();
-
+    
 	void create(const std::vector<const VertexAttribute*>& attributes, int vertexCount, int indexCount, bool useVBO=true);
 
 	void clear();
@@ -86,23 +86,20 @@ private:
     void computeAABB(int streamID, VertexDataStream &vds);
     
 private:
+    int m_primitiveType;
+    
 	int m_attributeCount;
 	VertexAttribute* m_attributes;
-	//int m_vertexFSize; //vertex size in float
 
 	int m_vertexCount;
 
 	int m_vertexStreamCount;
 	VertexDataStream* m_vertexStreams;
 
-	//GLfloat* m_vertexData;
-	//GLuint m_vbo;
-
 	int m_indexCount;
 	GLushort* m_indices;
 	GLuint m_vboIndex;
 
-	//GLfloat* m_vertexAppendPointer;
 	GLushort* m_indexAppendPointer;
     
     AABBox m_aabb;

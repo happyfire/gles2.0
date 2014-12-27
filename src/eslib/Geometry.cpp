@@ -4,8 +4,9 @@
 NS_ESLIB_BEGIN
 
 
-Geometry::Geometry()
-	:m_attributeCount(0)
+Geometry::Geometry(int primitiveType)
+	:m_primitiveType(primitiveType)
+    ,m_attributeCount(0)
 	,m_attributes(null)
 	,m_vertexCount(0)
 	,m_vertexStreamCount(0)
@@ -15,6 +16,7 @@ Geometry::Geometry()
 	,m_vboIndex(0)
 	,m_indexAppendPointer(null)
 {
+
 }
 
 Geometry::~Geometry()
@@ -264,16 +266,16 @@ void Geometry::render(const ShaderProgramPtr& shader)
 	{
 		if(m_vboIndex>0)
 		{
-			glDrawElements(GL_TRIANGLES, m_indexCount, GL_UNSIGNED_SHORT, (void*)0);
+			glDrawElements(m_primitiveType, m_indexCount, GL_UNSIGNED_SHORT, (void*)0);
 		}
 		else
 		{
-			glDrawElements(GL_TRIANGLES, m_indexCount, GL_UNSIGNED_SHORT, m_indices);
+			glDrawElements(m_primitiveType, m_indexCount, GL_UNSIGNED_SHORT, m_indices);
 		}
 	}
 	else
 	{
-		glDrawArrays(GL_TRIANGLES, 0, m_vertexCount);
+		glDrawArrays(m_primitiveType, 0, m_vertexCount);
 	}
 }
 

@@ -8,6 +8,7 @@ static CompIDType sCompID = "MeshRenderer";
 
 MeshRenderer::MeshRenderer()
 {
+    initAABBMesh();
 }
 
 MeshRenderer::~MeshRenderer()
@@ -83,6 +84,15 @@ void MeshRenderer::setMesh(MeshPtr mesh)
 MeshPtr MeshRenderer::getMesh()
 {
 	return m_mesh;
+}
+
+void MeshRenderer::initAABBMesh()
+{
+    m_aabbMesh = new Mesh();
+    
+    GeometryPtr geometry = m_aabbMesh->createDebugBox();
+    
+
 }
 
 NS_ESLIB_END

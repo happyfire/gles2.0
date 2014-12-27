@@ -58,6 +58,41 @@ GeometryPtr Mesh::createEmpty(int vertexFlag, int vertexCount, int indexCount, b
 	return m_geometry;
 }
 
+GeometryPtr Mesh::createDebugBox()
+{
+    m_geometry = new Geometry(GL_LINES);
+    
+    std::vector<const VertexAttribute*> meshAttributes;
+    
+    VertexAttribute attributePos;
+
+    attributePos.ElementCount = 3;
+    attributePos.VertexStreamID = 0;
+    attributePos.Name = "a_position";
+    attributePos.Type = Type_Custom; //debug geomotry不需要再计算aabb
+    meshAttributes.push_back(&attributePos);
+    
+    m_geometry->create(meshAttributes, 8, 0, false);
+    
+    MaterialPtr material = new Material();
+    material->setShaderProgramFromFile("media/aabb.vs","media/aabb.fs");
+    
+    MaterialProperty colorMP;
+    colorMP.mName = "u_color";
+    colorMP.mType = MPT_FLOAT4;
+    colorMP.fVec4[0] = 1;
+    colorMP.fVec4[1] = 1;
+    colorMP.fVec4[2] = 1;
+    colorMP.fVec4[3] = 1;
+    material->setProperty("u_color", colorMP);
+    
+    material->updateShaderProperites();
+    
+    this->setMaterial(material);
+    
+    return m_geometry;
+}
+
 void Mesh::setMaterial(const MaterialPtr& material)
 {
 	m_material = material;

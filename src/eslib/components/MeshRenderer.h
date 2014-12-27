@@ -36,11 +36,15 @@ public:
 	void setMesh(MeshPtr mesh);
 	MeshPtr getMesh();
 
+private:
+    void initAABBMesh();
     
 private:
     MeshPtr m_mesh;
     
     AABBox m_aabb;
+    
+    MeshPtr m_aabbMesh;
 };
 
 
