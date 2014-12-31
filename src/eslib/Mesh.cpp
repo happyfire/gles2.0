@@ -72,7 +72,7 @@ GeometryPtr Mesh::createDebugBox()
     attributePos.Type = Type_Custom; //debug geomotry不需要再计算aabb
     meshAttributes.push_back(&attributePos);
     
-    m_geometry->create(meshAttributes, 8, 0, false);
+    m_geometry->create(meshAttributes, 8, 24, false);
     
     MaterialPtr material = new Material();
     material->setShaderProgramFromFile("media/aabb.vs","media/aabb.fs");

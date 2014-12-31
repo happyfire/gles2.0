@@ -124,6 +124,20 @@ void Geometry::create(const std::vector<const VertexAttribute*>& attributes, int
 	}
 }
 
+void Geometry::resetAppendVertexData(int streamID)
+{
+    ESL_ASSERT(streamID>=0 && streamID<m_vertexStreamCount);
+    
+    VertexDataStream& vds = m_vertexStreams[streamID];
+    
+    vds.m_vertexAppendPointer = null;
+    
+    if(vds.vbo>0)
+    {
+        glDeleteBuffers(1, &vds.vbo);
+    }
+}
+
 void Geometry::appendVertexData(int streamID, float* data, int dataSize)
 {
 	ESL_ASSERT(streamID>=0 && streamID<m_vertexStreamCount);
@@ -151,8 +165,9 @@ void Geometry::appendVertexData(int streamID, float* data, int dataSize)
             glBufferData(GL_ARRAY_BUFFER, vds.VertexFSize * m_vertexCount * sizeof(GLfloat), vds.VertexData, GL_STATIC_DRAW);
             delete[] vds.VertexData;
             vds.VertexData = null;
-            vds.m_vertexAppendPointer = null;
         }
+        
+        vds.m_vertexAppendPointer = null;
 	}
 }
 

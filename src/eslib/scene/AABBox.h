@@ -37,6 +37,10 @@ public:
     
     bool isFullInsideBox(const AABBox& other) const;
     
+    Vector3 getCenter() const;
+    
+    void getEdges(Vector3 *edges) const;
+    
 public:
     Vector3 MinPoint;
     Vector3 MaxPoint;

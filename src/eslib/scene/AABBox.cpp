@@ -155,4 +155,36 @@ bool AABBox::isFullInsideBox(const AABBox& other) const
     return MinPoint>=other.MinPoint && MaxPoint<=other.MaxPoint;
 }
 
+Vector3 AABBox::getCenter() const
+{
+    return (MinPoint + MaxPoint) / 2;
+}
+
+void AABBox::getEdges(Vector3 *edges) const
+{
+    const Vector3 middle = getCenter();
+    const Vector3 diag = middle - MaxPoint;
+    
+    /*
+       /3--------/7
+      / |       /  |
+     /  |      /   |
+     1---------5   |
+     |  /2- - -|- -6
+     | /       |  /
+     |/        | /
+     0---------4/
+     */
+    
+    edges[0].set(middle.x + diag.x, middle.y + diag.y, middle.z + diag.z);
+    edges[1].set(middle.x + diag.x, middle.y - diag.y, middle.z + diag.z);
+    edges[2].set(middle.x + diag.x, middle.y + diag.y, middle.z - diag.z);
+    edges[3].set(middle.x + diag.x, middle.y - diag.y, middle.z - diag.z);
+    edges[4].set(middle.x - diag.x, middle.y + diag.y, middle.z + diag.z);
+    edges[5].set(middle.x - diag.x, middle.y - diag.y, middle.z + diag.z);
+    edges[6].set(middle.x - diag.x, middle.y + diag.y, middle.z - diag.z);
+    edges[7].set(middle.x - diag.x, middle.y - diag.y, middle.z - diag.z);
+}
+
 NS_ESLIB_END
+

@@ -68,6 +68,8 @@ public:
 	void create(const std::vector<const VertexAttribute*>& attributes, int vertexCount, int indexCount, bool useVBO=true);
 
 	void clear();
+    
+    void resetAppendVertexData(int streamID);
 
 	//@streamID: the id of vertex stream
 	//@data: data to append
