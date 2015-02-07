@@ -105,6 +105,8 @@ Material& Material::setTexture(unsigned int textureUnit, const char* textureFile
 void Material::updateShaderProperites()
 {
 	ESL_ASSERT(m_shaderProgram->isValid());
+    
+    apply();
 
 	PropertyMapIter iter = m_properties.begin();
 	for (;iter!=m_properties.end();++iter)
@@ -124,7 +126,7 @@ void Material::updateShaderProperites()
 				m_shaderProgram->setUniformMatrix4fv(matP.mName.c_str(), matP.fMatrix);
 				break;
 			case MPT_TEXTURE_UNIT:
-				m_shaderProgram->setUniform(matP.mName.c_str(), matP.iValue);
+				m_shaderProgram->setUniform(matP.mName.c_str(), matP.iValue-1);
 				glActiveTexture(GL_TEXTURE0+matP.iValue-1);//just for illustration
 				glBindTexture(GL_TEXTURE_2D, m_textures[matP.iValue-1]->getTextureObject());
 				break;

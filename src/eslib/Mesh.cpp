@@ -101,6 +101,8 @@ void Mesh::setMaterial(const MaterialPtr& material)
 void Mesh::setTransform(const Matrix4 &transform)
 {
 	ESL_ASSERT(m_material.isValid());
+    
+    m_material->apply();
 
 	m_material->getShaderProgram()->setUniformMatrix4fv("u_mvpMatrix", transform.getData());
 }
